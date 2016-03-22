@@ -96,7 +96,7 @@
             <?php foreach ($tiers as $tier): ?>
                 <dt>
                     <input
-                        name="band[tier]"
+                        name="tier"
                         id="tier_option_<?= $tier['value'] ?>"
                         value="<?= $tier['value'] ?>"
                         type="radio"
