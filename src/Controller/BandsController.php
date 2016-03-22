@@ -14,7 +14,16 @@ class BandsController extends AppController
     {
         $band = $this->Bands->newEntity();
         if ($this->request->is('post')) {
-
+            $band = $this->Bands->patchEntity($band, $this->request->data());
+            $band->user_id = $this->Auth->user('id');
+            $errors = $band->errors();
+            if (empty($errors)) {
+                $this->Bands->save($band);
+                $this->set(['pageTitle' => 'You\'re Applied!']);
+                return $this->render('applied_thanks');
+            } else {
+                $this->Flash->error('Whoops, looks like there\'s an error you\'ll have to correct before your proceed.');
+            }
         } else {
             $band->tier = 'new';
             $band->member_count = 1;
