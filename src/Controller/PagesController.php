@@ -43,4 +43,9 @@ class PagesController extends AppController
     {
         $this->set('pageTitle', 'Volunteer');
     }
+
+    public function contact()
+    {
+        $this->set('pageTitle', 'Contact');
+    }
 }

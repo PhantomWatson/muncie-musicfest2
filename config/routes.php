@@ -44,6 +44,7 @@ Router::defaultRouteClass('DashedRoute');
 Router::scope('/', function ($routes) {
     $routes->connect('/',          ['controller' => 'Pages', 'action' => 'home']);
     $routes->connect('/volunteer', ['controller' => 'Pages', 'action' => 'volunteer']);
+    $routes->connect('/contact',   ['controller' => 'Pages', 'action' => 'contact']);
 
     $routes->fallbacks('DashedRoute');
 });
