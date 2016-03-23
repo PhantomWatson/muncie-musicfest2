@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Routing\Router;
 
 /**
  * Bands Controller
@@ -10,6 +11,11 @@ use App\Controller\AppController;
  */
 class BandsController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+    }
+
     public function apply()
     {
         $band = $this->Bands->newEntity();
@@ -35,5 +41,10 @@ class BandsController extends AppController
             'band' => $band,
             'pageTitle' => 'Apply to Perform'
         ]);
+    }
+
+    public function loginFirst()
+    {
+        $this->set('pageTitle', 'Log in first');
     }
 }
