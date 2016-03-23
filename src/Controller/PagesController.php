@@ -48,4 +48,9 @@ class PagesController extends AppController
     {
         $this->set('pageTitle', 'Contact');
     }
+
+    public function about()
+    {
+        $this->set('pageTitle', 'About Muncie MusicFest');
+    }
 }

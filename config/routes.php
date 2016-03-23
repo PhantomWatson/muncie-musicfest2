@@ -45,6 +45,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('/',          ['controller' => 'Pages', 'action' => 'home']);
     $routes->connect('/volunteer', ['controller' => 'Pages', 'action' => 'volunteer']);
     $routes->connect('/contact',   ['controller' => 'Pages', 'action' => 'contact']);
+    $routes->connect('/about',     ['controller' => 'Pages', 'action' => 'about']);
 
     $routes->fallbacks('DashedRoute');
 });
