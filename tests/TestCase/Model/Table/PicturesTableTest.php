@@ -26,25 +26,9 @@ class PicturesTableTest extends TestCase
     public $fixtures = [
         'app.pictures',
         'app.bands',
-        'app.band_music',
-        'app.band_music2012',
-        'app.band_music2013',
-        'app.band_pictures',
-        'app.band_pictures2012',
-        'app.band_pictures2013',
-        'app.pictures2011',
-        'app.pictures2012',
-        'app.pictures2013',
         'app.slots',
-        'app.slots2011',
-        'app.slots2012',
-        'app.slots2013',
         'app.songs',
-        'app.songs2011',
-        'app.songs2012',
-        'app.songs2013',
-        'app.votes',
-        'app.votes2012'
+        'app.votes'
     ];
 
     /**

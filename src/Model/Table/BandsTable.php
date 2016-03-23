@@ -10,8 +10,6 @@ use Cake\Validation\Validator;
 /**
  * Bands Model
  *
- * @property \Cake\ORM\Association\HasMany $BandMusic
- * @property \Cake\ORM\Association\HasMany $BandPictures
  * @property \Cake\ORM\Association\HasMany $Pictures
  * @property \Cake\ORM\Association\HasMany $Slots
  * @property \Cake\ORM\Association\HasMany $Songs
@@ -36,12 +34,6 @@ class BandsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->hasMany('BandMusic', [
-            'foreignKey' => 'band_id'
-        ]);
-        $this->hasMany('BandPictures', [
-            'foreignKey' => 'band_id'
-        ]);
         $this->hasMany('Pictures', [
             'foreignKey' => 'band_id'
         ]);

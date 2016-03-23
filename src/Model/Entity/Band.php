@@ -25,8 +25,6 @@ use Cake\ORM\Entity;
  * @property string $message
  * @property string $stage_setup
  * @property \Cake\I18n\Time $created
- * @property \App\Model\Entity\BandMusic[] $band_music
- * @property \App\Model\Entity\BandPicture[] $band_pictures
  * @property \App\Model\Entity\Picture[] $pictures
  * @property \App\Model\Entity\Slot[] $slots
  * @property \App\Model\Entity\Song[] $songs
