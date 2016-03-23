@@ -33,54 +33,26 @@
         */ ?>
     </div>
 
-    <hr />
-
     <?= $this->Form->create($band) ?>
 
-    <section>
-        <?= $this->element('applications'.DS.'basic') ?>
-    </section>
+    <?php
+        $sections = [
+            'basic',
+            'representative',
+            'websites',
+            'members',
+            'media',
+            'stage',
+            'payment',
+            'finalize'
+        ];
+    ?>
 
-    <hr />
+    <?php foreach ($sections as $section): ?>
+        <section>
+            <?= $this->element('applications'.DS.$section) ?>
+        </section>
+    <?php endforeach; ?>
 
-    <section>
-        <?= $this->element('applications'.DS.'representative') ?>
-    </section>
-
-    <hr />
-
-    <section>
-        <?= $this->element('applications'.DS.'websites') ?>
-    </section>
-
-    <hr />
-
-    <section>
-        <?= $this->element('applications'.DS.'members') ?>
-    </section>
-
-    <hr />
-
-    <section>
-        <?= $this->element('applications'.DS.'media') ?>
-    </section>
-
-    <hr />
-
-    <section>
-        <?= $this->element('applications'.DS.'stage') ?>
-    </section>
-
-    <hr />
-
-    <section>
-        <?= $this->element('applications'.DS.'payment') ?>
-    </section>
-
-    <hr />
-
-    <section>
-        <?= $this->element('applications'.DS.'finalize') ?>
-    </section>
+    <?= $this->Form->end() ?>
 </div>
-<?= $this->Form->end() ?>
