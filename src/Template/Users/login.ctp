@@ -1,12 +1,14 @@
 <p class="alert alert-info">
-    Don't have an account yet?
+    Before applying to perform,
     <?= $this->Html->link(
-        'Register an account',
+        'register an account',
         [
             'controller' => 'Users',
             'action' => 'register'
         ]
-    ) ?> before logging in.
+    ) ?>
+    and log in.
+    This way, you'll be able to update your band's information later.
 </p>
 
 <?php
