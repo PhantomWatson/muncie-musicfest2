@@ -14,6 +14,7 @@ class BandsController extends AppController
     public function initialize()
     {
         parent::initialize();
+        $this->Auth->allow(['index']);
     }
 
     public function apply()
@@ -43,8 +44,8 @@ class BandsController extends AppController
         ]);
     }
 
-    public function loginFirst()
+    public function index()
     {
-        $this->set('pageTitle', 'Log in first');
+        $this->set('pageTitle', 'Muncie MusicFest 2016 Bands');
     }
 }
