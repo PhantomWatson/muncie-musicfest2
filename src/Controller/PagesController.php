@@ -38,4 +38,9 @@ class PagesController extends AppController
     {
 
     }
+
+    public function volunteer()
+    {
+        $this->set('pageTitle', 'Volunteer');
+    }
 }

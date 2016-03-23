@@ -42,7 +42,9 @@ use Cake\Routing\Router;
 Router::defaultRouteClass('DashedRoute');
 
 Router::scope('/', function ($routes) {
-    $routes->connect('/', ['controller' => 'Pages', 'action' => 'home']);
+    $routes->connect('/',          ['controller' => 'Pages', 'action' => 'home']);
+    $routes->connect('/volunteer', ['controller' => 'Pages', 'action' => 'volunteer']);
+
     $routes->fallbacks('DashedRoute');
 });
 
