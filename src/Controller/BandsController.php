@@ -21,6 +21,16 @@ class BandsController extends AppController
     {
         $userId = $this->Auth->user('id');
         $band = $this->Bands->getForUser($userId);
+        $steps = [
+            'basic',
+            'representative',
+            'websites',
+            'members',
+            'media',
+            'stage',
+            'payment',
+            'finalize'
+        ];
 
         if (empty($band)) {
             $band = $this->Bands->newEntity();

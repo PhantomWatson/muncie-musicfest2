@@ -35,20 +35,7 @@
 
     <?= $this->Form->create($band) ?>
 
-    <?php
-        $sections = [
-            'basic',
-            'representative',
-            'websites',
-            'members',
-            'media',
-            'stage',
-            'payment',
-            'finalize'
-        ];
-    ?>
-
-    <?php foreach ($sections as $section): ?>
+    <?php foreach ($steps as $step): ?>
         <section>
             <?= $this->element('applications'.DS.$section) ?>
         </section>
