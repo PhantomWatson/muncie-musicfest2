@@ -19,8 +19,13 @@ class BandsController extends AppController
 
     public function apply()
     {
-        $band = $this->Bands->newEntity();
-        if ($this->request->is('post')) {
+        $userId = $this->Auth->user('id');
+        $band = $this->Bands->getForUser($userId);
+
+        if (empty($band)) {
+            $band = $this->Bands->newEntity();
+        }
+        if ($this->request->is(['post', 'put'])) {
             $band = $this->Bands->patchEntity($band, $this->request->data());
             $band->user_id = $this->Auth->user('id');
             $errors = $band->errors();

@@ -133,4 +133,19 @@ class BandsTable extends Table
         $rules->add($rules->isUnique(['email']));
         return $rules;
     }
+
+    /**
+     * Returns the band submitted by the specified user or null if none found
+     *
+     * @param int $userId
+     * @return Entity|null
+     * @throws NotFoundException
+     */
+    public function getForUser($userId)
+    {
+        return $this->find('all')
+            ->where(['user_id' => $userId])
+            ->contain(['Songs', 'Pictures'])
+            ->first();
+    }
 }
