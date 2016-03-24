@@ -159,7 +159,16 @@ class BandsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationApplicationMedia(Validator $validator)
+    public function validationApplicationPictures(Validator $validator)
+    {
+        return $validator;
+    }
+
+    /**
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationApplicationSongs(Validator $validator)
     {
         return $validator;
     }
@@ -233,7 +242,8 @@ class BandsTable extends Table
             'representative',
             'websites',
             'members',
-            'media',
+            'pictures',
+            'songs',
             'stage',
             'payment',
             'finalize'
