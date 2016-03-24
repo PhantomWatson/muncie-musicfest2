@@ -61,20 +61,56 @@ class BandsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
+            ->requirePresence('user_id', 'create')
+            ->notEmpty('user_id');
+
+        $applicationSteps = $this->getApplicationSteps();
+        foreach ($applicationSteps as $step) {
+            $methodName = 'validationApplication'.ucfirst($step);
+            $validator = $this->$methodName($validator);
+        }
+
+        return $validator;
+    }
+
+    /**
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationApplicationBasic(Validator $validator)
+    {
+        $validator
             ->requirePresence('name', 'create')
             ->notEmpty('name');
 
         $validator
-            ->requirePresence('genre', 'create')
-            ->notEmpty('genre');
+            ->requirePresence('hometown', 'create')
+            ->notEmpty('hometown');
 
         $validator
             ->requirePresence('description', 'create')
             ->notEmpty('description');
 
         $validator
-            ->requirePresence('hometown', 'create')
-            ->notEmpty('hometown');
+            ->requirePresence('genre', 'create')
+            ->notEmpty('genre');
+
+        $validator
+            ->requirePresence('tier', 'create')
+            ->notEmpty('tier');
+
+        return $validator;
+    }
+
+    /**
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationApplicationRepresentative(Validator $validator)
+    {
+        $validator
+            ->requirePresence('rep_name', 'create')
+            ->notEmpty('rep_name');
 
         $validator
             ->add('email', 'valid', ['rule' => 'email'])
@@ -82,17 +118,27 @@ class BandsTable extends Table
             ->notEmpty('email');
 
         $validator
-            ->requirePresence('check_name', 'create')
-            ->notEmpty('check_name');
-
-        $validator
-            ->requirePresence('rep_name', 'create')
-            ->notEmpty('rep_name');
-
-        $validator
             ->requirePresence('phone', 'create')
             ->notEmpty('phone');
 
+        return $validator;
+    }
+
+    /**
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationApplicationWebsites(Validator $validator)
+    {
+        return $validator;
+    }
+
+    /**
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationApplicationMembers(Validator $validator)
+    {
         $validator
             ->requirePresence('member_count', 'create')
             ->notEmpty('member_count');
@@ -106,18 +152,50 @@ class BandsTable extends Table
             ->requirePresence('members_under_21', 'create')
             ->notEmpty('members_under_21');
 
-        $validator
-            ->requirePresence('tier', 'create')
-            ->notEmpty('tier');
+        return $validator;
+    }
 
+    /**
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationApplicationMedia(Validator $validator)
+    {
+        return $validator;
+    }
+
+    /**
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationApplicationStage(Validator $validator)
+    {
         $validator
             ->requirePresence('stage_setup', 'create')
             ->notEmpty('stage_setup');
 
-        $validator
-            ->requirePresence('user_id', 'create')
-            ->notEmpty('user_id');
+        return $validator;
+    }
 
+    /**
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationApplicationPayment(Validator $validator)
+    {
+        $validator
+            ->requirePresence('check_name', 'create')
+            ->notEmpty('check_name');
+
+        return $validator;
+    }
+
+    /**
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationApplicationFinalize(Validator $validator)
+    {
         return $validator;
     }
 
@@ -130,7 +208,6 @@ class BandsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['email']));
         return $rules;
     }
 
@@ -147,5 +224,19 @@ class BandsTable extends Table
             ->where(['user_id' => $userId])
             ->contain(['Songs', 'Pictures'])
             ->first();
+    }
+
+    public function getApplicationSteps()
+    {
+        return [
+            'basic',
+            'representative',
+            'websites',
+            'members',
+            'media',
+            'stage',
+            'payment',
+            'finalize'
+        ];
     }
 }

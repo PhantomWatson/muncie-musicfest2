@@ -6,12 +6,3 @@
     'label' => false,
     'type' => 'textarea'
 ]) ?>
-
-<div class="input apply">
-    <div>
-        <?= $this->Form->button(
-            'Apply to Perform',
-            ['class' => 'btn btn-primary']
-        ) ?>
-    </div>
-</div>
