@@ -52,9 +52,7 @@ class PicturesTable extends Table
             ->notEmpty('filename');
 
         $validator
-            ->add('is_primary', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('is_primary', 'create')
-            ->notEmpty('is_primary');
+            ->add('is_primary', 'valid', ['rule' => 'numeric']);
 
         return $validator;
     }
