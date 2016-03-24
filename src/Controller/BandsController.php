@@ -104,7 +104,7 @@ class BandsController extends AppController
 
     public function uploadSong()
     {
-        $uploadDir = ROOT.DS.APP_DIR.DS.'uploads'.DS;
+        $uploadDir = ROOT.DS.APP_DIR.DS.'webroot'.DS.'music'.DS;
         $fileTypes = ['mp3'];
         $result = $this->upload($uploadDir, $fileTypes);
         $this->set('result', $result);

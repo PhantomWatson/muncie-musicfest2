@@ -6,6 +6,7 @@
 /logs/*
 /webroot/uploadifive/*
 /webroot/magnific-popup/*
+/webroot/music/*
 /webroot/js/jquery*
 /webroot/js/bootstrap*
 /src/uploads/*
