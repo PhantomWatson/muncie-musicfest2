@@ -104,24 +104,45 @@ class BandsController extends AppController
 
     public function uploadSong()
     {
-        $uploadDir = ROOT.DS.APP_DIR.DS.'webroot'.DS.'music'.DS;
+        $uploadDir = ROOT.DS.'webroot'.DS.'music'.DS;
         $fileTypes = ['mp3'];
+
+        // Get band name
+        $bandId = $_POST['bandId'];
+        $band = $this->Bands->get($bandId);
+        $bandName = trim($band->name);
+        if ($bandName == '') {
+            $bandName = 'Unknown Band '.date('Ydm');
+        }
+
+        // Make sure filename is prefixed with band name and sanitized
         $fileParts = pathinfo($_FILES['Filedata']['name']);
-        $newFilename = $this->createSongFilename($_POST['bandId'], $fileParts);
+        $originalFilename = $fileParts['filename'];
+        $bandPrefix = "$bandName - ";
+        $strpos = stripos($originalFilename, $bandPrefix);
+        if ($strpos === 0) {
+            $trackName = substr($originalFilename, strlen($bandPrefix));
+        } else {
+            $trackName = $originalFilename;
+        }
+        $newFilename = $bandPrefix.trim($trackName);
+        $extension = strtolower($fileParts['extension']);
+        $newFilename .= '.'.$extension;
+        $newFilename = $this->sanitizeFilename($newFilename);
+
         $result = $this->upload($uploadDir, $fileTypes, $newFilename);
         $this->set('result', $result);
         if ($result['success']) {
             // Determine length (in seconds) of song
             $getID3 = new \getID3;
-            $trackInfo = $getID3->analyze($uploadDir.$result['filename']);
+            $trackInfo = $getID3->analyze($uploadDir.$newFilename);
             $seconds = round($trackInfo['playtime_seconds']);
-            echo '[['.$seconds.']]';
 
             $this->loadModel('Songs');
             $song = $this->Songs->newEntity([
                 'band_id' => $_POST['bandId'],
-                'title' => $result['trackName'],
-                'filename' => $result['filename'],
+                'title' => $trackName,
+                'filename' => $newFilename,
                 'seconds' => $seconds
             ]);
             if ($song->errors()) {
@@ -184,9 +205,7 @@ class BandsController extends AppController
         if (move_uploaded_file($tempFile, $targetFile)) {
             return [
                 'message' => 'Upload successful',
-                'success' => true,
-                'trackName' => $trackName,
-                'filename' => $newFilename
+                'success' => true
             ];
         }
     }
@@ -209,38 +228,5 @@ class BandsController extends AppController
         $filename = mb_ereg_replace("([\.]{2,})", '', $filename);
 
         return $filename;
-    }
-
-    /**
-     * Creates a full filename, enforcing various rules
-     *
-     * @param int $bandId
-     * @param array $fileParts results of pathinfo()
-     * @return string
-     */
-    private function createSongFilename($bandId, $fileParts)
-    {
-        // Get band name
-        $band = $this->Bands->get($bandId);
-        $bandName = trim($band->name);
-        if ($bandName == '') {
-            $bandName = 'Unknown Band '.date('Ydm');
-        }
-
-        // Make sure filename is prefixed with band name and sanitized
-        $originalFilename = $fileParts['filename'];
-        $bandPrefix = "$bandName - ";
-        $strpos = stripos($originalFilename, $bandPrefix);
-        if ($strpos === 0) {
-            $trackName = substr($originalFilename, strlen($bandPrefix));
-        } else {
-            $trackName = $originalFilename;
-        }
-        $newFilename = $bandPrefix.trim($trackName);
-        $extension = strtolower($fileParts['extension']);
-        $newFilename .= '.'.$extension;
-        $newFilename = $this->sanitizeFilename($newFilename);
-
-        return $newFilename;
     }
 }
