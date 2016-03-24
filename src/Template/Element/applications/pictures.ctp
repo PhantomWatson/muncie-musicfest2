@@ -17,7 +17,7 @@
 </div>
 
 <p>
-    <a href="#" id="upload_button">Upload media</a>
+    <a href="#" id="upload_picture">Upload media</a>
 </p>
 
 <p>
@@ -25,34 +25,23 @@
 </p>
 
 <?php
-    echo $this->Html->script('/uploadifive/jquery.uploadifive.min.js');
-    echo $this->Html->css('/uploadifive/uploadifive.css');
     $upload_max = ini_get('upload_max_filesize');
     $post_max = ini_get('post_max_size');
 ?>
 <?php $this->append('buffered'); ?>
-    $('#upload_button').uploadifive({
-        'uploadScript': '/bands/upload',
-        'checkScript': '/bands/file_exists',
+    $('#upload_picture').uploadifive({
+        'uploadScript': '/bands/upload-picture',
+        'checkScript': false,
         'onCheck': false,
         'fileSizeLimit': '<?= $post_max ?>B',
-        'buttonText': 'Click to select tracks and images to upload',
+        'buttonText': 'Select images to upload',
         'width': 300,
         'formData': {
             'timestamp': <?= time() ?>,
-            'token': '<?= md5(Configure::read('upload_token').time()) ?>'
+            'token': '<?= md5(Configure::read('uploadToken').time()) ?>'
         },
         onUpload: function (filesToUpload) {
-            var band_name = $('#BandName').val();
-            if (band_name == '') {
-                $('.uploadifive-queue-item').each(function () {
-                    var item = $(this);
-                    $('#upload_button').uploadifive('cancel', item.data('file'));
-                });
-                alert('Upload canceled. Please enter your band\'s name in the first form field and try again.');
-            } else {
-                $('#upload_button').data('uploadifive').settings.formData.band_name = band_name;
-            }
+            $('#upload_button').data('uploadifive').settings.formData.bandId = $('#bandId').val();
         },
         'onUploadComplete': function(file, data) {
             console.log(file);

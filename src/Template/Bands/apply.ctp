@@ -1,3 +1,10 @@
+<?php
+    if (in_array($band->application_step, ['songs', 'pictures', 'done'])) {
+        $this->Html->script('/uploadifive/jquery.uploadifive.min.js', ['block' => 'script']);
+        $this->Html->css('/uploadifive/uploadifive.css', ['block' => 'css']);
+    }
+?>
+
 <div id="band-application">
     <?php if ($band->application_step == 'basic' || $band->application_step == 'done'): ?>
         <div class="alert alert-info">
@@ -36,6 +43,10 @@
     <?php endif; ?>
 
     <?= $this->Form->create($band) ?>
+
+    <?php if ($band->id): ?>
+        <input type="hidden" disabled="disabled" id="bandId" value="<?= $band->id ?>" />
+    <?php endif; ?>
 
     <?php foreach ($steps as $step): ?>
         <?php if ($band->application_step == 'done' || $band->application_step == $step): ?>
