@@ -7,6 +7,7 @@
 /webroot/uploadifive/*
 /webroot/magnific-popup/*
 /webroot/music/*
+/webroot/img/bands/*
 /webroot/js/jquery*
 /webroot/js/bootstrap*
 /src/uploads/*

@@ -107,15 +107,9 @@ class BandsController extends AppController
         $uploadDir = ROOT.DS.'webroot'.DS.'music'.DS;
         $fileTypes = ['mp3'];
 
-        // Get band name
-        $bandId = $_POST['bandId'];
-        $band = $this->Bands->get($bandId);
-        $bandName = trim($band->name);
-        if ($bandName == '') {
-            $bandName = 'Unknown Band '.date('Ydm');
-        }
-
         // Make sure filename is prefixed with band name and sanitized
+        $band = $this->Bands->get($_POST['bandId']);
+        $bandName = trim($band->name);
         $fileParts = pathinfo($_FILES['Filedata']['name']);
         $originalFilename = $fileParts['filename'];
         $bandPrefix = "$bandName - ";
@@ -130,8 +124,11 @@ class BandsController extends AppController
         $newFilename .= '.'.$extension;
         $newFilename = $this->sanitizeFilename($newFilename);
 
+        // Complete upload
         $result = $this->upload($uploadDir, $fileTypes, $newFilename);
         $this->set('result', $result);
+
+        // Add record to database
         if ($result['success']) {
             // Determine length (in seconds) of song
             $getID3 = new \getID3;
@@ -152,6 +149,53 @@ class BandsController extends AppController
                 $this->response->statusCode(403);
             } else {
                 $this->Songs->save($song);
+            }
+        } else {
+            $this->response->statusCode(403);
+        }
+        return $this->render('upload');
+    }
+
+
+    public function uploadPicture()
+    {
+        $uploadDir = ROOT.DS.'webroot'.DS.'img'.DS.'bands'.DS;
+        $fileTypes = ['png', 'jpg', 'gif'];
+
+        // Make a new "Band Name {$n}.ext" filename
+        $band = $this->Bands->get($_POST['bandId']);
+        $bandName = trim($band->name);
+        $fileParts = pathinfo($_FILES['Filedata']['name']);
+        $extension = strtolower($fileParts['extension']);
+        $this->loadModel('Pictures');
+        $pictureCount = $this->Pictures->find('all')
+            ->where(['band_id' => $_POST['bandId']])
+            ->count();
+        // Increment $n if it's necessary to create a unique filename
+        for ($n = ($pictureCount + 1); true; $n++) {
+            $newFilename = $this->sanitizeFilename("$bandName $n.$extension");
+            $targetFile = $uploadDir.$newFilename;
+            $existingFile = new File($targetFile);
+            if (! $existingFile->exists()) {
+                break;
+            }
+        }
+
+        // Complete upload
+        $result = $this->upload($uploadDir, $fileTypes, $newFilename);
+        $this->set('result', $result);
+        if ($result['success']) {
+            $picture = $this->Pictures->newEntity([
+                'band_id' => $_POST['bandId'],
+                'filename' => $newFilename
+            ]);
+            if ($picture->errors()) {
+                $result['success'] = false;
+                $result['message'] = 'Error saving picture to database: '.json_encode($picture->errors());
+                $this->set('result', $result);
+                $this->response->statusCode(403);
+            } else {
+                $this->Pictures->save($picture);
             }
         } else {
             $this->response->statusCode(403);

@@ -25,38 +25,14 @@
 </p>
 
 <?php
-    $upload_max = ini_get('upload_max_filesize');
-    $post_max = ini_get('post_max_size');
+    $uploadMax = ini_get('upload_max_filesize');
+    $postMax = ini_get('post_max_size');
+    $fileSizeLimit = min($uploadMax, $postMax);
 ?>
 <?php $this->append('buffered'); ?>
-    $('#upload_picture').uploadifive({
-        'uploadScript': '/bands/upload-picture',
-        'checkScript': false,
-        'onCheck': false,
-        'fileSizeLimit': '<?= $post_max ?>B',
-        'buttonText': 'Select images to upload',
-        'width': 300,
-        'formData': {
-            'timestamp': <?= time() ?>,
-            'token': '<?= md5(Configure::read('uploadToken').time()) ?>'
-        },
-        onUpload: function (filesToUpload) {
-            $('#upload_button').data('uploadifive').settings.formData.bandId = $('#bandId').val();
-        },
-        'onUploadComplete': function(file, data) {
-            console.log(file);
-            console.log(data);
-        },
-        'onFallback': function() {
-            // Warn user that their browser is old
-        },
-        'onError': function(errorType, files) {
-            alert('There was an error uploading that file: '+file.xhr.responseText);
-        },
-        'onInit': function() {
-        },
-        'onQueueComplete': function() {
-            // this.uploadifive('clearQueue');
-        }
+    pictureUpload.init({
+        fileSizeLimit: <?= json_encode($fileSizeLimit) ?>,
+        timestamp: <?= time() ?>,
+        token: <?= json_encode(md5(Configure::read('uploadToken').time())) ?>
     });
 <?php $this->end(); ?>
