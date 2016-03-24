@@ -1,11 +1,13 @@
 <div id="home">
     <article>
         <h2>
-            Muncie MusicFest 2016
+            Muncie MusicFest 2016: Ten Years of Music
         </h2>
         <p>
-            Stay tuned to MuncieMusicFest.com and the festival's <a href="https://www.facebook.com/munciemusicfest">Facebook page</a> for upcoming announcements.
-            If you're a performer who would like to play, please hang tight until the next <strong>band application period</strong> starts up, which should be soon.
+            Stay tuned to MuncieMusicFest.com and the festival's
+            <a href="https://www.facebook.com/munciemusicfest">Facebook page</a>
+            for announcements about MMF 2016. This will be the <strong>tenth year</strong> of the festival, and
+            we'd like to celebrate that milestone with the biggest, best one yet!
         </p>
     </article>
 
