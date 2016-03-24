@@ -56,13 +56,7 @@ class SongsTable extends Table
             ->notEmpty('filename');
 
         $validator
-            ->add('seconds', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('seconds', 'create')
-            ->notEmpty('seconds');
-
-        $validator
-            ->requirePresence('length', 'create')
-            ->notEmpty('length');
+            ->add('seconds', 'valid', ['rule' => 'numeric']);
 
         return $validator;
     }
