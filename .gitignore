@@ -8,6 +8,7 @@
 /webroot/magnific-popup/*
 /webroot/js/jquery*
 /webroot/js/bootstrap*
+/src/uploads/*
 
 # Eclipse
 *.pydevproject
