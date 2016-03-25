@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Media\Media;
 use Cake\Core\Configure;
 use Cake\Filesystem\File;
 use Cake\Network\Exception\InternalErrorException;
@@ -104,173 +105,26 @@ class BandsController extends AppController
 
     public function uploadSong()
     {
-        $uploadDir = ROOT.DS.'webroot'.DS.'music'.DS;
-        $fileTypes = ['mp3'];
-
-        // Make sure filename is prefixed with band name and sanitized
-        $band = $this->Bands->get($_POST['bandId']);
-        $bandName = trim($band->name);
-        $fileParts = pathinfo($_FILES['Filedata']['name']);
-        $originalFilename = $fileParts['filename'];
-        $bandPrefix = "$bandName - ";
-        $strpos = stripos($originalFilename, $bandPrefix);
-        if ($strpos === 0) {
-            $trackName = substr($originalFilename, strlen($bandPrefix));
-        } else {
-            $trackName = $originalFilename;
-        }
-        $newFilename = $bandPrefix.trim($trackName);
-        $extension = strtolower($fileParts['extension']);
-        $newFilename .= '.'.$extension;
-        $newFilename = $this->sanitizeFilename($newFilename);
-
-        // Complete upload
-        $result = $this->upload($uploadDir, $fileTypes, $newFilename);
-        $this->set('result', $result);
-
-        // Add record to database
-        if ($result['success']) {
-            // Determine length (in seconds) of song
-            $getID3 = new \getID3;
-            $trackInfo = $getID3->analyze($uploadDir.$newFilename);
-            $seconds = round($trackInfo['playtime_seconds']);
-
-            $this->loadModel('Songs');
-            $song = $this->Songs->newEntity([
-                'band_id' => $_POST['bandId'],
-                'title' => $trackName,
-                'filename' => $newFilename,
-                'seconds' => $seconds
-            ]);
-            if ($song->errors()) {
-                $result['success'] = false;
-                $result['message'] = 'Error saving song to database: '.json_encode($song->errors());
-                $this->set('result', $result);
-                $this->response->statusCode(403);
-            } else {
-                $this->Songs->save($song);
-            }
-        } else {
+        $Media = new Media();
+        $result = $Media->uploadSong();
+        if (! $result['success']) {
             $this->response->statusCode(403);
         }
+        $this->set('result', $result);
+        $this->viewBuilder()->layout('json');
         return $this->render('upload');
     }
 
 
     public function uploadPicture()
     {
-        $uploadDir = ROOT.DS.'webroot'.DS.'img'.DS.'bands'.DS;
-        $fileTypes = ['png', 'jpg', 'gif'];
-
-        // Make a new "Band Name {$n}.ext" filename
-        $band = $this->Bands->get($_POST['bandId']);
-        $bandName = trim($band->name);
-        $fileParts = pathinfo($_FILES['Filedata']['name']);
-        $extension = strtolower($fileParts['extension']);
-        $this->loadModel('Pictures');
-        $pictureCount = $this->Pictures->find('all')
-            ->where(['band_id' => $_POST['bandId']])
-            ->count();
-        // Increment $n if it's necessary to create a unique filename
-        for ($n = ($pictureCount + 1); true; $n++) {
-            $newFilename = $this->sanitizeFilename("$bandName $n.$extension");
-            $targetFile = $uploadDir.$newFilename;
-            $existingFile = new File($targetFile);
-            if (! $existingFile->exists()) {
-                break;
-            }
-        }
-
-        // Complete upload
-        $result = $this->upload($uploadDir, $fileTypes, $newFilename);
-        $this->set('result', $result);
-        if ($result['success']) {
-            $picture = $this->Pictures->newEntity([
-                'band_id' => $_POST['bandId'],
-                'filename' => $newFilename
-            ]);
-            if ($picture->errors()) {
-                $result['success'] = false;
-                $result['message'] = 'Error saving picture to database: '.json_encode($picture->errors());
-                $this->set('result', $result);
-                $this->response->statusCode(403);
-            } else {
-                $this->Pictures->save($picture);
-            }
-        } else {
+        $Media = new Media();
+        $result = $Media->uploadPicture();
+        if (! $result['success']) {
             $this->response->statusCode(403);
         }
-        return $this->render('upload');
-    }
-
-    /**
-     * Handles an upload of a band-associated media file, makes
-     * sure the filename is prefixed with the bandname, prevents
-     * overwriting, and enforces allowed file types.
-     *
-     * @param string $uploadDir
-     * @param array $fileTypes
-     * @return array
-     */
-    private function upload($uploadDir, $fileTypes, $newFilename)
-    {
+        $this->set('result', $result);
         $this->viewBuilder()->layout('json');
-        $verifyToken = md5(Configure::read('uploadToken').$_POST['timestamp']);
-
-        if (empty($_FILES) || $_POST['token'] != $verifyToken) {
-            return [
-                'message' => 'Security code incorrect',
-                'success' => false
-            ];
-        }
-
-        // Validate extension
-        $fileParts = pathinfo($_FILES['Filedata']['name']);
-        $extension = strtolower($fileParts['extension']);
-        if (! in_array($extension, $fileTypes)) {
-            return [
-                'message' => 'Invalid file type ('.$extension.')',
-                'success' => false
-            ];
-        }
-
-        // Abort if file exists
-        $targetFile = $uploadDir.$newFilename;
-        $existingFile = new File($targetFile);
-        if ($existingFile->exists()) {
-            return [
-                'message' => 'File has already been uploaded',
-                'success' => false
-            ];
-        }
-
-        // Move file
-        $tempFile = $_FILES['Filedata']['tmp_name'];
-        if (move_uploaded_file($tempFile, $targetFile)) {
-            return [
-                'message' => 'Upload successful',
-                'success' => true
-            ];
-        }
-    }
-
-    /**
-     * Pulled from http://stackoverflow.com/a/2021729
-     *
-     * @param string $filename
-     * @return string
-     */
-    private function sanitizeFilename($filename)
-    {
-        // Remove anything which isn't a word, whitespace, number
-        // or any of the following caracters -_~,;![]().
-        // If you don't need to handle multi-byte characters
-        // you can use preg_replace rather than mb_ereg_replace
-        // Thanks @Łukasz Rysiak!
-        $filename = mb_ereg_replace("([^\w\s\d\-_~,;!\[\]\(\).])", '', $filename);
-        // Remove any runs of periods (thanks falstro!)
-        $filename = mb_ereg_replace("([\.]{2,})", '', $filename);
-
-        return $filename;
+        return $this->render('upload');
     }
 }
