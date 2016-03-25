@@ -4,6 +4,7 @@ namespace App\Media;
 use Cake\Core\Configure;
 use Cake\Filesystem\File;
 use Cake\ORM\TableRegistry;
+use Imagine\Image\Box;
 
 class Media
 {
@@ -202,6 +203,26 @@ class Media
         if (! $result['success']) {
             return $result;
         }
+
+        $imagine = new \Imagine\Gd\Imagine();
+        $imgPath = $uploadDir.$newFilename;
+        $image = $imagine->open($imgPath);
+
+        // Shrink image to max dimensions
+        $maxDimension = 2000;
+        $width = $image->getSize()->getWidth();
+        $height = $image->getSize()->getHeight();
+        if ($width > $maxDimension || $height > $maxDimension) {
+            $size = new \Imagine\Image\Box(2000, 2000);
+            $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+            $image->thumbnail($size, $mode)->save($imgPath);
+        }
+
+        // Create thumbnail
+        $size = new \Imagine\Image\Box(200, 200);
+        $mode = \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND;
+        $thumbPath = $uploadDir.'thumb'.DS.$newFilename;
+        $image->thumbnail($size, $mode)->save($thumbPath);
 
         // Add record to database
         $picturesTable = TableRegistry::get('Pictures');
