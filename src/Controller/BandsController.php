@@ -115,7 +115,6 @@ class BandsController extends AppController
         return $this->render('upload');
     }
 
-
     public function uploadPicture()
     {
         $Media = new Media();
