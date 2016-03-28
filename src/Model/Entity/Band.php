@@ -46,4 +46,11 @@ class Band extends Entity
         '*' => true,
         'id' => false
     ];
+
+    protected function _getGenre($genre)
+    {
+        $genre = strtolower($genre);
+        $genre = trim($genre);
+        return $genre;
+    }
 }
