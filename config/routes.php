@@ -47,6 +47,14 @@ Router::scope('/', function ($routes) {
     $routes->connect('/contact',   ['controller' => 'Pages', 'action' => 'contact']);
     $routes->connect('/about',     ['controller' => 'Pages', 'action' => 'about']);
 
+    $routes->connect('/account',          ['controller' => 'Users', 'action' => 'account']);
+    $routes->connect('/change-password',  ['controller' => 'Users', 'action' => 'changePassword']);
+    $routes->connect('/forgot-password',  ['controller' => 'Users', 'action' => 'forgotPassword']);
+    $routes->connect('/login',            ['controller' => 'Users', 'action' => 'login']);
+    $routes->connect('/logout',           ['controller' => 'Users', 'action' => 'logout']);
+    $routes->connect('/register',         ['controller' => 'Users', 'action' => 'register']);
+    $routes->connect('/reset-password/*', ['controller' => 'Users', 'action' => 'resetPassword']);
+
     $routes->fallbacks('DashedRoute');
 });
 
