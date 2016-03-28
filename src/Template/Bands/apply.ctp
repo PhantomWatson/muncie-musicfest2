@@ -68,11 +68,20 @@
                 $label = 'Next Step';
                 break;
         }
-        echo $this->Form->button(
-            $label,
-            ['class' => 'btn btn-primary btn-lg']
-        );
     ?>
 
+    <p>
+        <?= $this->Form->button(
+            $label,
+            ['class' => 'btn btn-primary btn-lg']
+        ) ?>
+    </p>
+
     <?= $this->Form->end() ?>
+
+    <?php if (! in_array($band->application_step, ['done', 'finalize'])): ?>
+        <p class="alert alert-info">
+            Don't worry, after you've finished all the steps of applying, you'll be able to come back to this page at any time to update your info.
+        </p>
+    <?php endif; ?>
 </div>
