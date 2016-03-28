@@ -99,5 +99,18 @@ var pictureUpload = {
         if (! container.is('visible')) {
             container.slideDown();
         }
+        
+        pictureUpload.checkUploadLimit();
+    },
+    
+    checkUploadLimit: function () {
+        var limit = 3;
+        var imageCount = $('#uploadedImages li').length;
+        if (imageCount >= limit) {
+            $('#pictureLimitReached').slideDown();
+            $('#uploadPictureContainer').slideUp(300, function () {
+                $(this).remove();
+            });
+        }
     }
 };

@@ -16,13 +16,28 @@
     </ul>
 </div>
 
-<p>
-    <a href="#" id="upload_picture">Upload media</a>
-</p>
+<?php if (count($band['pictures']) < 3): ?>
+    <div id="uploadPictureContainer">
+        <p>
+            <a href="#" id="upload_picture">Upload media</a>
+        </p>
 
-<p>
-    Problems uploading your media? Email your files to <a href="mailto:submit@munciemusicfest.com?subject=Muncie MusicFest 2015 Application">submit@munciemusicfest.com</a>.
-</p>
+        <p>
+            Problems uploading your media? Email your files to <a href="mailto:submit@munciemusicfest.com?subject=Muncie MusicFest 2015 Application">submit@munciemusicfest.com</a>.
+        </p>
+    </div>
+<?php endif; ?>
+
+<div class="alert alert-warning" id="pictureLimitReached" <?php if (count($band['pictures']) < 3) echo 'style="display: none;"'; ?>>
+    <p>
+        You've reached your limit for uploading pictures. :(
+    </p>
+    <p>
+        But if you'd like to replace one with another,
+        just click the checkbox next to 'Delete' and submit this form to delete that image.
+        Then you'll be able to upload a new one to replace it.
+    </p>
+</div>
 
 <div id="uploadedImages">
     <h3>
