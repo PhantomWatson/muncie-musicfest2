@@ -231,7 +231,17 @@ class BandsTable extends Table
     {
         return $this->find('all')
             ->where(['user_id' => $userId])
-            ->contain(['Songs', 'Pictures'])
+            ->contain([
+                'Songs' => function ($q) {
+                    return $q->order(['title' => 'ASC']);
+                },
+                'Pictures' => function ($q) {
+                    return $q->order([
+                        'is_primary' => 'DESC',
+                        'created' => 'ASC'
+                    ]);
+                }
+            ])
             ->first();
     }
 

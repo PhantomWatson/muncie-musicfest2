@@ -24,6 +24,28 @@
     Problems uploading your media? Email your files to <a href="mailto:submit@munciemusicfest.com?subject=Muncie MusicFest 2015 Application">submit@munciemusicfest.com</a>.
 </p>
 
+<div id="uploadedImages">
+    <h3>
+        Uploaded Images
+    </h3>
+    <span class="footnote">
+        Thumbnails shown, click for full-size
+    </span>
+    <ul>
+        <?php foreach ($band['pictures'] as $picture): ?>
+            <li>
+                <a href="/img/bands/<?= $picture['filename'] ?>" target="_blank">
+                    <img src="/img/bands/thumb/<?= $picture['filename'] ?>" alt="<?= $picture['filename'] ?>" title="Click for full-size" />
+                </a>
+                <label for="picturePrimary<?= $picture['id'] ?>">
+                    <input id="picturePrimary<?= $picture['id'] ?>" type="radio" name="primaryPictureId" value="<?= $picture['id'] ?>" <?php if ($picture['is_primary']) echo 'checked="checked"'; ?> />
+                    Main image
+                </label>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+
 <?php
     $uploadMax = ini_get('upload_max_filesize');
     $postMax = ini_get('post_max_size');

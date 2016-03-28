@@ -2,6 +2,7 @@
 namespace App\Model\Table;
 
 use App\Model\Entity\Picture;
+use Cake\Network\Exception\ForbiddenException;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -68,5 +69,57 @@ class PicturesTable extends Table
     {
         $rules->add($rules->existsIn(['band_id'], 'Bands'));
         return $rules;
+    }
+
+    /**
+     * Makes the selected picture the primary one for the given band
+     *
+     * @param int $pictureId
+     * @param int $bandId
+     * @return boolean
+     * @throws ForbiddenException
+     */
+    public function makePrimary($pictureId, $bandId)
+    {
+        $picture = $this->get($pictureId);
+        if ($picture->band_id != $bandId) {
+            throw new ForbiddenException('Cannot make picture primary, picture #'.$pictureId.' and band #'.$bandId.' do not match');
+        }
+
+        // Unset any previously primary pictures
+        $previouslyPrimary = $this->find('all')
+            ->select(['id'])
+            ->where([
+                'is_primary' => 1,
+                'band_id' => $bandId
+            ])
+            ->all();
+        foreach ($previouslyPrimary as $pic) {
+            $entity = $this->get($pic->id);
+            $entity->is_primary = 0;
+            if (! $this->save($entity)) {
+                return false;
+            }
+        }
+
+        $picture->is_primary = 1;
+        return (boolean) $this->save($picture);
+    }
+
+    /**
+     * Returns ordered images for a band
+     *
+     * @param int $bandId
+     * @return \Cake\ORM\ResultSet
+     */
+    public function getForBand($bandId)
+    {
+        return $this->find('all')
+            ->where(['band_id' => $bandId])
+            ->order([
+                'is_primary' => 'DESC',
+                'created' => 'ASC'
+            ])
+            ->all();
     }
 }

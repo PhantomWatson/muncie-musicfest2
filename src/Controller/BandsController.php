@@ -78,7 +78,15 @@ class BandsController extends AppController
                     $msg = 'Information saved';
                 }
                 $band->application_step = $nextStep;
-                $this->Bands->save($band);
+                $band = $this->Bands->save($band);
+
+                if ($this->request->data('primaryPictureId')) {
+                    $pictureId = $this->request->data('primaryPictureId');
+                    $this->loadModel('Pictures');
+                    $this->Pictures->makePrimary($pictureId, $band->id);
+                    $band->pictures = $this->Pictures->getForBand($band->id)->toArray();
+                }
+
                 if ($msg) {
                     $this->Flash->success($msg);
                 }
