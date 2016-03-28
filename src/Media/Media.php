@@ -182,8 +182,12 @@ class Media
             $result['success'] = false;
             $result['message'] = 'Error saving song to database: '.json_encode($song->errors());
         } else {
-            $songsTable->save($song);
+            $song = $songsTable->save($song);
         }
+
+        $result['trackName'] = $trackName;
+        $result['filename'] = $newFilename;
+        $result['songId'] = $song->id;
         return $result;
     }
 
@@ -234,9 +238,11 @@ class Media
             $result['success'] = false;
             $result['message'] = 'Error saving picture to database: '.json_encode($picture->errors());
         } else {
-            $picturesTable->save($picture);
+            $picture = $picturesTable->save($picture);
         }
 
+        $result['filename'] = $newFilename;
+        $result['pictureId'] = $picture->id;
         return $result;
     }
 }
