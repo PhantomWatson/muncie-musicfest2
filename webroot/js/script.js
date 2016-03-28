@@ -90,6 +90,10 @@ var pictureUpload = {
         var label = '<label for="picturePrimary'+response.pictureId+'">'+primaryButton+' Main image</label>';
         li.append(label);
         
+        var deleteCheckbox = '<input id="pictureDelete'+response.pictureId+'" type="checkbox" name="deletePicture[]" value="'+response.pictureId+'" />';
+        label = '<label for="pictureDelete'+response.pictureId+'">'+deleteCheckbox+' Delete</label>';
+        li.append(label);
+        
         container.find('ul').append(li);
         
         if (! container.is('visible')) {

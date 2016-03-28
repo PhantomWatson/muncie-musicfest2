@@ -41,6 +41,10 @@
                     <input id="picturePrimary<?= $picture['id'] ?>" type="radio" name="primaryPictureId" value="<?= $picture['id'] ?>" <?php if ($picture['is_primary']) echo 'checked="checked"'; ?> />
                     Main image
                 </label>
+                <label for="pictureDelete<?= $picture['id'] ?>">
+                    <input id="pictureDelete<?= $picture['id'] ?>" type="checkbox" name="deletePicture[]" value="<?= $picture['id'] ?>" />
+                    Delete
+                </label>
             </li>
         <?php endforeach; ?>
     </ul>

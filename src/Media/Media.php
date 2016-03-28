@@ -245,4 +245,22 @@ class Media
         $result['pictureId'] = $picture->id;
         return $result;
     }
+
+    /**
+     * Does what it says on the tin
+     *
+     * @param string $filename
+     * @return boolean
+     */
+    public function deletePicture($filename)
+    {
+        $fullsizeImgDir = ROOT.DS.'webroot'.DS.'img'.DS.'bands'.DS;
+        $file = new File($fullsizeImgDir.$filename);
+        if ($file->delete()) {
+            $thumbDir = $fullsizeImgDir.'thumb'.DS;
+            $file = new File($thumbDir.$filename);
+            return $file->delete();
+        }
+        return false;
+    }
 }

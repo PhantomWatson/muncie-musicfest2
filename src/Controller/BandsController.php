@@ -80,10 +80,22 @@ class BandsController extends AppController
                 $band->application_step = $nextStep;
                 $band = $this->Bands->save($band);
 
+                $this->loadModel('Pictures');
                 if ($this->request->data('primaryPictureId')) {
                     $pictureId = $this->request->data('primaryPictureId');
-                    $this->loadModel('Pictures');
-                    $this->Pictures->makePrimary($pictureId, $band->id);
+                    if (! $this->Pictures->makePrimary($pictureId, $band->id)) {
+                        $this->Flash->error('There was an error making picture #'.$pictureId.' primary');
+                    }
+                    $band->pictures = $this->Pictures->getForBand($band->id)->toArray();
+                }
+
+                $imagesToDelete = $this->request->data('deletePicture');
+                if (! empty($imagesToDelete)) {
+                    foreach ($imagesToDelete as $pictureId) {
+                        if (! $this->Pictures->deletePicture($pictureId, $band->id)) {
+                            $this->Flash->error('There was an error deleting picture #'.$pictureId);
+                        }
+                    }
                     $band->pictures = $this->Pictures->getForBand($band->id)->toArray();
                 }
 

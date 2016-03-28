@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use App\Media\Media;
 use App\Model\Entity\Picture;
 use Cake\Network\Exception\ForbiddenException;
 use Cake\ORM\Query;
@@ -121,5 +122,28 @@ class PicturesTable extends Table
                 'created' => 'ASC'
             ])
             ->all();
+    }
+
+    /**
+     * Deletes the DB record, full-size image, and filename for the image
+     *
+     * @param int $pictureId
+     * @param int $bandId
+     * @return boolean
+     * @throws ForbiddenException
+     */
+    public function deletePicture($pictureId, $bandId)
+    {
+        $picture = $this->get($pictureId);
+        if ($picture->band_id != $bandId) {
+            throw new ForbiddenException('Cannot delete picture, picture #'.$pictureId.' and band #'.$bandId.' do not match');
+        }
+
+        if ($this->delete($picture)) {
+            $Media = new Media();
+            return $Media->deletePicture($picture->filename);
+        }
+
+        return false;
     }
 }
