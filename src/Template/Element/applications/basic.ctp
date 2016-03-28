@@ -16,9 +16,12 @@
     A concise bio that gives festival-goers an idea of what kind of a show you put on.
 </p>
 
-<?= $this->Form->input('genre', ['label' => 'Genre(s)']) ?>
+<?= $this->Form->input('genre', [
+    'label' => 'Genre(s)',
+    'placeholder' => 'e.g. indie rock, death metal, outlaw country'
+]) ?>
 <p class="footnote">
-    We'd prefer you just give us <strong>one</strong> genre that describes your band, but we'll take up to <strong>three</strong>.
+    We'd prefer you just give us <strong>one</strong> genre that describes your band, but we'll take up to <strong>three</strong>, lowercase, separated by commas.
 </p>
 
 <label>
