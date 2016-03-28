@@ -263,4 +263,17 @@ class Media
         }
         return false;
     }
+
+    /**
+     * Does what it says on the tin
+     *
+     * @param string $filename
+     * @return boolean
+     */
+    public function deleteSong($filename)
+    {
+        $dir = ROOT.DS.'webroot'.DS.'music'.DS;
+        $file = new File($dir.$filename);
+        return $file->delete();
+    }
 }

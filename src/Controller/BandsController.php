@@ -89,14 +89,25 @@ class BandsController extends AppController
                     $band->pictures = $this->Pictures->getForBand($band->id)->toArray();
                 }
 
-                $imagesToDelete = $this->request->data('deletePicture');
-                if (! empty($imagesToDelete)) {
-                    foreach ($imagesToDelete as $pictureId) {
+                $picturesToDelete = $this->request->data('deletePictures');
+                if (! empty($picturesToDelete)) {
+                    foreach ($picturesToDelete as $pictureId) {
                         if (! $this->Pictures->deletePicture($pictureId, $band->id)) {
                             $this->Flash->error('There was an error deleting picture #'.$pictureId);
                         }
                     }
                     $band->pictures = $this->Pictures->getForBand($band->id)->toArray();
+                }
+
+                $this->loadModel('Songs');
+                $songsToDelete = $this->request->data('deleteSongs');
+                if (! empty($songsToDelete)) {
+                    foreach ($songsToDelete as $songId) {
+                        if (! $this->Songs->deleteSong($songId, $band->id)) {
+                            $this->Flash->error('There was an error deleting song #'.$songId);
+                        }
+                    }
+                    $band->songs = $this->Songs->getForBand($band->id)->toArray();
                 }
 
                 if ($msg) {

@@ -55,7 +55,43 @@ var songUpload = {
     },
     
     uploadComplete: function (response) {
+        var container = $('#uploadedSongs');
+        var songCount = container.find('tbody tr').length;
+        var row = $('<tr></tr>');
+        var i = songCount;
         
+        var inputs = '<input class="form-control" type="text" name="songs['+i+'][title]" placeholder="Track title" required="required" maxlength="100" id="songs-'+i+'-title" value="'+response.trackName+'" />';
+        inputs += '<input class="form-control" type="hidden" name="songs['+i+'][id]" id="songs-'+i+'-id" value="'+response.songId+'" />';
+        var cell = '<td>'+inputs+'</td>';
+        row.append(cell);
+        
+        var icon = '<span class="glyphicon glyphicon-music" aria-hidden="true"></span><span class="sr-only">Play</span>';
+        var link = '<a href="/music/'+response.filename+'" target="_blank">'+icon+'</a>';
+        cell = '<td>'+link+'</td>';
+        row.append(cell);
+    
+        var deleteCheckbox = '<input type="checkbox" name="deleteSongs[]" value="'+response.songId+'" />';
+        cell = '<td>'+deleteCheckbox+'</td>';
+        row.append(cell);
+        
+        container.find('tbody').append(row);
+        
+        if (! container.is('visible')) {
+            container.slideDown();
+        }
+        
+        songUpload.checkUploadLimit();
+    },
+    
+    checkUploadLimit: function () {
+        var limit = 3;
+        var songCount = $('#uploadedSongs tr').length;
+        if (songCount >= limit) {
+            $('#songLimitReached').slideDown();
+            $('#uploadSongContainer').slideUp(300, function () {
+                $(this).remove();
+            });
+        }
     }
 };
 
@@ -90,7 +126,7 @@ var pictureUpload = {
         var label = '<label for="picturePrimary'+response.pictureId+'">'+primaryButton+' Main image</label>';
         li.append(label);
         
-        var deleteCheckbox = '<input id="pictureDelete'+response.pictureId+'" type="checkbox" name="deletePicture[]" value="'+response.pictureId+'" />';
+        var deleteCheckbox = '<input id="pictureDelete'+response.pictureId+'" type="checkbox" name="deletePictures[]" value="'+response.pictureId+'" />';
         label = '<label for="pictureDelete'+response.pictureId+'">'+deleteCheckbox+' Delete</label>';
         li.append(label);
         

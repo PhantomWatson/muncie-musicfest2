@@ -125,7 +125,7 @@ class PicturesTable extends Table
     }
 
     /**
-     * Deletes the DB record, full-size image, and filename for the image
+     * Deletes the DB record, full-size image, and thumbnail for the image
      *
      * @param int $pictureId
      * @param int $bandId

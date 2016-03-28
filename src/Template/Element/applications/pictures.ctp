@@ -57,7 +57,7 @@
                     Main image
                 </label>
                 <label for="pictureDelete<?= $picture['id'] ?>">
-                    <input id="pictureDelete<?= $picture['id'] ?>" type="checkbox" name="deletePicture[]" value="<?= $picture['id'] ?>" />
+                    <input id="pictureDelete<?= $picture['id'] ?>" type="checkbox" name="deletePictures[]" value="<?= $picture['id'] ?>" />
                     Delete
                 </label>
             </li>

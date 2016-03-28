@@ -11,6 +11,9 @@
 
 <ul>
     <li>
+        Submit <strong>up to three</strong> tracks.
+    </li>
+    <li>
         Submit only <strong>original music</strong> that you have full distribution rights to.
         This typically does not include cover songs.
     </li>
@@ -38,13 +41,77 @@
     </li>
 </ul>
 
-<p>
-    <a href="#" id="upload_song">Upload media</a>
-</p>
+<?php if (count($band['songs']) < 3): ?>
+    <div id="uploadSongContainer">
+        <p>
+            <a href="#" id="upload_song">Upload media</a>
+        </p>
 
-<p>
-    Problems uploading your media? Email your files to <a href="mailto:submit@munciemusicfest.com?subject=Muncie MusicFest 2015 Application">submit@munciemusicfest.com</a>.
-</p>
+        <p>
+            Problems uploading your media? Email your files to <a href="mailto:submit@munciemusicfest.com?subject=Muncie MusicFest 2015 Application">submit@munciemusicfest.com</a>.
+        </p>
+    </div>
+<?php endif; ?>
+
+<div class="alert alert-warning" id="songLimitReached" <?php if (count($band['songs']) < 3) echo 'style="display: none;"'; ?>>
+    <p>
+        You've reached your limit for uploading songs. :(
+    </p>
+    <p>
+        But if you'd like to replace one with another,
+        just click the checkbox under 'Delete' and submit this form to delete that track.
+        Then you'll be able to upload a new one to replace it.
+    </p>
+</div>
+
+<div id="uploadedSongs">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Track title
+                </th>
+                <th>
+                    Play
+                    <br />
+                    <span class="footnote">
+                        (opens in new window)
+                    </span>
+                </th>
+                <th>
+                    Delete
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($band['songs'] as $i => $song): ?>
+                <tr>
+                    <td>
+                        <?= $this->Form->input(
+                            "songs.$i.title",
+                            [
+                                'label' => false,
+                                'placeholder' => 'Track title'
+                            ]
+                        ); ?>
+                        <?= $this->Form->input("songs.$i.id"); ?>
+                    </td>
+                    <td>
+                        <a href="/music/<?= rawurlencode($song['filename']) ?>" target="_blank">
+                            <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
+                            <span class="sr-only">
+                                Play
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="deleteSongs[]" value="<?= $song['id'] ?>" />
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 
 <?php
     $uploadMax = ini_get('upload_max_filesize');

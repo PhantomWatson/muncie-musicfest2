@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use App\Media\Media;
 use App\Model\Entity\Song;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -72,5 +73,42 @@ class SongsTable extends Table
     {
         $rules->add($rules->existsIn(['band_id'], 'Bands'));
         return $rules;
+    }
+
+    /**
+     * Returns ordered songs for a band
+     *
+     * @param int $bandId
+     * @return \Cake\ORM\ResultSet
+     */
+    public function getForBand($bandId)
+    {
+        return $this->find('all')
+            ->where(['band_id' => $bandId])
+            ->order(['title' => 'ASC'])
+            ->all();
+    }
+
+    /**
+     * Deletes the DB record and file for a song
+     *
+     * @param int $songId
+     * @param int $bandId
+     * @return boolean
+     * @throws ForbiddenException
+     */
+    public function deleteSong($songId, $bandId)
+    {
+        $song = $this->get($songId);
+        if ($song->band_id != $bandId) {
+            throw new ForbiddenException('Cannot delete picture, picture #'.$songId.' and band #'.$bandId.' do not match');
+        }
+
+        if ($this->delete($song)) {
+            $Media = new Media();
+            return $Media->deleteSong($song->filename);
+        }
+
+        return false;
     }
 }
