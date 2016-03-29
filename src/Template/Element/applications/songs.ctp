@@ -65,6 +65,9 @@
 </div>
 
 <div id="uploadedSongs">
+    <h3>
+        Uploaded Songs
+    </h3>
     <table class="table">
         <thead>
             <tr>
