@@ -89,7 +89,7 @@ var songUpload = {
     
     checkUploadLimit: function () {
         var limit = 3;
-        var songCount = $('#uploadedSongs tr').length;
+        var songCount = $('#uploadedSongs tbody tr').length;
         if (songCount >= limit) {
             $('#songLimitReached').slideDown();
             $('#uploadSongContainer').slideUp(300, function () {
