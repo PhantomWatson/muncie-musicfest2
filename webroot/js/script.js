@@ -46,6 +46,10 @@ var mediaUpload = {
 
 var songUpload = {
     init: function (params) {
+        if ($('#uploadedSongs tbody tr').length === 0) {
+            $('#uploadedSongs').hide();
+        }
+        
         params.buttonSelector = '#upload_song';
         params.uploadScript = '/bands/upload-song';
         params.buttonText = 'Select tracks to upload';
