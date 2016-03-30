@@ -75,6 +75,9 @@ class BandsController extends AppController
             } elseif ($band->errors()) {
                 $this->Flash->error('Whoops, looks like there\'s an error you\'ll have to correct before your proceed.');
             } else {
+                $band->application_step = $nextStep;
+                $band = $this->processMedia($band);
+                $band = $this->Bands->save($band);
                 if ($nextStep == 'done') {
                     if ($band->application_step == 'done') {
                         $msg = 'Information updated';
@@ -86,39 +89,6 @@ class BandsController extends AppController
                 } else {
                     $msg = 'Information saved';
                 }
-                $band->application_step = $nextStep;
-                $band = $this->Bands->save($band);
-
-                $this->loadModel('Pictures');
-                if ($this->request->data('primaryPictureId')) {
-                    $pictureId = $this->request->data('primaryPictureId');
-                    if (! $this->Pictures->makePrimary($pictureId, $band->id)) {
-                        $this->Flash->error('There was an error making picture #'.$pictureId.' primary');
-                    }
-                    $band->pictures = $this->Pictures->getForBand($band->id)->toArray();
-                }
-
-                $picturesToDelete = $this->request->data('deletePictures');
-                if (! empty($picturesToDelete)) {
-                    foreach ($picturesToDelete as $pictureId) {
-                        if (! $this->Pictures->deletePicture($pictureId, $band->id)) {
-                            $this->Flash->error('There was an error deleting picture #'.$pictureId);
-                        }
-                    }
-                    $band->pictures = $this->Pictures->getForBand($band->id)->toArray();
-                }
-
-                $this->loadModel('Songs');
-                $songsToDelete = $this->request->data('deleteSongs');
-                if (! empty($songsToDelete)) {
-                    foreach ($songsToDelete as $songId) {
-                        if (! $this->Songs->deleteSong($songId, $band->id)) {
-                            $this->Flash->error('There was an error deleting song #'.$songId);
-                        }
-                    }
-                    $band->songs = $this->Songs->getForBand($band->id)->toArray();
-                }
-
                 if ($msg) {
                     $this->Flash->success($msg);
                 }
@@ -201,5 +171,46 @@ class BandsController extends AppController
         }
         $this->Flash->error($msg);
         return true;
+    }
+
+    /**
+     * Handles updating and deleting of songs and pictures
+     *
+     * @param Band $band
+     * @return Band
+     */
+    private function processMedia($band)
+    {
+        $this->loadModel('Pictures');
+        if ($this->request->data('primaryPictureId')) {
+            $pictureId = $this->request->data('primaryPictureId');
+            if (! $this->Pictures->makePrimary($pictureId, $band->id)) {
+                $this->Flash->error('There was an error making picture #'.$pictureId.' primary');
+            }
+            $band->pictures = $this->Pictures->getForBand($band->id)->toArray();
+        }
+
+        $picturesToDelete = $this->request->data('deletePictures');
+        if (! empty($picturesToDelete)) {
+            foreach ($picturesToDelete as $pictureId) {
+                if (! $this->Pictures->deletePicture($pictureId, $band->id)) {
+                    $this->Flash->error('There was an error deleting picture #'.$pictureId);
+                }
+            }
+            $band->pictures = $this->Pictures->getForBand($band->id)->toArray();
+        }
+
+        $this->loadModel('Songs');
+        $songsToDelete = $this->request->data('deleteSongs');
+        if (! empty($songsToDelete)) {
+            foreach ($songsToDelete as $songId) {
+                if (! $this->Songs->deleteSong($songId, $band->id)) {
+                    $this->Flash->error('There was an error deleting song #'.$songId);
+                }
+            }
+            $band->songs = $this->Songs->getForBand($band->id)->toArray();
+        }
+
+        return $band;
     }
 }
