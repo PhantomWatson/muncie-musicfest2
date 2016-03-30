@@ -52,6 +52,11 @@ class BandsController extends AppController
 
         if ($this->request->is(['post', 'put'])) {
 
+            // Add band_id to song data so SongsTable::isUniqueTitle works
+            foreach ($this->request->data('songs') as $i => $song) {
+                $this->request->data['songs'][$i]['band_id'] = $band->id;
+            }
+
             // Only use validation rules pertaining to the fields in this step
             $validationSet = ($band->application_step == 'done')
                 ? 'default'

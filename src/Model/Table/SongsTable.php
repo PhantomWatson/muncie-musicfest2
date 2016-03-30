@@ -59,7 +59,37 @@ class SongsTable extends Table
         $validator
             ->add('seconds', 'valid', ['rule' => 'numeric']);
 
+        $validator->add(
+            'title',
+            ['unique' => [
+                'rule' => 'isUniqueTitle',
+                'provider' => 'table',
+                'message' => 'Hold up! You can\'t have more than one song with the same title.']
+            ]
+        );
+
         return $validator;
+    }
+
+    /**
+     * Ensures that a particular band can't have more than one song with the same title
+     *
+     * @param string $value
+     * @param array $context
+     * @return boolean
+     */
+    public function isUniqueTitle($value, array $context)
+    {
+        $bandId = $context['data']['band_id'];
+        $songId = $context['data']['id'];
+        $count = $this->find('all')
+            ->where([
+                'id IS NOT' => $songId,
+                'title' => $value,
+                'band_id' => $bandId
+            ])
+            ->count();
+        return $count == 0;
     }
 
     /**
@@ -72,6 +102,7 @@ class SongsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['band_id'], 'Bands'));
+        $rules->add($rules->isUnique(['filename']));
         return $rules;
     }
 

@@ -56,6 +56,26 @@ var songUpload = {
         params.fileType = ['audio/mpeg', 'audio/mp3', 'audio/mpeg3', 'audio/x-mpeg-3'];
         params.uploadComplete = this.uploadComplete;
         mediaUpload.init(params);
+        
+        $('#applicationForm').submit(function (event) {
+            
+            // Prevent identical track names
+            var inputs = $('#uploadedSongs input[type=text]');
+            if (inputs.length < 2) {
+                return;
+            }
+            var trackTitles = [];
+            inputs.each(function () {
+                trackTitles.push($(this).val());
+            });
+            for (var i = 0; i < trackTitles.length; i++) {
+                var trackTitle = trackTitles.pop();
+                if (trackTitles.indexOf(trackTitle) !== -1) {
+                    alert('Hold up! Two of the tracks you uploaded have the same title: '+trackTitle);
+                    event.preventDefault();
+                }
+            }
+        });
     },
     
     uploadComplete: function (response) {

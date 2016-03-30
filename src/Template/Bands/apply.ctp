@@ -42,7 +42,9 @@
         </div>
     <?php endif; ?>
 
-    <?= $this->Form->create($band) ?>
+    <?= $this->Form->create($band, [
+        'id' => 'applicationForm'
+    ]) ?>
 
     <?php if ($band->id): ?>
         <input type="hidden" disabled="disabled" id="bandId" value="<?= $band->id ?>" />
