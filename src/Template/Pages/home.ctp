@@ -1,6 +1,25 @@
 <div id="home">
     <article>
         <h2>
+            Band Applications Now Being Accepted
+        </h2>
+        <p>
+            Want to perform at Muncie MusicFest?
+            <?= $this->Html->link('Submit an application', [
+                'controller' => 'Bands',
+                'action' => 'apply'
+            ]) ?>
+            so we know you're interested and so we have
+            all of the information we need in order to book you.
+            We'll end the application period and start booking bands
+            on <strong>August 1st</strong>, so make sure your application
+            is in before then!
+        </p>
+
+    </article>
+
+    <article>
+        <h2>
             Muncie MusicFest 2016: Ten Years of Music
         </h2>
         <p>
