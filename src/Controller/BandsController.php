@@ -25,20 +25,7 @@ class BandsController extends AppController
     public function apply()
     {
         $steps = $this->Bands->getApplicationSteps();
-
-        // Get existing record or prepare to make a new one
-        $userId = $this->Auth->user('id');
-        $band = $this->Bands->getForUser($userId);
-        if (empty($band)) {
-            $band = $this->Bands->newEntity();
-            $band->application_step = $steps[0];
-            $band->tier = 'new';
-            $band->member_count = 1;
-            $band->minimum_fee = 0;
-            $band->members_under_21 = 1;
-            $band->email = $this->Auth->user('email');
-            $band->user_id = $userId;
-        }
+        $band = $this->getBandForApplication();
 
         // Prepare for advancing step
         if ($band->application_step == 'done') {
@@ -211,6 +198,34 @@ class BandsController extends AppController
             $band->songs = $this->Songs->getForBand($band->id)->toArray();
         }
 
+        return $band;
+    }
+
+    /**
+     * Return an existing band or an entity ready to be added as
+     * a new band to the database
+     *
+     * @return Band
+     */
+    private function getBandForApplication()
+    {
+        // Return existing band
+        $userId = $this->Auth->user('id');
+        $band = $this->Bands->getForUser($userId);
+        if (! empty($band)) {
+            return $band;
+        }
+
+        // Return new band
+        $band = $this->Bands->newEntity();
+        $steps = $this->Bands->getApplicationSteps();
+        $band->application_step = $steps[0];
+        $band->tier = 'new';
+        $band->member_count = 1;
+        $band->minimum_fee = 0;
+        $band->members_under_21 = 1;
+        $band->email = $this->Auth->user('email');
+        $band->user_id = $userId;
         return $band;
     }
 }
