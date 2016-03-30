@@ -69,34 +69,10 @@ class BandsController extends AppController
                 ['validate' => $validationSet]
             );
 
-            // Prevent redundant applications for the same band
-            $bandName = $this->request->data('name');
-            if (! $band->id && $this->Bands->nameExists($bandName)) {
-                $adminEmail = Configure::read('adminEmail');
-                $adminEmail = '<a href="mailto:'.$adminEmail.'">'.$adminEmail.'</a>';
-                $msg = 'Hold up, it looks like someone already submitted an application for '.$bandName.'.';
-
-                $existingBand = $this->Bands->find('all')
-                    ->select(['user_id'])
-                    ->where(['name' => $bandName])
-                    ->first();
-                $otherUserId = $existingBand->user_id;
-                $this->loadModel('Users');
-                try {
-                    $otherUser = $this->Users->get($otherUserId);
-                    $applicantEmail = $otherUser->email;
-                    $applicantEmail = '<a href="mailto:'.$applicantEmail.'">'.$applicantEmail.'</a>';
-                    $msg .= ' If you\'d like to contact them, their email address is '.$applicantEmail.'.';
-                    $msg .= ' If you need help from an admin, hit up '.$adminEmail.'.';
-                } catch (\Cake\Datasource\Exception\RecordNotFoundException $e) {
-                    $msg .= ' Furthermore, it looks like their user account has been removed from the database.';
-                    $msg .= ' Please hit up an admin at '.$adminEmail.' and let them know that this band needs to be transferred to your account.';
-                }
-                $this->Flash->error($msg);
-            }
-
             $band->user_id = $this->Auth->user('id');
-            if ($band->errors()) {
+            if ($this->warnIfRedundant($band)) {
+                // Message already sent to view
+            } elseif ($band->errors()) {
                 $this->Flash->error('Whoops, looks like there\'s an error you\'ll have to correct before your proceed.');
             } else {
                 if ($nextStep == 'done') {
@@ -188,5 +164,42 @@ class BandsController extends AppController
         $this->set('result', $result);
         $this->viewBuilder()->layout('json');
         return $this->render('upload');
+    }
+
+    /**
+     * Display a flash message if a new application is being submitted
+     * for a band that's already in the database
+     *
+     * @param Band $band
+     * @return boolean TRUE if application is redundant
+     */
+    private function warnIfRedundant($band)
+    {
+        $bandName = $this->request->data('name');
+        if (! (! $band->id && $this->Bands->nameExists($bandName))) {
+            return false;
+        }
+        $adminEmail = Configure::read('adminEmail');
+        $adminEmail = '<a href="mailto:'.$adminEmail.'">'.$adminEmail.'</a>';
+        $msg = 'Hold up, it looks like someone already submitted an application for '.$bandName.'.';
+
+        $existingBand = $this->Bands->find('all')
+            ->select(['user_id'])
+            ->where(['name' => $bandName])
+            ->first();
+        $otherUserId = $existingBand->user_id;
+        $this->loadModel('Users');
+        try {
+            $otherUser = $this->Users->get($otherUserId);
+            $applicantEmail = $otherUser->email;
+            $applicantEmail = '<a href="mailto:'.$applicantEmail.'">'.$applicantEmail.'</a>';
+            $msg .= ' If you\'d like to contact them, their email address is '.$applicantEmail.'.';
+            $msg .= ' If you need help from an admin, hit up '.$adminEmail.'.';
+        } catch (\Cake\Datasource\Exception\RecordNotFoundException $e) {
+            $msg .= ' Furthermore, it looks like their user account has been removed from the database.';
+            $msg .= ' Please hit up an admin at '.$adminEmail.' and let them know that this band needs to be transferred to your account.';
+        }
+        $this->Flash->error($msg);
+        return true;
     }
 }
