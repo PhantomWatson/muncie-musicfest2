@@ -37,6 +37,7 @@ class BandsController extends AppController
             $band->minimum_fee = 0;
             $band->members_under_21 = 1;
             $band->email = $this->Auth->user('email');
+            $band->user_id = $userId;
         }
 
         // Prepare for advancing step
@@ -69,7 +70,6 @@ class BandsController extends AppController
                 ['validate' => $validationSet]
             );
 
-            $band->user_id = $this->Auth->user('id');
             if ($this->warnIfRedundant($band)) {
                 // Message already sent to view
             } elseif ($band->errors()) {

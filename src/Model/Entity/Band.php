@@ -44,7 +44,8 @@ class Band extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'id' => false
+        'id' => false,
+        'user_id' => false
     ];
 
     protected function _getGenre($genre)
