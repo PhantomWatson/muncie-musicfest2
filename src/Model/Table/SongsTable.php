@@ -81,14 +81,16 @@ class SongsTable extends Table
     public function isUniqueTitle($value, array $context)
     {
         $bandId = $context['data']['band_id'];
-        $songId = $context['data']['id'];
-        $count = $this->find('all')
+        $query = $this->find('all')
             ->where([
-                'id IS NOT' => $songId,
                 'title' => $value,
                 'band_id' => $bandId
-            ])
-            ->count();
+            ]);
+        if (isset($context['data']['id'])) {
+            $songId = $context['data']['id'];
+            $query->where(['id IS NOT' => $songId]);
+        }
+        $count = $query->count();
         return $count == 0;
     }
 
