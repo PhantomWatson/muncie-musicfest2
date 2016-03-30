@@ -81,6 +81,11 @@ class BandsTable extends Table
     {
         $validator
             ->requirePresence('name', 'create')
+            ->add('name', 'unique', [
+                'rule' => 'validateUnique',
+                'provider' => 'table',
+                'message' => 'An application has already been submitted for this band'
+            ])
             ->notEmpty('name');
 
         $validator
@@ -217,6 +222,7 @@ class BandsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->isUnique(['name']));
         return $rules;
     }
 
@@ -258,5 +264,19 @@ class BandsTable extends Table
             'payment',
             'finalize'
         ];
+    }
+
+    /**
+     * Returns true if any band by the given name exists in the database
+     *
+     * @param string $name
+     * @return boolean
+     */
+    public function nameExists($name)
+    {
+        $count = $this->find('all')
+            ->where(['name' => $name])
+            ->count();
+        return $count > 0;
     }
 }
