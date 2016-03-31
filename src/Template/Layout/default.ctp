@@ -1,3 +1,8 @@
+<?php
+    if (! isset($pageTitle)) {
+        $pageTitle = null;
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
