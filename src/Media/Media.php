@@ -149,7 +149,7 @@ class Media
      */
     public function uploadSong()
     {
-        $uploadDir = ROOT.DS.'webroot'.DS.'music'.DS;
+        $uploadDir = $this->getMusicDir();
         $fileTypes = ['mp3'];
         $limit = $this->getSongsLimit();
         $bandsTable = TableRegistry::get('Bands');
@@ -209,7 +209,7 @@ class Media
      */
     public function uploadPicture()
     {
-        $uploadDir = ROOT.DS.'webroot'.DS.'img'.DS.'bands'.DS;
+        $uploadDir = $this->getFullPictureDir();
         $fileTypes = ['png', 'jpg', 'gif'];
         $limit = $this->getPicturesLimit();
 
@@ -249,7 +249,7 @@ class Media
         // Create thumbnail
         $size = new \Imagine\Image\Box(200, 200);
         $mode = \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND;
-        $thumbPath = $uploadDir.'thumb'.DS.$newFilename;
+        $thumbPath = $this->getThumbPictureDir().$newFilename;
         $image->thumbnail($size, $mode)->save($thumbPath);
 
         // Add record to database
@@ -278,10 +278,10 @@ class Media
      */
     public function deletePicture($filename)
     {
-        $fullsizeImgDir = ROOT.DS.'webroot'.DS.'img'.DS.'bands'.DS;
+        $fullsizeImgDir = $this->getFullPictureDir();
         $file = new File($fullsizeImgDir.$filename);
         if ($file->delete()) {
-            $thumbDir = $fullsizeImgDir.'thumb'.DS;
+            $thumbDir = $this->getThumbPictureDir();
             $file = new File($thumbDir.$filename);
             return $file->delete();
         }
@@ -296,7 +296,7 @@ class Media
      */
     public function deleteSong($filename)
     {
-        $dir = ROOT.DS.'webroot'.DS.'music'.DS;
+        $dir = $this->getMusicDir();
         $file = new File($dir.$filename);
         return $file->delete();
     }
@@ -308,7 +308,7 @@ class Media
      */
     public function changeSongFilename($oldFilename, $newFilename)
     {
-        $dir = ROOT.DS.'webroot'.DS.'music'.DS;
+        $dir = $this->getMusicDir();
         return rename($dir.$oldFilename, $dir.$newFilename);
     }
 
@@ -330,5 +330,35 @@ class Media
     public function getPicturesLimit()
     {
         return 3;
+    }
+
+    /**
+     * The directory in which full-size pictures are uploaded, with trailing slash
+     *
+     * @return string
+     */
+    public function getFullPictureDir()
+    {
+        return ROOT.DS.'webroot'.DS.'img'.DS.'bands'.DS;
+    }
+
+    /**
+     * The directory in which thumbnail pictures are uploaded, with trailing slash
+     *
+     * @return string
+     */
+    public function getThumbPictureDir()
+    {
+        return ROOT.DS.'webroot'.DS.'img'.DS.'bands'.DS.'thumb'.DS;
+    }
+
+    /**
+     * The directory in which music tracks are uploaded, with trailing slash
+     *
+     * @return string
+     */
+    public function getMusicDir()
+    {
+        return ROOT.DS.'webroot'.DS.'music'.DS;
     }
 }
