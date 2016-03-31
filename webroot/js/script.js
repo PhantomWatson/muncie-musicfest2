@@ -12,6 +12,10 @@ var mediaUpload = {
                 token: params.token,
                 bandId: bandId
             },
+            multi: false,
+            removeCompleted: true,
+            queueSizeLimit: params.queueSizeLimit,
+            uploadLimit: params.queueSizeLimit,
             uploadScript: params.uploadScript,
             width: 250,
             
@@ -51,10 +55,11 @@ var songUpload = {
         }
         
         params.buttonSelector = '#upload_song';
-        params.uploadScript = '/bands/upload-song';
-        params.buttonText = 'Select tracks to upload';
+        params.buttonText = 'Select track to upload';
         params.fileType = ['audio/mpeg', 'audio/mp3', 'audio/mpeg3', 'audio/x-mpeg-3'];
+        params.queueSizeLimit = 3;
         params.uploadComplete = this.uploadComplete;
+        params.uploadScript = '/bands/upload-song';
         mediaUpload.init(params);
         
         $('#applicationForm').submit(function (event) {
@@ -126,10 +131,11 @@ var pictureUpload = {
         }
         
         params.buttonSelector = '#upload_picture';
-        params.uploadScript = '/bands/upload-picture';
         params.buttonText = 'Select picture to upload';
         params.fileType = ['image/png', 'image/jpeg', 'image/gif'];
+        params.queueSizeLimit = 3;
         params.uploadComplete = this.uploadComplete;
+        params.uploadScript = '/bands/upload-picture';
         mediaUpload.init(params);
     },
     

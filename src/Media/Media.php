@@ -151,15 +151,26 @@ class Media
     {
         $uploadDir = ROOT.DS.'webroot'.DS.'music'.DS;
         $fileTypes = ['mp3'];
+        $limit = 3;
         $bandsTable = TableRegistry::get('Bands');
-        $band = $bandsTable->get($_POST['bandId']);
+        $band = $bandsTable->get($_POST['bandId'], [
+            'contain' => ['Songs']
+        ]);
+
+        // Reject if band is at song limit
+        if (count($band->songs) >= $limit) {
+            return [
+                'success' => false,
+                'message' => "Limit of $limit songs has been reached"
+            ];
+        }
+
+        // Attempt to complete upload
         $bandName = trim($band->name);
         $trackName = $this->extractTrackName($bandName);
         $fileParts = pathinfo($_FILES['Filedata']['name']);
         $extension = strtolower($fileParts['extension']);
         $newFilename = $this->generateSongFilename($bandName, $trackName, $extension);
-
-        // Attempt to complete upload
         $result = $this->upload($uploadDir, $fileTypes, $newFilename);
         if (! $result['success']) {
             return $result;
