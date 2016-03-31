@@ -44,4 +44,10 @@ class User extends Entity
     {
         return (new DefaultPasswordHasher)->hash($password);
     }
+
+    protected function _getEmail($email)
+    {
+        $email = strtolower($email);
+        return trim($email);
+    }
 }

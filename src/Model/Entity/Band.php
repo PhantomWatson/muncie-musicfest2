@@ -48,10 +48,36 @@ class Band extends Entity
         'user_id' => false
     ];
 
+    protected function _getName($name)
+    {
+        return trim($name);
+    }
+
     protected function _getGenre($genre)
     {
         $genre = strtolower($genre);
         $genre = trim($genre);
         return $genre;
+    }
+
+    protected function _getDescription($description)
+    {
+        return trim($description);
+    }
+
+    protected function _getHometown($hometown)
+    {
+        return trim($hometown);
+    }
+
+    protected function _getWebsite($url)
+    {
+        return trim($url);
+    }
+
+    protected function _getEmail($email)
+    {
+        $email = strtolower($email);
+        return trim($email);
     }
 }

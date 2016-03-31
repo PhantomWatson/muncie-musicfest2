@@ -30,4 +30,9 @@ class Song extends Entity
         '*' => true,
         'id' => false,
     ];
+
+    protected function _getTitle($title)
+    {
+        return trim($title);
+    }
 }
