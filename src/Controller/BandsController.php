@@ -87,9 +87,12 @@ class BandsController extends AppController
             $stepKey = array_search($band->application_step, $steps);
             $title = 'Apply to Perform (Step '.($stepKey + 1).' of '.count($steps).')';
         }
+        $Media = new Media();
         $this->set([
             'band' => $band,
             'pageTitle' => $title,
+            'picturesLimit' => $Media->getPicturesLimit(),
+            'songsLimit' => $Media->getSongsLimit(),
             'steps' => $steps
         ]);
     }

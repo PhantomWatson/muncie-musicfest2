@@ -11,7 +11,7 @@
 
 <ul>
     <li>
-        Submit <strong>up to three</strong> tracks.
+        Submit <strong>up to <?= $songsLimit ?></strong> tracks.
     </li>
     <li>
         Submit only <strong>original music</strong> that you have full distribution rights to.
@@ -41,7 +41,7 @@
     </li>
 </ul>
 
-<?php if (count($band['songs']) < 3): ?>
+<?php if (count($band['songs']) < $songsLimit): ?>
     <div id="uploadSongContainer">
         <p>
             <a href="#" id="upload_song">Upload media</a>
@@ -53,7 +53,7 @@
     </div>
 <?php endif; ?>
 
-<div class="alert alert-warning" id="songLimitReached" <?php if (count($band['songs']) < 3) echo 'style="display: none;"'; ?>>
+<div class="alert alert-warning" id="songLimitReached" <?php if (count($band['songs']) < $songsLimit) echo 'style="display: none;"'; ?>>
     <p>
         You've reached your limit for uploading songs. :(
     </p>
@@ -125,6 +125,7 @@
     songUpload.init({
         fileSizeLimit: <?= json_encode($fileSizeLimit) ?>,
         timestamp: <?= time() ?>,
-        token: <?= json_encode(md5(Configure::read('uploadToken').time())) ?>
+        token: <?= json_encode(md5(Configure::read('uploadToken').time())) ?>,
+        limit: <?= $songsLimit ?>
     });
 <?php $this->end(); ?>

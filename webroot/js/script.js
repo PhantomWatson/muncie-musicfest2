@@ -49,15 +49,17 @@ var mediaUpload = {
 };
 
 var songUpload = {
+    limit: null,
+    
     init: function (params) {
         if ($('#uploadedSongs tbody tr').length === 0) {
             $('#uploadedSongs').hide();
         }
-        
+        this.limit = params.limit;
         params.buttonSelector = '#upload_song';
         params.buttonText = 'Select track to upload';
         params.fileType = ['audio/mpeg', 'audio/mp3', 'audio/mpeg3', 'audio/x-mpeg-3'];
-        params.queueSizeLimit = 3;
+        params.queueSizeLimit = this.limit;
         params.uploadComplete = this.uploadComplete;
         params.uploadScript = '/bands/upload-song';
         mediaUpload.init(params);
@@ -113,9 +115,8 @@ var songUpload = {
     },
     
     checkUploadLimit: function () {
-        var limit = 3;
         var songCount = $('#uploadedSongs tbody tr').length;
-        if (songCount >= limit) {
+        if (songCount >= this.limit) {
             $('#songLimitReached').slideDown();
             $('#uploadSongContainer').slideUp(300, function () {
                 $(this).remove();
@@ -125,11 +126,14 @@ var songUpload = {
 };
 
 var pictureUpload = {
+    limit: null,
+        
     init: function (params) {
         if ($('#uploadedImages li').length === 0) {
             $('#uploadedImages').hide();
         }
         
+        this.limit = params.limit;
         params.buttonSelector = '#upload_picture';
         params.buttonText = 'Select picture to upload';
         params.fileType = ['image/png', 'image/jpeg', 'image/gif'];
@@ -170,9 +174,8 @@ var pictureUpload = {
     },
     
     checkUploadLimit: function () {
-        var limit = 3;
         var imageCount = $('#uploadedImages li').length;
-        if (imageCount >= limit) {
+        if (imageCount >= this.limit) {
             $('#pictureLimitReached').slideDown();
             $('#uploadPictureContainer').slideUp(300, function () {
                 $(this).remove();

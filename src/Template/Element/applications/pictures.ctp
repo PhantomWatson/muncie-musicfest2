@@ -16,7 +16,7 @@
     </ul>
 </div>
 
-<?php if (count($band['pictures']) < 3): ?>
+<?php if (count($band['pictures']) < $picturesLimit): ?>
     <div id="uploadPictureContainer">
         <p>
             <a href="#" id="upload_picture">Upload media</a>
@@ -28,7 +28,7 @@
     </div>
 <?php endif; ?>
 
-<div class="alert alert-warning" id="pictureLimitReached" <?php if (count($band['pictures']) < 3) echo 'style="display: none;"'; ?>>
+<div class="alert alert-warning" id="pictureLimitReached" <?php if (count($band['pictures']) < $picturesLimit) echo 'style="display: none;"'; ?>>
     <p>
         You've reached your limit for uploading pictures. :(
     </p>
@@ -74,6 +74,7 @@
     pictureUpload.init({
         fileSizeLimit: <?= json_encode($fileSizeLimit) ?>,
         timestamp: <?= time() ?>,
-        token: <?= json_encode(md5(Configure::read('uploadToken').time())) ?>
+        token: <?= json_encode(md5(Configure::read('uploadToken').time())) ?>,
+        limit: <?= $picturesLimit ?>
     });
 <?php $this->end(); ?>

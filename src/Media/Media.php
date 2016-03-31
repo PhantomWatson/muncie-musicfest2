@@ -151,7 +151,7 @@ class Media
     {
         $uploadDir = ROOT.DS.'webroot'.DS.'music'.DS;
         $fileTypes = ['mp3'];
-        $limit = 3;
+        $limit = $this->getSongsLimit();
         $bandsTable = TableRegistry::get('Bands');
         $band = $bandsTable->get($_POST['bandId'], [
             'contain' => ['Songs']
@@ -211,7 +211,7 @@ class Media
     {
         $uploadDir = ROOT.DS.'webroot'.DS.'img'.DS.'bands'.DS;
         $fileTypes = ['png', 'jpg', 'gif'];
-        $limit = 3;
+        $limit = $this->getPicturesLimit();
 
         // Reject if band is at picture limit
         $bandsTable = TableRegistry::get('Bands');
@@ -310,5 +310,25 @@ class Media
     {
         $dir = ROOT.DS.'webroot'.DS.'music'.DS;
         return rename($dir.$oldFilename, $dir.$newFilename);
+    }
+
+    /**
+     * Returns the limit of how many songs a band can have
+     *
+     * @return int
+     */
+    public function getSongsLimit()
+    {
+        return 3;
+    }
+
+    /**
+     * Returns the limit of how many pictures a band can have
+     *
+     * @return int
+     */
+    public function getPicturesLimit()
+    {
+        return 3;
     }
 }
