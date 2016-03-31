@@ -86,8 +86,9 @@ class Media
      * @param string $uploadDir
      * @return string
      */
-    public function generatePictureFilename($uploadDir)
+    public function generatePictureFilename()
     {
+        $uploadDir = $this->getFullPictureDir();
         $bandsTable = TableRegistry::get('Bands');
         $band = $bandsTable->get($_POST['bandId']);
         $bandName = trim($band->name);
@@ -226,7 +227,7 @@ class Media
         }
 
         // Attempt to complete upload
-        $newFilename = $this->generatePictureFilename($uploadDir);
+        $newFilename = $this->generatePictureFilename();
         $result = $this->upload($uploadDir, $fileTypes, $newFilename);
         if (! $result['success']) {
             return $result;
