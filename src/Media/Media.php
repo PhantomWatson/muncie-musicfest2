@@ -211,9 +211,22 @@ class Media
     {
         $uploadDir = ROOT.DS.'webroot'.DS.'img'.DS.'bands'.DS;
         $fileTypes = ['png', 'jpg', 'gif'];
-        $newFilename = $this->generatePictureFilename($uploadDir);
+        $limit = 3;
+
+        // Reject if band is at picture limit
+        $bandsTable = TableRegistry::get('Bands');
+        $band = $bandsTable->get($_POST['bandId'], [
+            'contain' => ['Pictures']
+        ]);
+        if (count($band->pictures) >= $limit) {
+            return [
+                'success' => false,
+                'message' => "Limit of $limit pictures has been reached"
+            ];
+        }
 
         // Attempt to complete upload
+        $newFilename = $this->generatePictureFilename($uploadDir);
         $result = $this->upload($uploadDir, $fileTypes, $newFilename);
         if (! $result['success']) {
             return $result;
