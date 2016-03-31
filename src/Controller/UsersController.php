@@ -34,10 +34,6 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             if ($this->Recaptcha->verify()) {
-                $email = $this->request->data('email');
-                $email = trim($email);
-                $email = strtolower($email);
-                $this->request->data['email'] = $email;
                 $this->request->data['password'] = $this->request->data('new_password');
                 $this->request->data['role'] = 'user';
                 $user = $this->Users->patchEntity($user, $this->request->data(), [
@@ -111,7 +107,6 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $email = $this->request->data('email');
-            $email = strtolower(trim($email));
             $adminEmail = Configure::read('adminEmail');
             if (empty($email)) {
                 $msg = 'Please enter the email address you registered with to have your password reset. ';

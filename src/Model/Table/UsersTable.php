@@ -112,6 +112,8 @@ class UsersTable extends Table
      */
     public function getIdWithEmail($email)
     {
+        $email = strtolower($email);
+        $email = trim($email);
         $user = $this->find('all')
             ->select(['id'])
             ->where(['email' => $email])
