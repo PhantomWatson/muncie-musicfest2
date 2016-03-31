@@ -83,20 +83,19 @@ class Media
     /**
      * Make a new "Band Name {$n}.ext" filename
      *
-     * @param string $uploadDir
+     * @param int $bandId
+     * @param string $extension
      * @return string
      */
-    public function generatePictureFilename()
+    public function generatePictureFilename($bandId, $extension)
     {
         $uploadDir = $this->getFullPictureDir();
         $bandsTable = TableRegistry::get('Bands');
-        $band = $bandsTable->get($_POST['bandId']);
+        $band = $bandsTable->get($bandId);
         $bandName = trim($band->name);
-        $fileParts = pathinfo($_FILES['Filedata']['name']);
-        $extension = strtolower($fileParts['extension']);
         $picturesTable = TableRegistry::get('Pictures');
         $pictureCount = $picturesTable->find('all')
-            ->where(['band_id' => $_POST['bandId']])
+            ->where(['band_id' => $bandId])
             ->count();
 
         // Increment $n if it's necessary to create a unique filename
@@ -227,7 +226,9 @@ class Media
         }
 
         // Attempt to complete upload
-        $newFilename = $this->generatePictureFilename();
+        $fileParts = pathinfo($_FILES['Filedata']['name']);
+        $extension = strtolower($fileParts['extension']);
+        $newFilename = $this->generatePictureFilename($_POST['bandId'], $extension);
         $result = $this->upload($uploadDir, $fileTypes, $newFilename);
         if (! $result['success']) {
             return $result;
