@@ -276,4 +276,15 @@ class Media
         $file = new File($dir.$filename);
         return $file->delete();
     }
+
+    /**
+     * @param string $oldFilename
+     * @param string $newFilename
+     * @return boolean
+     */
+    public function changeSongFilename($oldFilename, $newFilename)
+    {
+        $dir = ROOT.DS.'webroot'.DS.'music'.DS;
+        return rename($dir.$oldFilename, $dir.$newFilename);
+    }
 }

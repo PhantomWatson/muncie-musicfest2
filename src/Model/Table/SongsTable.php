@@ -6,6 +6,7 @@ use App\Model\Entity\Song;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -143,5 +144,49 @@ class SongsTable extends Table
         }
 
         return false;
+    }
+
+    /**
+     * Updates Song.filename in the database and renames the file.
+     * This is meant to be run after the band name or song title changes.
+     *
+     * @param int $songId
+     * @return boolean
+     */
+    public function resetFilename($songId)
+    {
+        $song = $this->get($songId);
+        $bandsTable = TableRegistry::get('Bands');
+        $band = $bandsTable->get($song->band_id);
+        $filenameParts = explode('.', $song->filename);
+        $extension = array_pop($filenameParts);
+        $Media = new Media();
+        $oldFilename = $song->filename;
+        $newFilename = $Media->generateSongFilename($band->name, $song->title, $extension);
+        if ($newFilename == $song->filename) {
+            return true;
+        }
+
+        $song = $this->patchEntity($song, [
+            'filename' => $newFilename
+        ]);
+        if ($song->errors()) {
+            return false;
+        }
+
+        $Media = new Media();
+        if ($Media->changeSongFilename($oldFilename, $newFilename)) {
+            return (boolean) $this->save($song);
+        }
+        return false;
+    }
+
+    public function afterSave(\Cake\Event\Event $event, \Cake\Datasource\EntityInterface $entity, \ArrayObject $options)
+    {
+        // Trigger resetting song filename if title changes
+        $oldData = $entity->extractOriginalChanged(['title']);
+        if (isset($oldData['title'])) {
+            $this->resetFilename($entity->id);
+        }
     }
 }
