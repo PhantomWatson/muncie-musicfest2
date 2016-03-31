@@ -5,6 +5,7 @@ use App\Model\Entity\Band;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -278,5 +279,20 @@ class BandsTable extends Table
             ->where(['name' => $name])
             ->count();
         return $count > 0;
+    }
+
+    public function afterSave(\Cake\Event\Event $event, \Cake\Datasource\EntityInterface $entity, \ArrayObject $options)
+    {
+        // Trigger resetting all song filenames if name changes
+        $oldData = $entity->extractOriginalChanged(['name']);
+        if (isset($oldData['name'])) {
+            $songsTable = TableRegistry::get('Songs');
+            $songs = $songsTable->getForBand($entity->id);
+            if (! empty($songs)) {
+                foreach ($songs as $song) {
+                    $songsTable->resetFilename($song->id);
+                }
+            }
+        }
     }
 }
