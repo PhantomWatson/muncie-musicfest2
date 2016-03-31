@@ -283,7 +283,7 @@ class BandsTable extends Table
 
     public function afterSave(\Cake\Event\Event $event, \Cake\Datasource\EntityInterface $entity, \ArrayObject $options)
     {
-        // Trigger resetting all song filenames if name changes
+        // Trigger resetting all song and pic filenames if name changes
         $oldData = $entity->extractOriginalChanged(['name']);
         if (isset($oldData['name'])) {
             $songsTable = TableRegistry::get('Songs');
@@ -291,6 +291,14 @@ class BandsTable extends Table
             if (! empty($songs)) {
                 foreach ($songs as $song) {
                     $songsTable->resetFilename($song->id);
+                }
+            }
+
+            $picturesTable = TableRegistry::get('Pictures');
+            $pictures = $picturesTable->getForBand($entity->id);
+            if (! empty($pictures)) {
+                foreach ($pictures as $picture) {
+                    $picturesTable->resetFilename($picture->id);
                 }
             }
         }

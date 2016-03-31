@@ -315,6 +315,25 @@ class Media
     }
 
     /**
+     * @param string $oldFilename
+     * @param string $newFilename
+     * @return boolean
+     */
+    public function changePictureFilename($oldFilename, $newFilename)
+    {
+        $directories = [
+            $this->getFullPictureDir(),
+            $this->getThumbPictureDir()
+        ];
+        foreach ($directories as $dir) {
+            if (! rename($dir.$oldFilename, $dir.$newFilename)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Returns the limit of how many songs a band can have
      *
      * @return int

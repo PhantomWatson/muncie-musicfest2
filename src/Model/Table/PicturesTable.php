@@ -7,6 +7,7 @@ use Cake\Network\Exception\ForbiddenException;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -144,6 +145,40 @@ class PicturesTable extends Table
             return $Media->deletePicture($picture->filename);
         }
 
+        return false;
+    }
+
+    /**
+     * Updates Picture.filename in the database and renames the file.
+     * This is meant to be run after the band name changes.
+     *
+     * @param int $pictureId
+     * @return boolean
+     */
+    public function resetFilename($pictureId)
+    {
+        $picture = $this->get($pictureId);
+        $bandsTable = TableRegistry::get('Bands');
+        $filenameParts = explode('.', $picture->filename);
+        $extension = array_pop($filenameParts);
+        $Media = new Media();
+        $oldFilename = $picture->filename;
+        $newFilename = $Media->generatePictureFilename($picture->band_id, $extension);
+        if ($newFilename == $picture->filename) {
+            return true;
+        }
+
+        $picture = $this->patchEntity($picture, [
+            'filename' => $newFilename
+        ]);
+        if ($picture->errors()) {
+            return false;
+        }
+
+        $Media = new Media();
+        if ($Media->changePictureFilename($oldFilename, $newFilename)) {
+            return (boolean) $this->save($picture);
+        }
         return false;
     }
 }
