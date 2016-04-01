@@ -481,6 +481,7 @@ textarea {
 	background-color: #000;
 	margin-bottom: 30px;
 	padding: 30px;
+	text-align: center;
 
 	img {
 		vertical-align: middle;
@@ -488,8 +489,13 @@ textarea {
 	}
 	h2 {
 		color: #fff;
-		display: inline;
 		font-weight: bold;
+	}
+
+	@media (min-width: 1190px) {
+		h2 {
+			display: inline;
+		}
 	}
 }
 #home {
