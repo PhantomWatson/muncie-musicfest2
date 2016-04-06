@@ -6,6 +6,9 @@ use App\Mailer\Mailer;
 use Cake\Core\Configure;
 use Cake\Network\Exception\ForbiddenException;
 use Cake\Network\Exception\NotFoundException;
+use Cake\Routing\Router;
+use League\OAuth2\Client\Provider\Facebook;
+use League\OAuth2\Client\Token;
 
 /**
  * Users Controller
@@ -23,8 +26,10 @@ class UsersController extends AppController
         $this->Auth->allow([
             'forgotPassword',
             'login',
+            'loginFacebook',
             'logout',
             'register',
+            'registerFacebook',
             'resetPassword'
         ]);
     }
@@ -57,10 +62,80 @@ class UsersController extends AppController
         $this->request->data['new_password'] = null;
         $this->request->data['confirm_password'] = null;
 
+        $provider = $this->getFacebookProvider('registerFacebook');
+        $authUrl = $provider->getAuthorizationUrl([
+            'scope' => ['email'],
+        ]);
         $this->set([
+            'facebookAuthUrl' => $authUrl,
             'pageTitle' => 'Register an Account',
             'user' => $user
         ]);
+    }
+
+    public function registerFacebook()
+    {
+        $provider = $this->getFacebookProvider('registerFacebook');
+        $authUrl = $provider->getAuthorizationUrl([
+            'scope' => ['email'],
+        ]);
+        $this->set([
+            'facebookAuthUrl' => $authUrl,
+            'pageTitle' => 'Register an Account With Facebook'
+        ]);
+
+        if ($this->request->query('code')) {
+            $token = $provider->getAccessToken('authorization_code', [
+                'code' => $this->request->query('code')
+            ]);
+            try {
+                $facebookUser = $provider->getResourceOwner($token);
+            } catch (Exception $e) {
+                $msg = 'Sorry, but we didn\'t get any response from Facebook when we asked it who you were.';
+                $msg .= ' Are you sure you\'re <a href="http://facebook.com" target="_blank">logged in to Facebook</a>?';
+                $this->Flash->error($msg);
+                return $this->redirect(['action' => 'register']);
+            }
+            $email = $facebookUser->getEmail();
+            $user = $this->Users->newEntity([
+                'name' => $facebookUser->getName(),
+                'email' => $email,
+                'role' => 'user',
+                'password' => $this->generatePassword(),
+                'facebook_id' => $facebookUser->getId()
+            ]);
+            $errors = $user->errors();
+            if ($errors) {
+                $adminEmail = Configure::read('adminEmail');
+                $adminEmail = '<a href="mailto:'.$adminEmail.'">'.$adminEmail.'</a>';
+                if (isset($errors['email']['unique'])) {
+                    $msg = 'It looks like you already registered an account with the email address '.$email.'.';
+                    $msg .= ' Did you mean to <a href="/login">log in</a>?';
+                    $this->Flash->error($msg);
+                } else {
+                    $msg = 'Sorry, there was an error registering you with Facebook.';
+                    $msg .= " For assistance, contact $adminEmail and include the following error message:";
+                    $this->Flash->error($msg);
+                    $this->Flash->set('<pre>'.print_r($user->errors(), true).'</pre>');
+                }
+                return $this->redirect(['action' => 'register']);
+            }
+            $user = $this->Users->save($user);
+            $this->Auth->setUser($user->toArray());
+            $msg = 'You have been successfully registered and logged in as '.$email;
+            $this->Flash->success($msg);
+            return $this->redirect('/');
+        }
+    }
+
+    /**
+     * Returns a random six-character string. Ambiguous-looking alphanumeric characters are excluded.
+     * @return string
+     */
+    private function generatePassword()
+    {
+        $characters = str_shuffle('abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789');
+        return substr($characters, 0, 6);
     }
 
     public function login()
@@ -68,7 +143,7 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
-                $this->Flash->success('You have been successfully logged in');
+                $this->Flash->success('You are now logged in');
                 $this->Auth->setUser($user);
 
                 // Remember login information
@@ -93,6 +168,57 @@ class UsersController extends AppController
         $this->set([
             'pageTitle' => 'Log in',
             'user' => $this->Users->newEntity()
+        ]);
+
+        $provider = $this->getFacebookProvider('loginFacebook');
+        $authUrl = $provider->getAuthorizationUrl([
+            'scope' => ['email'],
+        ]);
+        $this->set('facebookAuthUrl', $authUrl);
+    }
+
+    public function loginFacebook()
+    {
+        $provider = $this->getFacebookProvider('loginFacebook');
+        $token = $provider->getAccessToken('authorization_code', [
+            'code' => $this->request->query('code')
+        ]);
+        try {
+            $user = $provider->getResourceOwner($token);
+            $facebookId = $user->getId();
+        } catch (Exception $e) {
+            $msg = 'Sorry, but we didn\'t get any response from Facebook when we asked it who you were.';
+            $msg .= ' Are you sure you\'re <a href="http://facebook.com" target="_blank">logged in to Facebook</a>?';
+            $this->Flash->error($msg);
+            return $this->render('login');
+        }
+
+        $userId = $this->Users->getIdWithFacebookId($facebookId);
+
+        if ($userId) {
+            $user = $this->Users->get($userId);
+            $this->Auth->setUser($user->toArray());
+            $this->Flash->success('You are now logged in as '.$user->email);
+            return $this->redirect($this->Auth->redirectUrl());
+        }
+        $msg = 'Sorry, you have not yet registered a Muncie MusicFest account with your Facebook account.';
+        $url = Router::url(['controller' => 'Users', 'action' => 'register']);
+        $msg .= ' Would you like to do that now?';
+        $this->Flash->error($msg);
+        return $this->redirect(['controller' => 'Users', 'action' => 'register']);
+    }
+
+    private function getFacebookProvider($redirectAction)
+    {
+        return new \League\OAuth2\Client\Provider\Facebook([
+            'clientId' => Configure::read('facebookAppId'),
+            'clientSecret' => Configure::read('facebookAppSecret'),
+            'redirectUri' => Router::url([
+                'prefix' => false,
+                'controller' => 'Users',
+                'action' => $redirectAction
+            ], true),
+            'graphApiVersion' => 'v2.5'
         ]);
     }
 

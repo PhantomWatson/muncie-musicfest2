@@ -123,4 +123,20 @@ class UsersTable extends Table
         }
         return $user->first()->id;
     }
+
+    /**
+     * @param string $email
+     * @return int|null
+     */
+    public function getIdWithFacebookId($facebookId)
+    {
+        $user = $this->find('all')
+            ->select(['id'])
+            ->where(['facebook_id' => $facebookId])
+            ->limit(1);
+        if ($user->isEmpty()) {
+            return null;
+        }
+        return $user->first()->id;
+    }
 }

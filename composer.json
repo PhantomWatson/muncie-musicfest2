@@ -15,7 +15,8 @@
         "xety/cake3-cookieauth": "1.*",
         "xety/cake3-sluggable": "1.*",
         "imagine/imagine": "^0.6.3",
-        "james-heinrich/getid3": "^1.9"
+        "james-heinrich/getid3": "^1.9",
+        "league/oauth2-facebook": "~1.0"
     },
     "require-dev": {
         "psy/psysh": "@stable",
