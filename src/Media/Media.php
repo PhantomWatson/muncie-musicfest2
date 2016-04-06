@@ -35,7 +35,7 @@ class Media
         $extension = strtolower($fileParts['extension']);
         if (! in_array($extension, $fileTypes)) {
             return [
-                'message' => 'Invalid file type ('.$extension.')',
+                'message' => 'Invalid file type: '.$extension,
                 'success' => false
             ];
         }
