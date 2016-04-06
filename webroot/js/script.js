@@ -23,7 +23,7 @@ var mediaUpload = {
             onUpload: function (filesToUpload) {
                 
             },
-            'onUploadComplete': function(file, data) {
+            'onUploadComplete': function (file, data) {
                 var response = $.parseJSON(data);
                 if (response.success) {
                     params.uploadComplete(response);
@@ -31,18 +31,21 @@ var mediaUpload = {
                     alert(response.message);
                 }
             },
-            'onFallback': function() {
+            'onFallback': function () {
                 // Warn user that their browser is old
             },
-            'onError': function(errorType, files) {
+            'onError': function (errorType, files) {
                 var response = $.parseJSON(files.xhr.responseText);
                 alert('There was an error uploading '+files.name+' ('+response.message+')');
             },
-            'onInit': function() {
+            'onInit': function () {
                 
             },
-            'onQueueComplete': function() {
+            'onQueueComplete': function () {
                 // this.uploadifive('clearQueue');
+            },
+            'onAddQueueItem': function (file) {
+                console.log(file);
             }
         });
     }
@@ -136,7 +139,7 @@ var pictureUpload = {
         this.limit = params.limit;
         params.buttonSelector = '#upload_picture';
         params.buttonText = 'Select picture to upload';
-        params.fileType = ['image/png', 'image/jpeg', 'image/gif'];
+        params.fileType = '.png,.jpeg,.jpg,.gif';
         params.queueSizeLimit = 3;
         params.uploadComplete = this.uploadComplete;
         params.uploadScript = '/bands/upload-picture';
