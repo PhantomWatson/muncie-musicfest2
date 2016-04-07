@@ -45,7 +45,20 @@ var mediaUpload = {
                 // this.uploadifive('clearQueue');
             },
             'onAddQueueItem': function (file) {
-                console.log(file);
+                var ext = file.name.substr(file.name.lastIndexOf('.') + 1);
+                var validFileTypes = params.fileType.split(',');
+                var valid = false;
+                var validExt = '';
+                for (var i = 0; i < validFileTypes.length; i++) {
+                    validExt = validFileTypes[i].replace('.', '');
+                    if (ext == validExt) {
+                        valid = true;
+                    }
+                }
+                if (! valid) {
+                    $(params.buttonSelector).uploadifive('cancel', file);
+                    alert('Sorry, '+file.name+' isn\'t one of these file types: '+validFileTypes.join(', ')); 
+                }
             }
         });
     }
