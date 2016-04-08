@@ -49,9 +49,9 @@
     <ul>
         <?php foreach ($band['pictures'] as $picture): ?>
             <li>
-                <a href="/img/bands/<?= $picture['filename'] ?>" target="_blank">
-                    <img src="/img/bands/thumb/<?= $picture['filename'] ?>" alt="<?= $picture['filename'] ?>" title="Click for full-size" />
-                </a>
+                <?= $this->Html->image('/img/bands/thumb/'.$picture['filename'], [
+                    'alt' => $picture['filename'],
+                ]) ?>
                 <label for="picturePrimary<?= $picture['id'] ?>">
                     <input id="picturePrimary<?= $picture['id'] ?>" type="radio" name="primaryPictureId" value="<?= $picture['id'] ?>" <?php if ($picture['is_primary']) echo 'checked="checked"'; ?> />
                     Main image
@@ -71,6 +71,7 @@
     $fileSizeLimit = min($uploadMax, $postMax);
 ?>
 <?php $this->append('buffered'); ?>
+    applicationForm.linkPictures();
     pictureUpload.init({
         fileSizeLimit: <?= json_encode($fileSizeLimit) ?>,
         timestamp: <?= time() ?>,

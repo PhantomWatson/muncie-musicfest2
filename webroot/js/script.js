@@ -164,8 +164,9 @@ var pictureUpload = {
         var imageCount = container.find('li').length;
         var li = $('<li></li>');
         
-        var image = '<img src="/img/bands/thumb/'+response.filename+'" alt="'+response.filename+'" title="Click for full-size" />';
-        var link = '<a href="/img/bands/'+response.filename+'" target="_blank">'+image+'</a>';
+        var timestamp = Math.floor(Date.now() / 1000);
+        var image = '<img src="/img/bands/thumb/'+response.filename+'?'+timestamp+'" alt="'+response.filename+'" title="Click for full-size" />';
+        var link = '<a href="/img/bands/'+response.filename+'?'+timestamp+'" target="_blank">'+image+'</a>';
         li.append(link);
         
         var primaryButton = '<input type="radio" name="primaryPictureId" value="'+response.pictureId+'" id="picturePrimary'+response.pictureId+'"';
@@ -197,5 +198,21 @@ var pictureUpload = {
                 $(this).remove();
             });
         }
+    }
+};
+
+var applicationForm = {
+    /* Wraps thumbnails in links to full-size version of picture.
+     * Doing this in JS allow CakePHP's HtmlHelper to add timestamps
+     * to the pictures' src and have those timestamps copied over
+     * into the links. */
+    linkPictures: function () {
+        $('#uploadedImages img').each(function () {
+            var img = $(this);
+            var url = img.prop('src').replace('/img/bands/thumb', '/img/bands');
+            var link = $('<a href="'+url+'" target="_blank"></a>');
+            img.wrap(link);
+            img.attr('title', 'Click for full-size');
+        });
     }
 };
