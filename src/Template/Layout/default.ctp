@@ -27,6 +27,7 @@
     <link rel="icon" type="image/png" href="/img/MMF-favicon-32x32.png" />
     <link href='http://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/magnific-popup/magnific-popup.css" />
     <?= $this->Html->css('style.css') ?>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -72,6 +73,7 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="/js/jquery-1.12.0.min.js"><\/script>')</script>
+    <script src="/magnific-popup/jquery.magnific-popup.js"></script>
     <?= $this->Html->script('/js/bootstrap.min') ?>
     <?= $this->Html->script('/js/script.js') ?>
     <?= $this->fetch('script') ?>

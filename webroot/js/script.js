@@ -166,7 +166,8 @@ var pictureUpload = {
         
         var timestamp = Math.floor(Date.now() / 1000);
         var image = '<img src="/img/bands/thumb/'+response.filename+'?'+timestamp+'" alt="'+response.filename+'" title="Click for full-size" />';
-        var link = '<a href="/img/bands/'+response.filename+'?'+timestamp+'" target="_blank">'+image+'</a>';
+        var link = $('<a href="/img/bands/'+response.filename+'?'+timestamp+'" target="_blank">'+image+'</a>');
+        link.magnificPopup({type:'image'});
         li.append(link);
         
         var primaryButton = '<input type="radio" name="primaryPictureId" value="'+response.pictureId+'" id="picturePrimary'+response.pictureId+'"';
@@ -213,6 +214,7 @@ var applicationForm = {
             var link = $('<a href="'+url+'" target="_blank"></a>');
             img.wrap(link);
             img.attr('title', 'Click for full-size');
+            img.closest('a').magnificPopup({type:'image'});
         });
     }
 };
