@@ -122,10 +122,12 @@
     $fileSizeLimit = min($uploadMax, $postMax);
 ?>
 <?php $this->append('buffered'); ?>
-    songUpload.init({
-        fileSizeLimit: <?= json_encode($fileSizeLimit) ?>,
-        timestamp: <?= time() ?>,
-        token: <?= json_encode(md5(Configure::read('uploadToken').time())) ?>,
-        limit: <?= $songsLimit ?>
+    applicationForm.initSongs({
+        uploadParams: {
+            fileSizeLimit: <?= json_encode($fileSizeLimit) ?>,
+            timestamp: <?= time() ?>,
+            token: <?= json_encode(md5(Configure::read('uploadToken').time())) ?>,
+            limit: <?= $songsLimit ?>
+        }
     });
 <?php $this->end(); ?>

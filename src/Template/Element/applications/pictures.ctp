@@ -56,10 +56,9 @@
                     <input id="picturePrimary<?= $picture['id'] ?>" type="radio" name="primaryPictureId" value="<?= $picture['id'] ?>" <?php if ($picture['is_primary']) echo 'checked="checked"'; ?> />
                     Main image
                 </label>
-                <label for="pictureDelete<?= $picture['id'] ?>">
-                    <input id="pictureDelete<?= $picture['id'] ?>" type="checkbox" name="deletePictures[]" value="<?= $picture['id'] ?>" />
+                <button class="btn btn-danger btn-xs delete-picture" data-picture-id="<?= $picture['id'] ?>">
                     Delete
-                </label>
+                </button>
             </li>
         <?php endforeach; ?>
     </ul>
@@ -71,11 +70,12 @@
     $fileSizeLimit = min($uploadMax, $postMax);
 ?>
 <?php $this->append('buffered'); ?>
-    applicationForm.linkPictures();
-    pictureUpload.init({
-        fileSizeLimit: <?= json_encode($fileSizeLimit) ?>,
-        timestamp: <?= time() ?>,
-        token: <?= json_encode(md5(Configure::read('uploadToken').time())) ?>,
-        limit: <?= $picturesLimit ?>
+    applicationForm.initPictures({
+        uploadParams: {
+            fileSizeLimit: <?= json_encode($fileSizeLimit) ?>,
+            timestamp: <?= time() ?>,
+            token: <?= json_encode(md5(Configure::read('uploadToken').time())) ?>,
+            limit: <?= $picturesLimit ?>
+        }
     });
 <?php $this->end(); ?>
