@@ -67,11 +67,15 @@ var mediaUpload = {
 var applicationForm = {
     initPictures: function (params) {
         this.linkPictures();
-        this.pictureUpload.init(params.uploadParams)
+        this.pictureUpload.init(params.uploadParams);
+        $('.delete-picture').click(function (event) {
+            event.preventDefault();
+            applicationForm.deletePicture($(this));
+        });
     },
     
     initSongs: function (params) {
-        this.songUpload.init(params.uploadParams)
+        this.songUpload.init(params.uploadParams);
     },
         
     /* Wraps thumbnails in links to full-size version of picture.
@@ -86,6 +90,49 @@ var applicationForm = {
             img.wrap(link);
             img.attr('title', 'Click for full-size');
             img.closest('a').magnificPopup({type:'image'});
+        });
+    },
+    
+    deletePicture: function (button) {
+        if (! confirm('Are you sure you want to delete this picture? Pinky swear?')) {
+            return;
+        }
+        console.log('deleting '+button.data('picture-id'));
+        var pictureId = button.data('picture-id');
+        $.ajax({
+            url: '/bands/delete-picture/',
+            data: {pictureId: pictureId},
+            method: 'POST',
+            beforeSend: function () {
+                button.html('Deleting...');
+                button.prop('disabled', true);
+            },
+            success: function () {
+                button.removeClass('btn-danger').addClass('btn-success').html('Deleted');
+                button.closest('li').addClass('deleted');
+                applicationForm.pictureUpload.checkUploadLimit();
+                setTimeout(function () {
+                    var container = button.closest('li');
+                    container.fadeOut(500, function () {
+                        $(this).remove();
+                    });
+                }, 3000);
+            },
+            error: function () {
+                button.html('Delete');
+                button.prop('disabled', false);
+            },
+            statusCode: {
+                403: function () {
+                    alert('Sorry, you\'re not authorized to delete that picture');
+                },
+                404: function () {
+                    alert('Sorry, that picture was not found. (Maybe because it has already been deleted)');
+                },
+                500: function () {
+                    alert('There was an error deleting that image.');
+                }
+            }
         });
     },
     
@@ -126,9 +173,13 @@ var applicationForm = {
             var label = '<label for="picturePrimary'+response.pictureId+'">'+primaryButton+' Main image</label>';
             li.append(label);
             
-            var deleteCheckbox = '<input id="pictureDelete'+response.pictureId+'" type="checkbox" name="deletePictures[]" value="'+response.pictureId+'" />';
-            label = '<label for="pictureDelete'+response.pictureId+'">'+deleteCheckbox+' Delete</label>';
-            li.append(label);
+            var deleteButton = $('<button>Delete</button>');
+            deleteButton.addClass('btn btn-danger btn-xs delete-picture').data('picture-id', response.pictureId);
+            deleteButton.click(function (event) {
+                event.preventDefault();
+                applicationForm.deletePicture(deleteButton);
+            });
+            li.append(deleteButton);
             
             container.find('ul').append(li);
             
@@ -140,12 +191,17 @@ var applicationForm = {
         },
         
         checkUploadLimit: function () {
-            var imageCount = $('#uploadedImages li').length;
+            var imageCount = $('#uploadedImages li').not('.deleted').length;
+            var limitMessage = $('#pictureLimitReached');
+            var uploadContainer = $('#uploadPictureContainer');
             if (imageCount >= this.limit) {
-                $('#pictureLimitReached').slideDown();
-                $('#uploadPictureContainer').slideUp(300, function () {
-                    $(this).remove();
-                });
+                if (uploadContainer.is(':visible')) {
+                    limitMessage.slideDown();
+                    uploadContainer.slideUp();
+                }
+            } else if (! uploadContainer.is(':visible')) {
+                limitMessage.slideUp();
+                uploadContainer.slideDown();
             }
         }
     },

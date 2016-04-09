@@ -33,9 +33,7 @@
         You've reached your limit for uploading pictures. :(
     </p>
     <p>
-        But if you'd like to replace one with another,
-        just click the checkbox next to 'Delete' and submit this form to delete that image.
-        Then you'll be able to upload a new one to replace it.
+        But check this out. Just delete one of your pictures and you'll be able to upload a replacement for it.
     </p>
 </div>
 

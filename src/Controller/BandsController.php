@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use App\Media\Media;
 use Cake\Core\Configure;
 use Cake\Filesystem\File;
+use Cake\Network\Exception\ForbiddenException;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\Routing\Router;
 use Cake\Utility\Inflector;
@@ -230,5 +231,23 @@ class BandsController extends AppController
         $band->email = $this->Auth->user('email');
         $band->user_id = $userId;
         return $band;
+    }
+
+    public function deletePicture()
+    {
+        $this->viewBuilder()->layout('json');
+        $this->set('foo', 'bar');
+        $pictureId = $this->request->data('pictureId');
+        $this->loadModel('Pictures');
+        $picture = $this->Pictures->get($pictureId);
+        $band = $this->Bands->get($picture->band_id);
+        $ownerId = $band->user_id;
+        if ($this->Auth->user('id') != $ownerId) {
+            throw new ForbiddenException('Sorry, you\'re not authorized to delete that picture');
+        }
+        $result = $this->Pictures->deletePicture($pictureId, $picture->band_id);
+        if (! $result) {
+            throw new InternalErrorException('Sorry, there was an error deleting that image');
+        }
     }
 }
