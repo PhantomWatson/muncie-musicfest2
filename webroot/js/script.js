@@ -254,7 +254,8 @@ var applicationForm = {
             
             var inputs = '<input class="form-control" type="text" name="songs['+i+'][title]" placeholder="Track title" required="required" maxlength="100" id="songs-'+i+'-title" value="'+response.trackName+'" />';
             inputs += '<input class="form-control" type="hidden" name="songs['+i+'][id]" id="songs-'+i+'-id" value="'+response.songId+'" />';
-            var cell = '<td>'+inputs+'</td>';
+            var inputContainer = '<div class="form-group text required">'+inputs+'</a>';
+            var cell = '<td>'+inputContainer+'</td>';
             row.append(cell);
             
             var icon = '<span class="glyphicon glyphicon-music" aria-hidden="true"></span><span class="sr-only">Play</span>';
