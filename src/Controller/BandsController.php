@@ -181,17 +181,6 @@ class BandsController extends AppController
             $band->pictures = $this->Pictures->getForBand($band->id)->toArray();
         }
 
-        $this->loadModel('Songs');
-        $songsToDelete = $this->request->data('deleteSongs');
-        if (! empty($songsToDelete)) {
-            foreach ($songsToDelete as $songId) {
-                if (! $this->Songs->deleteSong($songId, $band->id)) {
-                    $this->Flash->error('There was an error deleting song #'.$songId);
-                }
-            }
-            $band->songs = $this->Songs->getForBand($band->id)->toArray();
-        }
-
         return $band;
     }
 
@@ -237,6 +226,23 @@ class BandsController extends AppController
         $result = $this->Pictures->deletePicture($pictureId, $picture->band_id);
         if (! $result) {
             throw new InternalErrorException('Sorry, there was an error deleting that image');
+        }
+    }
+
+    public function deleteSong()
+    {
+        $this->viewBuilder()->layout('json');
+        $songId = $this->request->data('songId');
+        $this->loadModel('Songs');
+        $song = $this->Songs->get($songId);
+        $band = $this->Bands->get($song->band_id);
+        $ownerId = $band->user_id;
+        if ($this->Auth->user('id') != $ownerId) {
+            throw new ForbiddenException('Sorry, you\'re not authorized to delete that song');
+        }
+        $result = $this->Songs->deleteSong($songId, $song->band_id);
+        if (! $result) {
+            throw new InternalErrorException('Sorry, there was an error deleting that song');
         }
     }
 }

@@ -41,17 +41,15 @@
     </li>
 </ul>
 
-<?php if (count($band['songs']) < $songsLimit): ?>
-    <div id="uploadSongContainer">
-        <p>
-            <a href="#" id="upload_song">Upload media</a>
-        </p>
+<div id="uploadSongContainer" <?php if (count($band['songs']) >= $songsLimit) echo 'style="display: none;"'; ?>>
+    <p>
+        <a href="#" id="upload_song">Upload media</a>
+    </p>
 
-        <p>
-            Problems uploading your media? Email your files to <a href="mailto:submit@munciemusicfest.com?subject=Muncie MusicFest 2015 Application">submit@munciemusicfest.com</a>.
-        </p>
-    </div>
-<?php endif; ?>
+    <p>
+        Problems uploading your media? Email your files to <a href="mailto:submit@munciemusicfest.com?subject=Muncie MusicFest 2015 Application">submit@munciemusicfest.com</a>.
+    </p>
+</div>
 
 <div class="alert alert-warning" id="songLimitReached" <?php if (count($band['songs']) < $songsLimit) echo 'style="display: none;"'; ?>>
     <p>
@@ -81,9 +79,7 @@
                         (opens in new window)
                     </span>
                 </th>
-                <th>
-                    Delete
-                </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -108,7 +104,9 @@
                         </a>
                     </td>
                     <td>
-                        <input type="checkbox" name="deleteSongs[]" value="<?= $song['id'] ?>" />
+                        <button class="btn btn-danger btn-xs delete-song" data-song-id="<?= $song['id'] ?>">
+                            Delete
+                        </button>
                     </td>
                 </tr>
             <?php endforeach; ?>

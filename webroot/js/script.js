@@ -72,6 +72,10 @@ var applicationForm = {
             event.preventDefault();
             applicationForm.deletePicture($(this));
         });
+        $('.delete-song').click(function (event) {
+            event.preventDefault();
+            applicationForm.deleteSong($(this));
+        });
     },
     
     initSongs: function (params) {
@@ -97,7 +101,6 @@ var applicationForm = {
         if (! confirm('Are you sure you want to delete this picture? Pinky swear?')) {
             return;
         }
-        console.log('deleting '+button.data('picture-id'));
         var pictureId = button.data('picture-id');
         $.ajax({
             url: '/bands/delete-picture/',
@@ -259,8 +262,14 @@ var applicationForm = {
             cell = '<td>'+link+'</td>';
             row.append(cell);
         
-            var deleteCheckbox = '<input type="checkbox" name="deleteSongs[]" value="'+response.songId+'" />';
-            cell = '<td>'+deleteCheckbox+'</td>';
+            var deleteButton = $('<button>Delete</button>');
+            deleteButton.addClass('btn btn-danger btn-xs delete-song').data('song-id', response.songId);
+            deleteButton.click(function (event) {
+                event.preventDefault();
+                applicationForm.deleteSong(deleteButton);
+            });
+            cell = $('<td></td>');
+            cell.append(deleteButton);
             row.append(cell);
             
             container.find('tbody').append(row);
@@ -273,13 +282,60 @@ var applicationForm = {
         },
         
         checkUploadLimit: function () {
-            var songCount = $('#uploadedSongs tbody tr').length;
+            var songCount = $('#uploadedSongs tbody tr').not('.deleted').length;
+            var limitMessage = $('#songLimitReached');
+            var uploadContainer = $('#uploadSongContainer');
             if (songCount >= this.limit) {
-                $('#songLimitReached').slideDown();
-                $('#uploadSongContainer').slideUp(300, function () {
-                    $(this).remove();
-                });
+                if (uploadContainer.is(':visible')) {
+                    limitMessage.slideDown();
+                    uploadContainer.slideUp();
+                }
+            } else if (! uploadContainer.is(':visible')) {
+                limitMessage.slideUp();
+                uploadContainer.slideDown();
             }
         }
+    },
+    
+    deleteSong: function (button) {
+        if (! confirm('Are you sure you want to delete this song? For reals?')) {
+            return;
+        }
+        var songId = button.data('song-id');
+        $.ajax({
+            url: '/bands/delete-song/',
+            data: {songId: songId},
+            method: 'POST',
+            beforeSend: function () {
+                button.html('Deleting...');
+                button.prop('disabled', true);
+            },
+            success: function () {
+                button.removeClass('btn-danger').addClass('btn-success').html('Deleted');
+                button.closest('tr').addClass('deleted');
+                applicationForm.songUpload.checkUploadLimit();
+                setTimeout(function () {
+                    var container = button.closest('tr');
+                    container.fadeOut(500, function () {
+                        $(this).remove();
+                    });
+                }, 3000);
+            },
+            error: function () {
+                button.html('Delete');
+                button.prop('disabled', false);
+            },
+            statusCode: {
+                403: function () {
+                    alert('Sorry, you\'re not authorized to delete that song');
+                },
+                404: function () {
+                    alert('Sorry, that song was not found. (Maybe because it has already been deleted)');
+                },
+                500: function () {
+                    alert('There was an error deleting that song.');
+                }
+            }
+        });
     }
 };
