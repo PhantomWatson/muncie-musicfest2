@@ -41,7 +41,7 @@ if (! function_exists('navLink')) {
                 <?= navLink('Home', '/', $this) ?>
 
                 <?php if (Configure::read('bandApplicationsOpen')): ?>
-                    <?= navLink('Perform', [
+                    <?= navLink('Apply to Perform', [
                         'prefix' => false,
                         'controller' => 'Bands',
                         'action' => 'apply'
