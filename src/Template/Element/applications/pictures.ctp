@@ -10,10 +10,21 @@
         Pictures of your band will be used in promoting you and the festival, so send us the best you have.
     </p>
     <ul>
-        <li>Send pictures in any <strong>web-friendly file format</strong> (PNG, JPG, GIF).</li>
-        <li>Each picture's filesize can't exceed <strong><?= $fileSizeLimit ?>B</strong>.</li>
-        <li>Send us only photos to which <strong>you hold the copyright</strong>, and that we're allowed to republish.</li>
-        <li>By sending us these photos, you give us permission to use them as part of promotion of the festival.</li>
+        <li>
+            Submit <strong>up to <?= $picturesLimit ?></strong> pictures.
+        </li>
+        <li>
+            Send pictures in any <strong>web-friendly file format</strong> (PNG, JPG, GIF).
+        </li>
+        <li>
+            Each picture's filesize can't exceed <strong><?= $fileSizeLimit ?>B</strong>.
+        </li>
+        <li>
+            Send us only photos to which <strong>you hold the copyright</strong>, and that we're allowed to republish.
+        </li>
+        <li>
+            By sending us these photos, you give us permission to use them as part of promotion of the festival.
+        </li>
     </ul>
 </div>
 
