@@ -16,17 +16,15 @@
     </ul>
 </div>
 
-<?php if (count($band['pictures']) < $picturesLimit): ?>
-    <div id="uploadPictureContainer">
-        <p>
-            <a href="#" id="upload_picture">Upload media</a>
-        </p>
+<div id="uploadPictureContainer" <?php if (count($band['pictures']) >= $picturesLimit) echo 'style="display: none;"'; ?>>
+    <p>
+        <a href="#" id="upload_picture">Upload media</a>
+    </p>
 
-        <p>
-            Problems uploading your media? Email your files to <a href="mailto:submit@munciemusicfest.com?subject=Muncie MusicFest 2015 Application">submit@munciemusicfest.com</a>.
-        </p>
-    </div>
-<?php endif; ?>
+    <p>
+        Problems uploading your media? Email your files to <a href="mailto:submit@munciemusicfest.com?subject=Muncie MusicFest 2015 Application">submit@munciemusicfest.com</a>.
+    </p>
+</div>
 
 <div class="alert alert-warning" id="pictureLimitReached" <?php if (count($band['pictures']) < $picturesLimit) echo 'style="display: none;"'; ?>>
     <p>
