@@ -226,7 +226,6 @@ class BandsController extends AppController
     public function deletePicture()
     {
         $this->viewBuilder()->layout('json');
-        $this->set('foo', 'bar');
         $pictureId = $this->request->data('pictureId');
         $this->loadModel('Pictures');
         $picture = $this->Pictures->get($pictureId);
