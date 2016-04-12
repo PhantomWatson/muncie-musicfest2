@@ -11,6 +11,7 @@
     </p>
     <ul>
         <li>Send pictures in any <strong>web-friendly file format</strong> (PNG, JPG, GIF).</li>
+        <li>Each picture's filesize can't exceed <strong><?= $fileSizeLimit ?>B</strong>.</li>
         <li>Send us only photos to which <strong>you hold the copyright</strong>, and that we're allowed to republish.</li>
         <li>By sending us these photos, you give us permission to use them as part of promotion of the festival.</li>
     </ul>
@@ -60,11 +61,6 @@
     </ul>
 </div>
 
-<?php
-    $uploadMax = ini_get('upload_max_filesize');
-    $postMax = ini_get('post_max_size');
-    $fileSizeLimit = min($uploadMax, $postMax);
-?>
 <?php $this->append('buffered'); ?>
     applicationForm.initPictures({
         uploadParams: {

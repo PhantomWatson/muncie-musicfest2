@@ -89,8 +89,11 @@ class BandsController extends AppController
             $title = 'Apply to Perform (Step '.($stepKey + 1).' of '.count($steps).')';
         }
         $Media = new Media();
+        $uploadMax = ini_get('upload_max_filesize');
+        $postMax = ini_get('post_max_size');
         $this->set([
             'band' => $band,
+            'fileSizeLimit' => min($uploadMax, $postMax),
             'pageTitle' => $title,
             'picturesLimit' => $Media->getPicturesLimit(),
             'songsLimit' => $Media->getSongsLimit(),

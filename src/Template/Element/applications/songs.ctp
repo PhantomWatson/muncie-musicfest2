@@ -21,6 +21,9 @@
         Submit <strong>mp3-formatted</strong> music.
     </li>
     <li>
+        Each song's filesize can't exceed <strong><?= $fileSizeLimit ?>B</strong>.
+    </li>
+    <li>
         Apply a <strong>"Song Title.mp3"</strong> format to each song's filename before uploading it.
         Please remove track numbers from the filenames so we don't think they're part of a song's title.
     </li>
@@ -114,11 +117,6 @@
     </table>
 </div>
 
-<?php
-    $uploadMax = ini_get('upload_max_filesize');
-    $postMax = ini_get('post_max_size');
-    $fileSizeLimit = min($uploadMax, $postMax);
-?>
 <?php $this->append('buffered'); ?>
     applicationForm.initSongs({
         uploadParams: {
