@@ -135,7 +135,7 @@ class SongsTable extends Table
     {
         $song = $this->get($songId);
         if ($song->band_id != $bandId) {
-            throw new ForbiddenException('Cannot delete picture, picture #'.$songId.' and band #'.$bandId.' do not match');
+            throw new ForbiddenException('Cannot delete song, song #'.$songId.' and band #'.$bandId.' do not match');
         }
 
         if ($this->delete($song)) {
