@@ -23,6 +23,10 @@
             Muncie MusicFest 2016: Ten Years of Music
         </h2>
         <p>
+            MMF'16 is currently scheduled for <strong>Friday, September 30<sup>th</sup>, 2016</strong>
+            (subject to change while we're lining up our waterfowl).
+        </p>
+        <p>
             Stay tuned to MuncieMusicFest.com and the festival's
             <a href="https://www.facebook.com/munciemusicfest">Facebook page</a>
             for announcements about MMF 2016. This will be the <strong>tenth year</strong> of the festival, and
