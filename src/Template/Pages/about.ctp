@@ -5,29 +5,42 @@
     </p>
 
     <h2>
-        The MMF 2015 Team
+        The MMF 2016 Team
     </h2>
+
     <table class="credits">
         <tr>
-            <th>Directors:</th>
+            <th>General Manager</th>
             <td>
                 <a href="mailto:graham@phantomwatson.com">Graham Watson</a>
-                <br />
-                Jeff Robinson
-                <br />
-                Andrew Hesik
             </td>
         </tr>
         <tr>
-            <th>Invaluable Helpers</th>
+            <th>Booking Manager</th>
+            <td>Andrew August</td>
+        </tr>
+        <tr>
+            <th>Band Liaison</th>
+            <td>Rick Zeigler</td>
+        </tr>
+        <tr>
+            <th>Fundraising Manager</th>
+            <td>Jeff Robinson</td>
+        </tr>
+        <tr>
+            <th>Technical Manager</th>
+            <td>Andrew August</td>
+        </tr>
+        <tr>
+            <th>Grantwriters</th>
             <td>
-                Steve Robert
-               <br />
+                Rick Zeigler
+                <br />
                 Susan Lankford
             </td>
         </tr>
         <tr>
-            <th>Graphic Designers:</th>
+            <th>Graphic Designers</th>
             <td>
                 Victoria Meldrum
                 <br />
@@ -35,13 +48,21 @@
             </td>
         </tr>
         <tr>
-            <th>Web Developer:</th>
+            <th>Web Developer</th>
             <td>
                 Graham Watson
             </td>
         </tr>
         <tr>
-            <th>2007-2014 Contributors</h2>
+            <th>Invaluable Supporters</th>
+            <td>
+                Steve Robert
+                <br />
+                The Caffeinery
+            </td>
+        </tr>
+        <tr>
+            <th>2007-2015 Contributors</h2>
             <td>
                 Cheryl Crowder
                 <br />
