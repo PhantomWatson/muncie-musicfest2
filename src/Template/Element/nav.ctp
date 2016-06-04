@@ -4,6 +4,9 @@ use Cake\Routing\Router;
 
 if (! function_exists('navLink')) {
     function navLink($label, $url, $view) {
+        if (! isset($url['prefix'])) {
+            $url['prefix'] = false;
+        }
         $url = Router::url($url);
         if ($view->request->here == $url) {
             $label .= '<span class="sr-only">(current)</span>';
@@ -42,32 +45,27 @@ if (! function_exists('navLink')) {
 
                 <?php if (Configure::read('bandApplicationsOpen')): ?>
                     <?= navLink('Apply to Perform', [
-                        'prefix' => false,
                         'controller' => 'Bands',
                         'action' => 'apply'
                     ], $this) ?>
                 <?php endif; ?>
 
                 <?= navLink('Bands', [
-                    'prefix' => false,
                     'controller' => 'Bands',
                     'action' => 'index'
                 ], $this) ?>
 
                 <?= navLink('Volunteer', [
-                    'prefix' => false,
                     'controller' => 'Pages',
                     'action' => 'volunteer'
                 ], $this) ?>
 
                 <?= navLink('Contact', [
-                    'prefix' => false,
                     'controller' => 'Pages',
                     'action' => 'contact'
                 ], $this) ?>
 
                 <?= navLink('About', [
-                    'prefix' => false,
                     'controller' => 'Pages',
                     'action' => 'about'
                 ], $this) ?>
@@ -95,19 +93,16 @@ if (! function_exists('navLink')) {
                     <?php endif; ?>
 
                     <?= navLink('Logout', [
-                        'prefix' => false,
                         'controller' => 'Users',
                         'action' => 'logout'
                     ], $this) ?>
                 <?php else: ?>
                     <?= navLink('Register', [
-                        'prefix' => false,
                         'controller' => 'Users',
                         'action' => 'register'
                     ], $this) ?>
 
                     <?= navLink('Login', [
-                        'prefix' => false,
                         'controller' => 'Users',
                         'action' => 'login'
                     ], $this) ?>
