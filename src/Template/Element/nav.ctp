@@ -73,6 +73,27 @@ if (! function_exists('navLink')) {
                 ], $this) ?>
 
                 <?php if ($authUser): ?>
+
+                    <?php if ($authUser['role'] == 'admin'): ?>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Admin <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <?= $this->Html->link(
+                                        'Bands',
+                                        [
+                                            'prefix' => 'admin',
+                                            'controller' => 'Bands',
+                                            'action' => 'index'
+                                        ]
+                                    ) ?>
+                                </li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
+
                     <?= navLink('Logout', [
                         'prefix' => false,
                         'controller' => 'Users',

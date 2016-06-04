@@ -303,4 +303,30 @@ class BandsTable extends Table
             }
         }
     }
+
+    /**
+     * Finds bands with completed applications
+     *
+     * @param Query $query
+     * @param array $options
+     * @return Query
+     */
+    public function findApplied(Query $query, array $options)
+    {
+        return $query->where(['Bands.application_step' => 'done']);
+    }
+
+    /**
+     * Finds bands with incomplete applications
+     *
+     * @param Query $query
+     * @param array $options
+     * @return Query
+     */
+    public function findApplicationIncomplete(Query $query, array $options)
+    {
+        return $query->where(['Bands.application_step <>' => 'done']);
+    }
+
+
 }
