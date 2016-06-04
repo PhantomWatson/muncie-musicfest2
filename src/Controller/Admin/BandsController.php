@@ -23,11 +23,13 @@ class BandsController extends AppController
                 'Bands Applied' => $this->Bands
                     ->find('list')
                     ->find('applied')
-                    ->order(['Bands.name' => 'ASC']),
+                    ->order(['Bands.name' => 'ASC'])
+                    ->toArray(),
                 'Bands Not Done Applying' => $this->Bands
                     ->find('list')
                     ->find('applicationIncomplete')
                     ->order(['Bands.name' => 'ASC'])
+                    ->toArray()
             ],
             'pageTitle' => 'Bands'
         ]);

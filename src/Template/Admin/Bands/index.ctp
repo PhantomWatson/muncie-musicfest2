@@ -9,13 +9,13 @@
 
     <?php foreach ($bands as $category => $categorizedBands): ?>
         <?php
-            if ($categorizedBands->isEmpty()) {
+            if (empty($categorizedBands)) {
                 continue;
             }
         ?>
 
         <h2>
-            <?= $category ?>
+            <?= $category ?> (<?= count($categorizedBands) ?>)
         </h2>
 
         <ul>
