@@ -4,7 +4,7 @@ use Cake\Routing\Router;
 
 if (! function_exists('navLink')) {
     function navLink($label, $url, $view) {
-        if (! isset($url['prefix'])) {
+        if (is_array($url) && ! isset($url['prefix'])) {
             $url['prefix'] = false;
         }
         $url = Router::url($url);
