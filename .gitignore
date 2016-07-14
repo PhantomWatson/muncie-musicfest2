@@ -31,6 +31,9 @@ org.eclipse.*
 .jsdtscope
 .editorconfig
 
+#PhpStorm
+.idea/*
+
 # External tool builders
 .externalToolBuilders/
 
