@@ -58,7 +58,8 @@ class VolunteersController extends AppController
         ]);
         $correctKey = $this->Volunteers->getSecurityHash($volunteer->email);
         if ($key != $correctKey) {
-            throw new ForbiddenException('Security key mismatch. Make sure you\'re using the full URL sent to you. ' . $correctKey);
+            $msg = 'Security key mismatch. Make sure you\'re using the full URL sent to you. ' . $correctKey;
+            throw new ForbiddenException($msg);
         }
         if ($this->request->is(['patch', 'post', 'put'])) {
             $volunteer = $this->Volunteers->patchEntity($volunteer, $this->request->data);
@@ -66,7 +67,9 @@ class VolunteersController extends AppController
                 $this->Flash->success(__('The volunteer has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The volunteer could not be saved. Please, try again.'));
+                $msg = 'There was a problem updating your information. Please check for error messages below';
+                $msg .= ' and contact a site administrator if you need assistance.';
+                $this->Flash->error($msg);
             }
         }
         $jobs = $this->Volunteers->Jobs->find('list', ['limit' => 200]);
