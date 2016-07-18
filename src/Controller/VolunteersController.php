@@ -31,7 +31,9 @@ class VolunteersController extends AppController
                     'action' => 'home'
                 ]);
             } else {
-                $this->Flash->error(__('There was an error submitting your signup information. Please try again.'));
+                $msg = 'There was a problem submitting your information. Please check for error messages below';
+                $msg .= ' and contact a site administrator if you need assistance.';
+                $this->Flash->error($msg);
             }
         }
         $jobs = $this->Volunteers->Jobs->find('list', ['limit' => 200])->toArray();
