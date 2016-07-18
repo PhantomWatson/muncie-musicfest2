@@ -92,7 +92,10 @@ class VolunteersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['email']));
+        $msg = 'That email address has already signed up to volunteer.';
+        $msg .= ' If you need to update your information, please use the link that we emailed to you';
+        $msg .= ' or contact a site administrator for help.';
+        $rules->add($rules->isUnique(['email'], $msg));
         return $rules;
     }
 
