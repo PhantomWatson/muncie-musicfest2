@@ -327,6 +327,4 @@ class BandsTable extends Table
     {
         return $query->where(['Bands.application_step <>' => 'done']);
     }
-
-
 }
