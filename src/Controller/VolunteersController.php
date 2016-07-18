@@ -63,8 +63,17 @@ class VolunteersController extends AppController
         }
         if ($this->request->is(['patch', 'post', 'put'])) {
             $volunteer = $this->Volunteers->patchEntity($volunteer, $this->request->data);
-            if ($this->Volunteers->save($volunteer)) {
-                $this->Flash->success(__('The volunteer has been saved.'));
+            $emailChanged = $volunteer->dirty('email');
+            $saved = $this->Volunteers->save($volunteer);
+            if ($saved) {
+                if ($emailChanged) {
+                    Mailer::sendVolunteerSignupEmail($saved->id);
+                    $msg = 'Information updated. Oh, and <strong>since your email address was updated</strong>,';
+                    $msg .= ' we\'ve sent another email to you with a new link for updating your volunteer info.';
+                    $this->Flash->success($msg);
+                } else {
+                    $this->Flash->success('Information updated.');
+                }
                 return $this->redirect([
                     'controller' => 'Pages',
                     'action' => 'home'
