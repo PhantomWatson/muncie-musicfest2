@@ -43,7 +43,6 @@ Router::defaultRouteClass('DashedRoute');
 
 Router::scope('/', function ($routes) {
     $routes->connect('/',          ['controller' => 'Pages', 'action' => 'home']);
-    $routes->connect('/volunteer', ['controller' => 'Pages', 'action' => 'volunteer']);
     $routes->connect('/contact',   ['controller' => 'Pages', 'action' => 'contact']);
     $routes->connect('/about',     ['controller' => 'Pages', 'action' => 'about']);
 
@@ -56,6 +55,8 @@ Router::scope('/', function ($routes) {
     $routes->connect('/logout',            ['controller' => 'Users', 'action' => 'logout']);
     $routes->connect('/register',          ['controller' => 'Users', 'action' => 'register']);
     $routes->connect('/reset-password/*',  ['controller' => 'Users', 'action' => 'resetPassword']);
+
+    $routes->connect('/volunteer', ['controller' => 'Volunteers', 'action' => 'add']);
 
     $routes->fallbacks('DashedRoute');
 });

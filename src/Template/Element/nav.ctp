@@ -56,8 +56,8 @@ if (! function_exists('navLink')) {
                 ], $this) ?>
 
                 <?= navLink('Volunteer', [
-                    'controller' => 'Pages',
-                    'action' => 'volunteer'
+                    'controller' => 'Volunteers',
+                    'action' => 'add'
                 ], $this) ?>
 
                 <?= navLink('Contact', [
