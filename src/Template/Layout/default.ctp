@@ -65,7 +65,7 @@
             All rights reserved &copy; <?php echo date('Y'); ?> Muncie MusicFest
             <br />
             Problems with this page?
-            <a href="mailto:phantom@munciemusicfest.com?subject=Muncie MusicFest: Problem with <?= $this->request->here ?>">
+            <a href="mailto:info@munciemusicfest.com?subject=Muncie MusicFest: Problem with <?= $this->request->here ?>">
                 Email us
             </a>.
         </footer>

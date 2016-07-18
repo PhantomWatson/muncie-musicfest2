@@ -46,7 +46,7 @@
         </p>
         <p style="text-align: right;">
             <em>
-                <a href="mailto:phantom@munciemusicfest.com">Graham Watson</a>
+                <a href="mailto:info@munciemusicfest.com">Graham Watson</a>
                 <br />
                 Muncie MusicFest Torchbearer 2007-2015
             </em>
