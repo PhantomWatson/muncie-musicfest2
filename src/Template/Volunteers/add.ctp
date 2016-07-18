@@ -21,4 +21,9 @@
         'class' => 'btn btn-primary'
     ]) ?>
     <?= $this->Form->end() ?>
+
+    <p class="alert alert-info">
+        Once you sign up, we'll email you a link that you can use to update any of this information.
+    </p>
+
 </div>
