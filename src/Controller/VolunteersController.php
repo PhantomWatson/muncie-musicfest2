@@ -65,7 +65,10 @@ class VolunteersController extends AppController
             $volunteer = $this->Volunteers->patchEntity($volunteer, $this->request->data);
             if ($this->Volunteers->save($volunteer)) {
                 $this->Flash->success(__('The volunteer has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect([
+                    'controller' => 'Pages',
+                    'action' => 'home'
+                ]);
             } else {
                 $msg = 'There was a problem updating your information. Please check for error messages below';
                 $msg .= ' and contact a site administrator if you need assistance.';
