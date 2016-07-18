@@ -31,7 +31,7 @@ class Mailer
         $usersTable = TableRegistry::get('Users');
         $user = $usersTable->get($userId);
         $email->template('reset_password')
-            ->subject('MACC website password reset')
+            ->subject('Muncie MusicFest - Password reset')
             ->to($user->email)
             ->viewVars(compact(
                 'user',
