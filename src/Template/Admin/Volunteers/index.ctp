@@ -2,7 +2,7 @@
     use Cake\Utility\Hash;
 ?>
 
-<table cellpadding="0" cellspacing="0" class="table">
+<table cellpadding="0" cellspacing="0" class="table" id="volunteers">
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('name') ?></th>
@@ -18,7 +18,17 @@
         <tr>
             <td><?= h($volunteer->name) ?></td>
             <td>
-                <?= implode('<br />', Hash::extract($volunteer->jobs, '{n}.name')) ?>
+                <?php if (empty($volunteer->jobs)): ?>
+                    (none)
+                <?php else: ?>
+                    <ul>
+                        <?php foreach ($volunteer->jobs as $job): ?>
+                            <li>
+                                <?= $job['name'] ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
             </td>
             <td>
                 <?= h($volunteer->email) ?>
