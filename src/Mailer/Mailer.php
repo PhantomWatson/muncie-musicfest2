@@ -51,4 +51,35 @@ class Mailer
     {
         return Security::hash($userId.$timestamp, 'sha1', true);
     }
+
+    /**
+     * Sends an email to new volunteers after they sign up
+     *
+     * @param int $volunteerId Volunteer ID
+     * @return array
+     */
+    public static function sendVolunteerSignupEmail($volunteerId)
+    {
+        $volunteersTable = TableRegistry::get('Volunteers');
+        $volunteer = $volunteersTable->get($volunteerId);
+
+        $hash = $volunteersTable->getSecurityHash($volunteer->email);
+        $editUrl = Router::url([
+            'prefix' => false,
+            'controller' => 'Volunteers',
+            'action' => 'edit',
+            $volunteerId,
+            $hash
+        ], true);
+        $email = new Email();
+
+        $email->template('new_volunteer')
+            ->subject('Muncie MusicFest - Thanks for volunteering!')
+            ->to($volunteer->email)
+            ->viewVars(compact(
+                'editUrl',
+                'volunteer'
+            ));
+        return $email->send();
+    }
 }

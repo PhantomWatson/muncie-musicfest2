@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Mailer\Mailer;
 use Cake\Network\Exception\ForbiddenException;
 
 /**
@@ -21,8 +22,10 @@ class VolunteersController extends AppController
         $volunteer = $this->Volunteers->newEntity();
         if ($this->request->is('post')) {
             $volunteer = $this->Volunteers->patchEntity($volunteer, $this->request->data);
-            if ($this->Volunteers->save($volunteer)) {
+            $saved = $this->Volunteers->save($volunteer);
+            if ($saved) {
                 $this->Flash->success(__('Signup complete. Thanks! We\'ll be in touch before the festival.'));
+                Mailer::sendVolunteerSignupEmail($saved->id);
                 return $this->redirect([
                     'controller' => 'Pages',
                     'action' => 'home'
