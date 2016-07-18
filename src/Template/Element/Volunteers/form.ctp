@@ -4,8 +4,8 @@
         'label' => 'Job(s) you\'d like to volunteer for',
         'options' => $jobs, 'multiple' => 'checkbox'
     ]);
-    echo $this->Form->input('email');
-    echo $this->Form->input('phone', ['placeholder' => '(###) ###-####']);
+    echo $this->Form->input('email', ['type' => 'email']);
+    echo $this->Form->input('phone', ['placeholder' => '(###) ###-####', 'type' => 'tel']);
     echo $this->Form->input('availability', [
         'label' => [
             'text' => 'Availability on September 30<sup>th</sup>',
