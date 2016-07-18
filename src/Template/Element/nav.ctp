@@ -88,6 +88,16 @@ if (! function_exists('navLink')) {
                                         ]
                                     ) ?>
                                 </li>
+                                <li>
+                                    <?= $this->Html->link(
+                                        'Volunteers',
+                                        [
+                                            'prefix' => 'admin',
+                                            'controller' => 'Volunteers',
+                                            'action' => 'index'
+                                        ]
+                                    ) ?>
+                                </li>
                             </ul>
                         </li>
                     <?php endif; ?>
