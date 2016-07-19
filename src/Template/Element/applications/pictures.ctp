@@ -32,6 +32,10 @@
     <p>
         <a href="#" id="upload_picture">Upload media</a>
     </p>
+
+    <p>
+        Problems uploading? Email <a href="mailto:info@munciemusicfest.com">info@munciemusicfest.com</a>.
+    </p>
 </div>
 
 <div class="alert alert-warning" id="pictureLimitReached" <?php if (count($band['pictures']) < $picturesLimit) echo 'style="display: none;"'; ?>>

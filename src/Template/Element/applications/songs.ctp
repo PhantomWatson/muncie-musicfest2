@@ -50,7 +50,7 @@
     </p>
 
     <p>
-        Problems uploading your media? Email your files to <a href="mailto:submit@munciemusicfest.com?subject=Muncie MusicFest 2015 Application">submit@munciemusicfest.com</a>.
+        Problems uploading? Email <a href="mailto:info@munciemusicfest.com">info@munciemusicfest.com</a>.
     </p>
 </div>
 
