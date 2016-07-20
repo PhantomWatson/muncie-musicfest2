@@ -26,7 +26,6 @@
                             <a href="mailto:info@munciemusicfest.com">
                                 info@munciemusicfest.com
                             </a>
-                            &#149; 765-285-2773
                         </p>
                     </td>
                 </tr>
