@@ -53,6 +53,7 @@ composer.lock
 /webroot/js/bootstrap*
 /webroot/bootstrap/*
 /webroot/js/jplayer/*
+/webroot/jplayer/*
 /webroot/js/require*
 
 # Misc
