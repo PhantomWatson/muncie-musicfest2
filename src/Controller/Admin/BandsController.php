@@ -37,7 +37,9 @@ class BandsController extends AppController
 
     public function view($id = null)
     {
-        $band = $this->Bands->get($id);
+        $band = $this->Bands->get($id, [
+            'contain' => ['Songs', 'Pictures']
+        ]);
         $bands = $this->Bands->find('list')->order(['Bands.name' => 'ASC']);
         $this->set([
             'band' => $band,

@@ -73,6 +73,49 @@
                 </span>
             </td>
         </tr>
+        <tr>
+            <th>
+                Pictures
+            </th>
+            <td>
+                <?php if ($band['pictures']): ?>
+                    <?php foreach ($band['pictures'] as $picture): ?>
+                        <?= $this->Html->link(
+                            $this->Html->image('/img/bands/thumb/' . $picture->filename, [
+                                'alt' => $picture->filename,
+                            ]),
+                            '/img/bands/' . $picture->filename,
+                            [
+                                'escape' => false
+                            ]
+                        ) ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    None
+                <?php endif; ?>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Songs
+            </th>
+            <td>
+                <?php if ($band['songs']): ?>
+                    <ul>
+                        <?php foreach ($band['songs'] as $song): ?>
+                            <li>
+                                <?= $this->Html->link(
+                                    $song->title,
+                                    '/music/' . $song->filename
+                                ) ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    None
+                <?php endif; ?>
+            </td>
+        </tr>
     </table>
 </div>
 
