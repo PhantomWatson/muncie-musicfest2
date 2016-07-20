@@ -63,16 +63,17 @@ class BandsController extends AppController
             } elseif ($band->errors()) {
                 $this->Flash->error('Whoops, looks like there\'s an error you\'ll have to correct before your proceed.');
             } else {
+                $displayThanks = $band->application_step != 'done' && $nextStep == 'done';
                 $band->application_step = $nextStep;
                 $band = $this->processMedia($band);
                 $band = $this->Bands->save($band);
                 if ($nextStep == 'done') {
-                    if ($band->application_step == 'done') {
-                        $msg = 'Information updated';
-                    } else {
+                    if ($displayThanks) {
                         $msg = 'Thanks for applying to Muncie MusicFest! ';
                         $msg .= 'We\'ll be in touch later this August to let you know if you\'re booked. ';
                         $msg .= 'At any time, you can log in, review, and update your information.';
+                    } else {
+                        $msg = 'Application updated';
                     }
                 } else {
                     $msg = 'Information saved';
