@@ -4,12 +4,8 @@
 /config/recaptcha.php
 /tmp/*
 /logs/*
-/webroot/uploadifive/*
-/webroot/magnific-popup/*
 /webroot/music/*
 /webroot/img/bands/*
-/webroot/js/jquery*
-/webroot/js/bootstrap*
 /src/uploads/*
 
 # Eclipse
@@ -49,6 +45,14 @@ org.eclipse.*
 # Composer
 composer.phar
 composer.lock
+
+# JS / CSS Vendors
+/webroot/uploadifive/*
+/webroot/magnific-popup/*
+/webroot/js/jquery*
+/webroot/js/bootstrap*
+/webroot/js/jplayer/*
+/webroot/js/require*
 
 # Misc
 /webroot/coverage/*

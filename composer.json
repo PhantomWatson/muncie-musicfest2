@@ -16,7 +16,8 @@
         "xety/cake3-sluggable": "1.*",
         "imagine/imagine": "^0.6.3",
         "james-heinrich/getid3": "^1.9",
-        "league/oauth2-facebook": "~1.0"
+        "league/oauth2-facebook": "~1.0",
+        "happyworm/jplayer": "2.*"
     },
     "require-dev": {
         "psy/psysh": "@stable",
@@ -44,5 +45,8 @@
         "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump"
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "component-dir": "./webroot/js"
+    }
 }
