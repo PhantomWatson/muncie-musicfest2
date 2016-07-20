@@ -46,11 +46,13 @@ var mediaUpload = {
             },
             'onAddQueueItem': function (file) {
                 var ext = file.name.substr(file.name.lastIndexOf('.') + 1);
+                ext = ext.toLowerCase();
                 var validFileTypes = params.fileType.split(',');
                 var valid = false;
                 var validExt = '';
                 for (var i = 0; i < validFileTypes.length; i++) {
                     validExt = validFileTypes[i].replace('.', '');
+                    validExt = validExt.toLowerCase();
                     if (ext == validExt) {
                         valid = true;
                     }
