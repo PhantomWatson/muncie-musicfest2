@@ -72,7 +72,7 @@ gulp.task('copy_vendor_files', function () {
         .pipe(gulp.dest('webroot/bootstrap/js'));
     gulp.src('vendor/happyworm/jplayer/dist/jplayer/jquery.jplayer.min.js')
         .pipe(gulp.dest('webroot/jplayer/js'));
-    gulp.src('vendor/happyworm/jplayer/dist/skin/*')
+    gulp.src('vendor/happyworm/jplayer/dist/skin/**')
         .pipe(gulp.dest('webroot/jplayer/skin'));
 });
 
