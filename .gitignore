@@ -51,6 +51,7 @@ composer.lock
 /webroot/magnific-popup/*
 /webroot/js/jquery*
 /webroot/js/bootstrap*
+/webroot/bootstrap/*
 /webroot/js/jplayer/*
 /webroot/js/require*
 
