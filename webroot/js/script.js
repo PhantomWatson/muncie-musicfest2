@@ -388,3 +388,20 @@ var musicPlayer = {
         });
     }
 };
+
+var imagePopups = {
+    /* Wraps thumbnails in links to full-size version of picture.
+     * Doing this in JS allow CakePHP's HtmlHelper to add timestamps
+     * to the pictures' src and have those timestamps copied over
+     * into the links. */
+    linkPictures: function () {
+        $('img.thumbnail-popup').each(function () {
+            var img = $(this);
+            var url = img.prop('src').replace('/img/bands/thumb', '/img/bands');
+            var link = $('<a href="'+url+'" target="_blank"></a>');
+            img.wrap(link);
+            img.attr('title', 'Click for full-size');
+            img.closest('a').magnificPopup({type:'image'});
+        });
+    }
+};

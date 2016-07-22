@@ -45,13 +45,11 @@
             <td>
                 <?php if ($band['pictures']): ?>
                     <?php foreach ($band['pictures'] as $picture): ?>
-                        <?= $this->Html->link(
-                            $this->Html->image('/img/bands/thumb/' . $picture->filename, [
-                                'alt' => $picture->filename,
-                            ]),
-                            '/img/bands/' . $picture->filename,
+                        <?= $this->Html->image(
+                            '/img/bands/thumb/' . $picture->filename,
                             [
-                                'escape' => false
+                                'alt' => $picture->filename,
+                                'class' => 'thumbnail-popup'
                             ]
                         ) ?>
                     <?php endforeach; ?>
@@ -121,4 +119,5 @@
 
 <?php $this->append('buffered'); ?>
     bandSelector.init();
+    imagePopups.linkPictures();
 <?php $this->end(); ?>
