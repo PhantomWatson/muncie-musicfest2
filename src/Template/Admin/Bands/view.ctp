@@ -101,16 +101,16 @@
             </th>
             <td>
                 <?php if ($band['songs']): ?>
-                    <ul>
+                    <?= $this->element('player') ?>
+                    <?php $this->append('buffered'); ?>
                         <?php foreach ($band['songs'] as $song): ?>
-                            <li>
-                                <?= $this->Html->link(
-                                    $song->title,
-                                    '/music/' . $song->filename
-                                ) ?>
-                            </li>
+                            musicPlayer.playlist.add(<?= json_encode([
+                                'title' => $song->title,
+                                'artist' => $band->name,
+                                'mp3' => '/music/' . $song->filename
+                            ]) ?>);
                         <?php endforeach; ?>
-                    </ul>
+                    <?php $this->end(); ?>
                 <?php else: ?>
                     None
                 <?php endif; ?>

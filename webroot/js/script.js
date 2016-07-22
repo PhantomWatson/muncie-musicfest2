@@ -351,3 +351,37 @@ var bandSelector = {
         });
     }
 };
+
+var musicPlayer = {
+    playlist: null,
+
+    init: function () {
+        var cssSelector = {
+            cssSelectorAncestor: "#jp_container",
+            jPlayer: "#jquery_jplayer_1"
+        };
+        var songs = [];
+        var options = {
+            playlistOptions: {
+                autoPlay: false,
+                loopOnPrevious: true,
+                shuffleOnLoop: true,
+                enableRemoveControls: false,
+                displayTime: 0,
+                addTime: 0,
+                removeTime: 0,
+                shuffleTime: 0,
+            },
+            supplied: "mp3",
+            swfPath: "/js",
+            toggleDuration: true
+        };
+        this.playlist = new jPlayerPlaylist(cssSelector, songs, options);
+
+        $('#jp_container button.jp-play').click(function (event) {
+            if ($('#jp_container').hasClass('jp-state-playing')) {
+                musicPlayer.playlist.pause();
+            }
+        });
+    }
+};

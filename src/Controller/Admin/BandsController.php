@@ -40,6 +40,14 @@ class BandsController extends AppController
         $band = $this->Bands->get($id, [
             'contain' => ['Songs', 'Pictures']
         ]);
+        $playlist = [];
+        foreach ($band->songs as $song) {
+            $playlist[] = [
+                'title' => $song->title,
+                'artist' => $band->name,
+                'mp3' => '/music/' . $song->filename
+            ];
+        }
         $bands = $this->Bands->find('list')->order(['Bands.name' => 'ASC']);
         $this->set([
             'band' => $band,
@@ -62,7 +70,8 @@ class BandsController extends AppController
                 'message',
                 'stage_setup'
             ],
-            'pageTitle' => $band->name
+            'pageTitle' => $band->name,
+            'playlist' => $playlist
         ]);
     }
 }
