@@ -40,6 +40,49 @@
     <table class="table">
         <tr>
             <th>
+                Pictures
+            </th>
+            <td>
+                <?php if ($band['pictures']): ?>
+                    <?php foreach ($band['pictures'] as $picture): ?>
+                        <?= $this->Html->link(
+                            $this->Html->image('/img/bands/thumb/' . $picture->filename, [
+                                'alt' => $picture->filename,
+                            ]),
+                            '/img/bands/' . $picture->filename,
+                            [
+                                'escape' => false
+                            ]
+                        ) ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    None
+                <?php endif; ?>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Songs
+            </th>
+            <td>
+                <?php if ($band['songs']): ?>
+                    <?= $this->element('player') ?>
+                    <?php $this->append('buffered'); ?>
+                    <?php foreach ($band['songs'] as $song): ?>
+                        musicPlayer.playlist.add(<?= json_encode([
+                            'title' => $song->title,
+                            'artist' => $band->name,
+                            'mp3' => '/music/' . $song->filename
+                        ]) ?>);
+                    <?php endforeach; ?>
+                    <?php $this->end(); ?>
+                <?php else: ?>
+                    None
+                <?php endif; ?>
+            </td>
+        </tr>
+        <tr>
+            <th>
                 Application Progress
             </th>
             <td>
@@ -71,49 +114,6 @@
                 <span class="label label-<?= $band->members_under_21 ? 'danger' : 'success' ?>">
                     <?= $band->members_under_21 ? 'Yes' : 'No' ?>
                 </span>
-            </td>
-        </tr>
-        <tr>
-            <th>
-                Pictures
-            </th>
-            <td>
-                <?php if ($band['pictures']): ?>
-                    <?php foreach ($band['pictures'] as $picture): ?>
-                        <?= $this->Html->link(
-                            $this->Html->image('/img/bands/thumb/' . $picture->filename, [
-                                'alt' => $picture->filename,
-                            ]),
-                            '/img/bands/' . $picture->filename,
-                            [
-                                'escape' => false
-                            ]
-                        ) ?>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    None
-                <?php endif; ?>
-            </td>
-        </tr>
-        <tr>
-            <th>
-                Songs
-            </th>
-            <td>
-                <?php if ($band['songs']): ?>
-                    <?= $this->element('player') ?>
-                    <?php $this->append('buffered'); ?>
-                        <?php foreach ($band['songs'] as $song): ?>
-                            musicPlayer.playlist.add(<?= json_encode([
-                                'title' => $song->title,
-                                'artist' => $band->name,
-                                'mp3' => '/music/' . $song->filename
-                            ]) ?>);
-                        <?php endforeach; ?>
-                    <?php $this->end(); ?>
-                <?php else: ?>
-                    None
-                <?php endif; ?>
             </td>
         </tr>
     </table>
