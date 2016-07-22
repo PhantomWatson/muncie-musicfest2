@@ -378,6 +378,9 @@ var musicPlayer = {
         };
         this.playlist = new jPlayerPlaylist(cssSelector, songs, options);
 
+        /**
+         * This should be happening automatically, but for some reason isn't.
+         */
         $('#jp_container button.jp-play').click(function (event) {
             if ($('#jp_container').hasClass('jp-state-playing')) {
                 musicPlayer.playlist.pause();
