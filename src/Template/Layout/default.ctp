@@ -44,7 +44,7 @@
             <div id="intro-header">
                 <img src="/img/mmf_logo.png" alt="Muncie MusicFest" />
                 <h2>
-                    Celebrating the live, local music of Muncie, IN
+                    Friday, September 30<sup>th</sup>, 2016 in Muncie, IN
                 </h2>
             </div>
         <?php endif; ?>
