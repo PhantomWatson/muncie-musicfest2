@@ -13,7 +13,7 @@
                     <?= count($list) ?> email <?= __n('address', 'addresses', count($list)) ?>:
                 </strong>
                 <a href="mailto:<?= implode(';', $list) ?>">
-                    <?= implode(';', $list) ?>
+                    <?= implode('; ', $list) ?>
                 </a>
             <?php else: ?>
                 (none)
