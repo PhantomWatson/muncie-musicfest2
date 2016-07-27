@@ -1,3 +1,15 @@
+<p>
+    <?= $this->Html->link(
+        'Band email lists',
+        [
+            'prefix' => 'admin',
+            'controller' => 'Bands',
+            'action' => 'emails'
+        ],
+        ['class' => 'btn btn-default']
+    ) ?>
+</p>
+
 <?php if (empty($bands['Bands Applied']) && empty($bands['Bands Not Done Applying'])): ?>
     <p class="alert alert-info">
         No bands found.

@@ -74,4 +74,42 @@ class BandsController extends AppController
             'playlist' => $playlist
         ]);
     }
+
+    /**
+     * Method for /admin/bands/emails, which shows lists of all of the band email addresses in various categories
+     *
+     * @return void
+     */
+    public function emails()
+    {
+        $lists = [];
+
+        $lists['All bands'] = $this->Bands->find('list', [
+                'keyField' => 'id',
+                'valueField' => 'email'
+            ])
+            ->order(['email' => 'ASC'])
+            ->toArray();
+
+        $lists['Bands with complete applications'] = $this->Bands->find('list', [
+                'keyField' => 'id',
+                'valueField' => 'email'
+            ])
+            ->where(['application_step' => 'done'])
+            ->order(['email' => 'ASC'])
+            ->toArray();
+
+        $lists['Bands with incomplete applications'] = $this->Bands->find('list', [
+                'keyField' => 'id',
+                'valueField' => 'email'
+            ])
+            ->where(['application_step <>' => 'done'])
+            ->order(['email' => 'ASC'])
+            ->toArray();
+
+        $this->set([
+            'pageTitle' => 'Band email lists',
+            'lists' => $lists
+        ]);
+    }
 }
