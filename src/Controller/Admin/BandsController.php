@@ -10,12 +10,23 @@ use App\Controller\AppController;
  */
 class BandsController extends AppController
 {
+
+    /**
+     * Initialize method
+     *
+     * @return void
+     */
     public function initialize()
     {
         parent::initialize();
         $this->Auth->deny();
     }
 
+    /**
+     * Method for /admin/bands
+     *
+     * @return void
+     */
     public function index()
     {
         $this->set([
@@ -35,6 +46,12 @@ class BandsController extends AppController
         ]);
     }
 
+    /**
+     * Method for /admin/bands/view/:id
+     *
+     * @param int|null $id
+     * @return void
+     */
     public function view($id = null)
     {
         $band = $this->Bands->get($id, [
