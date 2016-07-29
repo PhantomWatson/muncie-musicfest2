@@ -66,7 +66,16 @@ class BandsController extends AppController
             ];
         }
         $bands = $this->Bands->find('list')->order(['Bands.name' => 'ASC']);
+        $back = $this->request->query('back');
+        if (!$back) {
+            $back = [
+                'prefix' => 'admin',
+                'controller' => 'Bands',
+                'action' => 'index'
+            ];
+        }
         $this->set([
+            'back' => $back,
             'band' => $band,
             'bands' => $bands,
             'fields' => [
@@ -127,6 +136,17 @@ class BandsController extends AppController
         $this->set([
             'pageTitle' => 'Band email lists',
             'lists' => $lists
+        ]);
+    }
+
+    public function basicInfo()
+    {
+        $bands = $this->Bands->find('all')
+            ->select(['id', 'name', 'genre', 'hometown', 'minimum_fee', 'application_step'])
+            ->order(['name' => 'ASC']);
+        $this->set([
+            'pageTitle' => 'Bands - Basic Info',
+            'bands' => $bands
         ]);
     }
 }

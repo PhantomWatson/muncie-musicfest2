@@ -5,11 +5,7 @@
     <div class="form-inline">
         <?= $this->Html->link(
             '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Bands',
-            [
-                'prefix' => 'admin',
-                'controller' => 'Bands',
-                'action' => 'index'
-            ],
+            $back,
             [
                 'class' => 'btn btn-default',
                 'escape' => false

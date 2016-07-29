@@ -8,6 +8,15 @@
         ],
         ['class' => 'btn btn-default']
     ) ?>
+    <?= $this->Html->link(
+        'Basic info table',
+        [
+            'prefix' => 'admin',
+            'controller' => 'Bands',
+            'action' => 'basicInfo'
+        ],
+        ['class' => 'btn btn-default']
+    ) ?>
 </p>
 
 <?php if (empty($bands['Bands Applied']) && empty($bands['Bands Not Done Applying'])): ?>
