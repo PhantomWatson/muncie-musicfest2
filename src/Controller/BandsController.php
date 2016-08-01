@@ -23,8 +23,21 @@ class BandsController extends AppController
         $this->Auth->allow(['index']);
     }
 
+    /**
+     * Method for /bands/apply
+     *
+     * @return \Cake\Network\Response|null
+     */
     public function apply()
     {
+        if (! Configure::read('bandApplicationsOpen')) {
+            $this->Flash->error('Sorry, the band application period for this year\'s festival has ended. :(');
+            return $this->redirect([
+                'prefix' => false,
+                'controller' => 'Pages',
+                'action' => 'home'
+            ]);
+        }
         $steps = $this->Bands->getApplicationSteps();
         $band = $this->getBandForApplication();
 
