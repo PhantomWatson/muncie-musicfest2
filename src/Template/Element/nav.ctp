@@ -90,6 +90,16 @@ if (! function_exists('navLink')) {
                                 </li>
                                 <li>
                                     <?= $this->Html->link(
+                                        'Stages',
+                                        [
+                                            'prefix' => 'admin',
+                                            'controller' => 'Stages',
+                                            'action' => 'index'
+                                        ]
+                                    ) ?>
+                                </li>
+                                <li>
+                                    <?= $this->Html->link(
                                         'Volunteers',
                                         [
                                             'prefix' => 'admin',
