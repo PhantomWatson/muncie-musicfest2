@@ -25,6 +25,25 @@
                     <br />
                     21+
                 <?php endif; ?>
+                <br />
+                <?= $this->Html->link(
+                    __('Edit'),
+                    ['action' => 'edit', $stage->id],
+                    ['class' => 'btn btn-default btn-xs']
+                ) ?>
+                <?php if ($authUser['id'] == 1): ?>
+                    <?= $this->Form->postLink(
+                        __('Delete'),
+                        [
+                            'action' => 'delete',
+                            $stage->id
+                        ],
+                        [
+                            'confirm' => __('Are you sure you want to delete this stage? This will cause UTTER CHAOS.'),
+                            'class' => 'btn btn-default  btn-xs'
+                        ])
+                    ?>
+                <?php endif; ?>
             </td>
             <td>
                 <?php if ($stage->slots): ?>
@@ -59,30 +78,11 @@
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
-            </td>
-            <td class="actions">
                 <?= $this->Html->link(
-                    __('Edit Stage'),
-                    ['action' => 'edit', $stage->id],
-                    ['class' => 'btn btn-default']
-                ) ?>
-                <?= $this->Html->link(
-                    __('Edit Slots'),
+                    __('Edit'),
                     ['action' => 'slots', $stage->id],
-                    ['class' => 'btn btn-default']
+                    ['class' => 'btn btn-default btn-xs']
                 ) ?>
-                <?php if ($authUser['id'] == 1): ?>
-                    <?= $this->Form->postLink(
-                        __('Delete Stage'),
-                        [
-                            'action' => 'delete',
-                            $stage->id
-                        ],
-                        [
-                            'confirm' => __('Are you sure you want to delete this stage? This will cause UTTER CHAOS.'),
-                            'class' => 'btn btn-default'
-                    ]) ?>
-                <?php endif; ?>
             </td>
         </tr>
         <?php endforeach; ?>
