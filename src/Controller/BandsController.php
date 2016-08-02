@@ -31,12 +31,18 @@ class BandsController extends AppController
     public function apply()
     {
         if (! Configure::read('bandApplicationsOpen')) {
-            $this->Flash->error('Sorry, the band application period for this year\'s festival has ended. :(');
-            return $this->redirect([
-                'prefix' => false,
-                'controller' => 'Pages',
-                'action' => 'home'
-            ]);
+            if ($this->Auth->user('role') == 'admin') {
+                $msg = 'This page isn\'t accessible to the general public right now,';
+                $msg .= ' but you\'re an admin so it\'s cool.';
+                $this->Flash->set($msg);
+            } else {
+                $this->Flash->error('Sorry, the band application period for this year\'s festival has ended. :(');
+                return $this->redirect([
+                    'prefix' => false,
+                    'controller' => 'Pages',
+                    'action' => 'home'
+                ]);
+            }
         }
         $steps = $this->Bands->getApplicationSteps();
         $band = $this->getBandForApplication();
