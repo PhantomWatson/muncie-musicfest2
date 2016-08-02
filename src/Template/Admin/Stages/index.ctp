@@ -35,6 +35,10 @@
                                     <?= $slot->time->format('g:ia') ?> -
                                     <?php if ($slot->band): ?>
                                         <?= $slot->band->name ?>
+                                    <?php else: ?>
+                                        <span class="text-muted">
+                                            (open)
+                                        </span>
                                     <?php endif; ?>
                                 </li>
                             <?php endif; ?>
@@ -45,6 +49,10 @@
                                     <?= $slot->time->format('g:ia') ?> -
                                     <?php if ($slot->band): ?>
                                         <?= $slot->band->name ?>
+                                    <?php else: ?>
+                                        <span class="text-muted">
+                                            (open)
+                                        </span>
                                     <?php endif; ?>
                                 </li>
                             <?php endif; ?>
