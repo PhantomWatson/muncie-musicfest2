@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Stages Controller
@@ -103,5 +104,70 @@ class StagesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function slots($stageId)
+    {
+        $stage = $this->Stages->find('all')
+            ->where(['id' => $stageId])
+            ->contain([
+                'Slots' => function ($q) {
+                    return $q
+                        ->order(['time' => 'ASC'])
+                        ->contain(['Bands']);
+                }
+            ])
+            ->first();
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $stage = $this->Stages->patchEntity($stage, $this->request->data);
+            $slotsTable = TableRegistry::get('Slots');
+            if ($this->request->data('addSlot')) {
+                $newSlot = $slotsTable->newEntity([
+                    'stage_id' => $stageId,
+                    'band_id' => null,
+                    'time' => $this->request->data('newSlot')
+                ]);
+                $slotsTable->save($newSlot);
+                $stage->slots[] = $newSlot;
+            }
+            if ($this->request->data('deleteSlots')) {
+                $slotsTable->deleteAll([
+                    'id IN' => $this->request->data('deleteSlots')
+                ]);
+                foreach ($this->request->data('deleteSlots') as $slotId) {
+                    foreach ($stage->slots as $i => $slot) {
+                        if ($slot->id == $slotId) {
+                            unset($stage->slots[$i]);
+                        }
+                    }
+                }
+            }
+
+            if ($this->Stages->save($stage)) {
+                $this->Flash->success('Stage slots updated');
+                $this->redirect([]);
+            } else {
+                $this->Flash->error('There was an error updating those stage slots');
+            }
+        }
+
+        $sortedSlots = [];
+        foreach ($stage->slots as $slot) {
+            if ($slot->time->format('a') == 'pm') {
+                $sortedSlots[] = $slot;
+            }
+        }
+        foreach ($stage->slots as $slot) {
+            if ($slot->time->format('a') == 'am') {
+                $sortedSlots[] = $slot;
+            }
+        }
+        $stage->slots = $sortedSlots;
+
+        $this->set([
+            'pageTitle' => $stage->name . ' - Slots',
+            'stage' => $stage
+        ]);
     }
 }

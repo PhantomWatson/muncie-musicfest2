@@ -58,6 +58,11 @@
                     ['action' => 'edit', $stage->id],
                     ['class' => 'btn btn-default']
                 ) ?>
+                <?= $this->Html->link(
+                    __('Edit Slots'),
+                    ['action' => 'slots', $stage->id],
+                    ['class' => 'btn btn-default']
+                ) ?>
                 <?php if ($authUser['id'] == 1): ?>
                     <?= $this->Form->postLink(
                         __('Delete Stage'),
