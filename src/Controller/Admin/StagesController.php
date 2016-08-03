@@ -106,6 +106,11 @@ class StagesController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    /**
+     * Method for /admin/stages/slots/:stageId
+     *
+     * @param int $stageId
+     */
     public function slots($stageId)
     {
         $stage = $this->Stages->find('all')
