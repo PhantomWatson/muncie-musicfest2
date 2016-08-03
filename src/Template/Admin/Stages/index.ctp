@@ -84,6 +84,9 @@
                     ['class' => 'btn btn-default btn-xs']
                 ) ?>
             </td>
+            <td>
+
+            </td>
         </tr>
         <?php endforeach; ?>
     </tbody>
