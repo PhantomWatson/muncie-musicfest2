@@ -25,6 +25,13 @@
                     <br />
                     21+
                 <?php endif; ?>
+                <?php if ($stage->notes): ?>
+                    <br />
+                    <em>
+                        Notes:
+                        <?= nl2br($stage->notes) ?>
+                    </em>
+                <?php endif; ?>
                 <br />
                 <?= $this->Html->link(
                     __('Edit'),

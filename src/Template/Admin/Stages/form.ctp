@@ -19,6 +19,7 @@
         <?php
             echo $this->Form->input('name');
             echo $this->Form->input('address');
+            echo $this->Form->input('notes');
             echo $this->Form->input('age_restriction', ['label' => 'Age-restricted']);
         ?>
     </fieldset>
