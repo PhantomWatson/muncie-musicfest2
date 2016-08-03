@@ -157,22 +157,36 @@ class StagesController extends AppController
             }
         }
 
-        $sortedSlots = [];
-        foreach ($stage->slots as $slot) {
-            if ($slot->time->format('a') == 'pm') {
-                $sortedSlots[] = $slot;
-            }
-        }
-        foreach ($stage->slots as $slot) {
-            if ($slot->time->format('a') == 'am') {
-                $sortedSlots[] = $slot;
-            }
-        }
-        $stage->slots = $sortedSlots;
+        $stage->slots = $this->sortSlots($stage->slots);
 
         $this->set([
             'pageTitle' => $stage->name . ' - Slots',
             'stage' => $stage
         ]);
+    }
+
+    /**
+     * Sorts stage slots so that PM times come before AM times
+     *
+     * Assumes that no bands are booked before noon. This assures that bands booked at midnight and 1am properly
+     * appear AFTER bands at 11pm.
+     *
+     * @param $slots
+     * @return array
+     */
+    private function sortSlots($slots)
+    {
+        $sortedSlots = [];
+        foreach ($slots as $slot) {
+            if ($slot->time->format('a') == 'pm') {
+                $sortedSlots[] = $slot;
+            }
+        }
+        foreach ($slots as $slot) {
+            if ($slot->time->format('a') == 'am') {
+                $sortedSlots[] = $slot;
+            }
+        }
+        return $sortedSlots;
     }
 }
