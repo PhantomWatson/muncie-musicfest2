@@ -407,7 +407,10 @@ var imagePopups = {
 };
 
 var scheduleEditor = {
-    init: function () {
+    bands: [],
+
+    init: function (bands) {
+        this.bands = bands;
         $('#edit-slots tbody tr').each(function () {
             var row = $(this);
             if (row.data('band-id') == '') {
@@ -418,6 +421,7 @@ var scheduleEditor = {
                 scheduleEditor.markAsBooked(row, bandId, bandName);
             }
         });
+        this.hideAllBookedBands();
         $('#bands-master-list').change(function () {
             var bandId = $(this).val();
             if (bandId == '') {
@@ -452,7 +456,7 @@ var scheduleEditor = {
         });
     },
 
-    markAsUnbooked: function (row) {
+    markAsUnbooked: function (row, bandId) {
         var bandCell = row.find('td.band');
         bandCell.html('<span class="text-muted">Not booked</span> ');
         var slotKey = row.data('slot-key');
@@ -468,6 +472,10 @@ var scheduleEditor = {
             scheduleEditor.openBandSelector(row);
         });
         actionCell.html(button);
+
+        if (bandId) {
+            this.unhideUnbookedBand(bandId);
+        }
     },
 
     openBandSelector: function (row) {
@@ -514,8 +522,26 @@ var scheduleEditor = {
         button.append('<span class="sr-only">Remove</span>');
         button.click(function (event) {
             event.preventDefault();
-            scheduleEditor.markAsUnbooked(row);
+            scheduleEditor.markAsUnbooked(row, bandId);
         });
         actionCell.html(button);
+
+        this.hideBookedBand(bandId);
+    },
+
+    hideAllBookedBands: function () {
+        $.each(this.bands, function (bandId, band) {
+            if (band.booked) {
+                scheduleEditor.hideBookedBand(bandId);
+            }
+        });
+    },
+
+    hideBookedBand: function (bandId) {
+        $('select.band-selector option[value=' + bandId + ']').hide();
+    },
+
+    unhideUnbookedBand: function (bandId) {
+        $('select.band-selector option[value=' + bandId + ']').show();
     }
 };

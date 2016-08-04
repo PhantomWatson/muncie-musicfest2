@@ -164,10 +164,19 @@ class StagesController extends AppController
             ->contain(['Slots'])
             ->order(['name' => 'ASC']);
 
+        $bandsForJs = [];
+        foreach ($bands as $band) {
+            $bandsForJs[$band->id] = [
+                'name' => $band->name,
+                'booked' => ! empty($band->slots)
+            ];
+        }
+
         $this->set([
             'pageTitle' => $stage->name . ' - Slots',
             'stage' => $stage,
-            'bands' => $bands
+            'bands' => $bands,
+            'bandsForJs' => $bandsForJs
         ]);
     }
 

@@ -16,7 +16,7 @@
 <div class="alert alert-info">
     Bands not yet booked (select to view profile)
     <br />
-    <select id="bands-master-list">
+    <select id="bands-master-list" class="band-selector">
         <option></option>
         <?php foreach ($bands as $band): ?>
             <option
@@ -116,5 +116,6 @@
 
 <?php $this->Html->script('script', ['block' => 'script']); ?>
 <?php $this->append('buffered'); ?>
-    scheduleEditor.init();
+    var bands = <?= json_encode($bandsForJs) ?>;
+    scheduleEditor.init(bands);
 <?php $this->end();
