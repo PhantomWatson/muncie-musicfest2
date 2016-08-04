@@ -13,4 +13,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 ?>
+<?= $this->fetch('css') ?>
+
 <?= $this->fetch('content') ?>
+
+<?= $this->fetch('script') ?>
+<script type="text/javascript">
+    $(document).ready(function () {
+        <?= $this->fetch('buffered') ?>
+    });
+</script>
