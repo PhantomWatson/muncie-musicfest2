@@ -405,3 +405,85 @@ var imagePopups = {
         });
     }
 };
+
+var scheduleEditor = {
+    init: function () {
+        $('#edit-slots tbody tr').each(function () {
+            var row = $(this);
+            if (row.data('band-id') == '') {
+                scheduleEditor.markAsUnbooked(row);
+            } else {
+                var bandId = row.data('band-id');
+                var bandName = $('#bands-master-list option[value=' + bandId + ']').text();
+                scheduleEditor.markAsBooked(row, bandId, bandName);
+            }
+        });
+    },
+
+    markAsUnbooked: function (row) {
+        var bandCell = row.find('td.band');
+        bandCell.html('<span class="text-muted">Not booked</span> ');
+        var slotKey = row.data('slot-key');
+        var hiddenInput = $('<input type="hidden" name="slots[' + slotKey + '][band_id]" value="" />');
+        bandCell.append(hiddenInput);
+
+        var actionCell = row.find('td.band-action');
+        var button = $('<button class="btn btn-default" title="Select a band..."></button>');
+        button.append('<span class="glyphicon glyphicon-list" aria-hidden="true"></span>');
+        button.append('<span class="sr-only">Edit</span>');
+        button.click(function (event) {
+            event.preventDefault();
+            scheduleEditor.openBandSelector(row);
+        });
+        actionCell.html(button);
+    },
+
+    openBandSelector: function (row) {
+        var bandCell = row.find('td.band');
+        var bandSelector = $('#bands-master-list').clone();
+        bandSelector.prepend('<option>Select a band...</option>');
+        bandSelector[0].selectedIndex = 0;
+        bandSelector.change(function () {
+            var selector = $(this);
+            if (selector.val() == '') {
+                selector[0].selectedIndex = 0;
+            } else {
+                var bandId = selector.val();
+                var bandName = selector.find('option:selected').text();
+                scheduleEditor.markAsBooked(row, bandId, bandName);
+            }
+        });
+        bandCell.html(bandSelector);
+        var slotKey = row.data('slot-key');
+        var hiddenInput = $('<input type="hidden" name="slots[' + slotKey + '][band_id]" value="" />');
+        bandCell.append(hiddenInput);
+
+        var actionCell = row.find('td.band-action');
+        var button = $('<button class="btn btn-default" title="Cancel"></button>');
+        button.append('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
+        button.append('<span class="sr-only">Cancel</span>');
+        button.click(function (event) {
+            event.preventDefault();
+            scheduleEditor.markAsUnbooked(row);
+        });
+        actionCell.html(button);
+    },
+
+    markAsBooked: function (row, bandId, bandName) {
+        var bandCell = row.find('td.band');
+        bandCell.html(bandName);
+        var slotKey = row.data('slot-key');
+        var hiddenInput = $('<input type="hidden" name="slots[' + slotKey + '][band_id]" value="' + bandId + '" />');
+        bandCell.append(hiddenInput);
+
+        var actionCell = row.find('td.band-action');
+        var button = $('<button class="btn btn-default" title="Remove"></button>');
+        button.append('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
+        button.append('<span class="sr-only">Remove</span>');
+        button.click(function (event) {
+            event.preventDefault();
+            scheduleEditor.markAsUnbooked(row);
+        });
+        actionCell.html(button);
+    }
+};

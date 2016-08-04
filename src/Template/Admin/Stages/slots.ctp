@@ -13,25 +13,54 @@
     ) ?>
 </p>
 
+<p class="alert alert-info">
+    Bands not yet booked:
+    <select id="bands-master-list">
+        <option></option>
+        <?php foreach ($bands as $band): ?>
+            <option
+                value="<?= $band->id ?>"
+                data-application-complete="<?= $band->application_step == 'done' ? 1 : 0 ?>"
+                data-booked="<?= empty($band->slots) ? 0 : 1 ?>"
+            >
+                <?= $band->name ?>
+                <?php if ($band->minimum_fee): ?>
+                    ($<?= $band->minimum_fee ?>)
+                <?php endif; ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</p>
+
 <?= $this->Form->create($stage) ?>
 <?php if ($stage->slots): ?>
     <table class="table" id="edit-slots">
         <thead>
             <tr>
                 <th>
+                    Remove Slot
+                </th>
+                <th>
                     Time
                 </th>
-                <th>
-                    Delete
-                </th>
-                <th>
+                <th colspan="2">
                     Band
                 </th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($stage->slots as $i => $slot): ?>
-                <tr>
+                <tr
+                    data-band-id="<?= $slot->band ? $slot->band->id : '' ?>"
+                    data-slot-key="<?= $i ?>"
+                >
+                    <td>
+                        <?= $this->Form->checkbox('deleteSlots[]', [
+                            'checked' => false,
+                            'hiddenField' => false,
+                            'value' => $slot->id
+                        ]) ?>
+                    </td>
                     <td class="form-inline">
                         <?= $this->Form->input('slots.' . $i . '.id') ?>
                         <?= $this->Form->input('slots.' . $i . '.time', [
@@ -41,14 +70,7 @@
                             'type' => 'time'
                         ]) ?>
                     </td>
-                    <td>
-                        <?= $this->Form->checkbox('deleteSlots[]', [
-                            'checked' => false,
-                            'hiddenField' => false,
-                            'value' => $slot->id
-                        ]) ?>
-                    </td>
-                    <td>
+                    <td class="band">
                         <?php if ($slot->band): ?>
                             <?= $slot->band->name ?>
                         <?php else: ?>
@@ -56,6 +78,8 @@
                                 Not booked
                             </span>
                         <?php endif; ?>
+                    </td>
+                    <td class="band-action">
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -67,18 +91,26 @@
     </p>
 <?php endif; ?>
 
-<div class="form-inline">
-    <?= $this->Form->checkbox('addSlot', [
-        'checked' => false
-    ]) ?>
-    Add a new slot<br />
+<div class="form-inline alert alert-info">
     <?= $this->Form->input('newSlot', [
         'interval' => 5,
         'label' => false,
         'timeFormat' => 12,
         'type' => 'time'
     ]) ?>
+    <?= $this->Form->checkbox('addSlot', [
+        'checked' => false,
+        'id' => 'add-slot-checkbox'
+    ]) ?>
+    <label for="add-slot-checkbox">
+        Add new slot
+    </label>
 </div>
 
 <?= $this->Form->button('Update', ['class' => 'btn btn-primary']) ?>
 <?= $this->Form->end() ?>
+
+<?php $this->Html->script('script', ['block' => 'script']); ?>
+<?php $this->append('buffered'); ?>
+    scheduleEditor.init();
+<?php $this->end();

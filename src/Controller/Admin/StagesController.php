@@ -158,10 +158,16 @@ class StagesController extends AppController
         }
 
         $stage->slots = $this->sortSlots($stage->slots);
+        $bandsTable = TableRegistry::get('Bands');
+        $bands = $bandsTable->find('all')
+            ->select(['id', 'name', 'minimum_fee', 'application_step'])
+            ->contain(['Slots'])
+            ->order(['name' => 'ASC']);
 
         $this->set([
             'pageTitle' => $stage->name . ' - Slots',
-            'stage' => $stage
+            'stage' => $stage,
+            'bands' => $bands
         ]);
     }
 
