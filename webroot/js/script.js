@@ -418,6 +418,38 @@ var scheduleEditor = {
                 scheduleEditor.markAsBooked(row, bandId, bandName);
             }
         });
+        $('#bands-master-list').change(function () {
+            var bandId = $(this).val();
+            if (bandId == '') {
+                return;
+            }
+            $.ajax({
+                url: '/admin/bands/view/' + bandId,
+                beforeSend: function () {
+                    var loading = $('<img src="/img/loading_small.gif" alt="Loading..." id="ajax-loading" />');
+                    $('#bands-master-list').after(loading);
+                },
+                error: function () {
+
+                },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    var container = $('#band-profile-ajax');
+                    if (container.is(':visible')) {
+                        container.slideUp(300, function () {
+                            container.html(data);
+                            container.slideDown();
+                        })
+                    } else {
+                        container.html(data);
+                        container.slideDown();
+                    }
+                },
+                complete: function () {
+                    $('#ajax-loading').remove();
+                }
+            })
+        });
     },
 
     markAsUnbooked: function (row) {

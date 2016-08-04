@@ -1,38 +1,46 @@
 <?php
     use Cake\Routing\Router;
 ?>
-<p>
-    <div class="form-inline">
-        <?= $this->Html->link(
-            '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Bands',
-            $back,
-            [
-                'class' => 'btn btn-default',
-                'escape' => false
-            ]
-        ) ?>
-        <div class="input-group">
-            <div class="input-group-addon">Go to</div>
-            <select id="band-selector" class="form-control">
-                <?php foreach ($bands as $bandId => $bandName): ?>
-                    <?php
-                        $selected = $bandId == $band->id ? 'selected="selected"' : '';
-                        $url = Router::url([
-                            'controller' => 'Bands',
-                            'action' => 'view',
-                            $bandId
-                        ]);
-                    ?>
-                    <option <?= $selected ?> data-url="<?= $url ?>">
-                        <?= $bandName ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+
+<?php if (! $this->request->isAjax): ?>
+    <p>
+        <div class="form-inline">
+            <?= $this->Html->link(
+                '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Bands',
+                $back,
+                [
+                    'class' => 'btn btn-default',
+                    'escape' => false
+                ]
+            ) ?>
+            <div class="input-group">
+                <div class="input-group-addon">Go to</div>
+                <select id="band-selector" class="form-control">
+                    <?php foreach ($bands as $bandId => $bandName): ?>
+                        <?php
+                            $selected = $bandId == $band->id ? 'selected="selected"' : '';
+                            $url = Router::url([
+                                'controller' => 'Bands',
+                                'action' => 'view',
+                                $bandId
+                            ]);
+                        ?>
+                        <option <?= $selected ?> data-url="<?= $url ?>">
+                            <?= $bandName ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </div>
-    </div>
-</p>
+    </p>
+<?php endif; ?>
 
 <div class="band-info">
+    <?php if ($this->request->isAjax): ?>
+        <h1>
+            <?= $band->name ?>
+        </h1>
+    <?php endif; ?>
     <table class="table">
         <tr>
             <th>

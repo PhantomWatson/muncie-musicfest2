@@ -13,8 +13,9 @@
     ) ?>
 </p>
 
-<p class="alert alert-info">
-    Bands not yet booked:
+<div class="alert alert-info">
+    Bands not yet booked (select to view profile)
+    <br />
     <select id="bands-master-list">
         <option></option>
         <?php foreach ($bands as $band): ?>
@@ -30,7 +31,10 @@
             </option>
         <?php endforeach; ?>
     </select>
-</p>
+
+    <div class="well" id="band-profile-ajax">
+    </div>
+</div>
 
 <?= $this->Form->create($stage) ?>
 <?php if ($stage->slots): ?>
