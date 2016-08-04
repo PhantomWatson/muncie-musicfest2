@@ -435,6 +435,7 @@ var scheduleEditor = {
                 success: function (data, textStatus, jqXHR) {
                     var container = $('#band-profile-ajax');
                     if (container.is(':visible')) {
+                        container.scrollTop(0);
                         container.slideUp(300, function () {
                             container.html(data);
                             container.slideDown();
