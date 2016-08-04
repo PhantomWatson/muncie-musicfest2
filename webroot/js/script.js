@@ -433,7 +433,6 @@ var scheduleEditor = {
 
                 },
                 success: function (data, textStatus, jqXHR) {
-                    console.log(data);
                     var container = $('#band-profile-ajax');
                     if (container.is(':visible')) {
                         container.slideUp(300, function () {
