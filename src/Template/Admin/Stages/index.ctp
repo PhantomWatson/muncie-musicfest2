@@ -56,32 +56,16 @@
                 <?php if ($stage->slots): ?>
                     <ul>
                         <?php foreach ($stage->slots as $slot): ?>
-                            <?php if ($slot->time->format('a') == 'pm'): ?>
-                                <li>
-                                    <?= $slot->time->format('g:ia') ?> -
-                                    <?php if ($slot->band): ?>
-                                        <?= $slot->band->name ?>
-                                    <?php else: ?>
-                                        <span class="text-muted">
-                                            (open)
-                                        </span>
-                                    <?php endif; ?>
-                                </li>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                        <?php foreach ($stage->slots as $slot): ?>
-                            <?php if ($slot->time->format('a') == 'am'): ?>
-                                <li>
-                                    <?= $slot->time->format('g:ia') ?> -
-                                    <?php if ($slot->band): ?>
-                                        <?= $slot->band->name ?>
-                                    <?php else: ?>
-                                        <span class="text-muted">
-                                            (open)
-                                        </span>
-                                    <?php endif; ?>
-                                </li>
-                            <?php endif; ?>
+                            <li>
+                                <?= $slot->time->format('g:ia') ?> -
+                                <?php if ($slot->band): ?>
+                                    <?= $slot->band->name ?>
+                                <?php else: ?>
+                                    <span class="text-muted">
+                                        (open)
+                                    </span>
+                                <?php endif; ?>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>

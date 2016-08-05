@@ -20,8 +20,20 @@ class StagesController extends AppController
     public function index()
     {
         $stages = $this->Stages->find('all')
-            ->contain(['Slots.Bands'])
-            ->order(['name' => 'ASC']);
+            ->contain([
+                'Slots' => function ($q) {
+                    return $q
+                        ->order(['time' => 'ASC'])
+                        ->contain(['Bands']);
+                }
+            ])
+            ->order(['name' => 'ASC'])
+            ->toArray();
+
+        foreach ($stages as &$stage) {
+            //$stages[$i]['slots'] = $this->sortSlots($stage['slots']);
+            $stage->slots = $this->sortSlots($stage->slots);
+        }
 
         $this->set([
             'pageTitle' => 'Stages',
