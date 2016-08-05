@@ -16,7 +16,7 @@
 <div class="alert alert-info">
     Bands not yet booked (select to view profile)
     <br />
-    <select id="bands-master-list" class="band-selector">
+    <select id="bands-master-list" class="band-selector form-control">
         <option></option>
         <?php foreach ($bands as $band): ?>
             <option
