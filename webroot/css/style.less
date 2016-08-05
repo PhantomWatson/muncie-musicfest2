@@ -677,3 +677,17 @@ table.credits {
         margin-top: 0;
     }
 }
+select.hide-booked {
+    option.booked {
+        display: none;
+    }
+}
+select.hide-incomplete-applications {
+    option[data-application-complete="0"] {
+        display: none;
+    }
+}
+option[data-application-complete="0"] {
+    color: maroon;
+    background-color: #eee;
+}

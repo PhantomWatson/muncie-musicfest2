@@ -422,6 +422,14 @@ var scheduleEditor = {
             }
         });
         this.hideAllBookedBands();
+        this.hideIncompleteApplications();
+        $('#show-incomplete-applications').change(function () {
+            if ($(this).is(':checked')) {
+                scheduleEditor.showIncompleteApplications();
+            } else {
+                scheduleEditor.hideIncompleteApplications();
+            }
+        });
         $('#bands-master-list').change(function () {
             var bandId = $(this).val();
             if (bandId == '') {
@@ -474,7 +482,7 @@ var scheduleEditor = {
         actionCell.html(button);
 
         if (bandId) {
-            this.unhideUnbookedBand(bandId);
+            this.unhideBand(bandId);
         }
     },
 
@@ -526,22 +534,30 @@ var scheduleEditor = {
         });
         actionCell.html(button);
 
-        this.hideBookedBand(bandId);
+        this.hideBand(bandId);
     },
 
     hideAllBookedBands: function () {
         $.each(this.bands, function (bandId, band) {
             if (band.booked) {
-                scheduleEditor.hideBookedBand(bandId);
+                scheduleEditor.hideBand(bandId);
             }
         });
     },
 
-    hideBookedBand: function (bandId) {
+    hideBand: function (bandId) {
         $('select.band-selector option[value=' + bandId + ']').hide();
     },
 
-    unhideUnbookedBand: function (bandId) {
+    unhideBand: function (bandId) {
         $('select.band-selector option[value=' + bandId + ']').show();
+    },
+
+    hideIncompleteApplications: function () {
+        $('select.band-selector').addClass('hide-incomplete-applications');
+    },
+
+    showIncompleteApplications: function () {
+        $('select.band-selector').removeClass('hide-incomplete-applications');
     }
 };

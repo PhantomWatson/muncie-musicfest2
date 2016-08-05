@@ -31,7 +31,11 @@
             </option>
         <?php endforeach; ?>
     </select>
-
+    <br />
+    <input type="checkbox" id="show-incomplete-applications" />
+    <label for="show-incomplete-applications">
+        Show bands with incomplete applications
+    </label>
     <div class="well" id="band-profile-ajax">
     </div>
 </div>

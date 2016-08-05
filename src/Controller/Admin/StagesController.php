@@ -168,7 +168,8 @@ class StagesController extends AppController
         foreach ($bands as $band) {
             $bandsForJs[$band->id] = [
                 'name' => $band->name,
-                'booked' => ! empty($band->slots)
+                'booked' => ! empty($band->slots),
+                'application_done' => $band->application_step == 'done'
             ];
         }
 
