@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Bands Controller
@@ -147,6 +148,44 @@ class BandsController extends AppController
         $this->set([
             'pageTitle' => 'Bands - Basic Info',
             'bands' => $bands
+        ]);
+    }
+
+    public function confirmations()
+    {
+        $slotsTable = TableRegistry::get('Slots');
+
+        $slots = $slotsTable->find('all')
+            ->contain([
+                'Bands' => function ($q) {
+                    return $q->select([
+                        'id',
+                        'name',
+                        'minimum_fee',
+                        'rep_name',
+                        'email',
+                        'phone',
+                        'admin_notes',
+                        'confirmed'
+                    ]);
+                },
+                'Stages'
+            ])
+            ->order(['Slots.time' => 'ASC']);
+
+        $stages = [];
+        foreach ($slots as $slot) {
+            $stageName = $slot->stage->name;
+            $stages[$stageName][] = $slot;
+        }
+
+        foreach ($stages as $stageName => $stageSlots) {
+            $stages[$stageName] = $slotsTable->sortSlots($stageSlots);
+        }
+
+        $this->set([
+            'pageTitle' => 'Band Confirmations',
+            'stages' => $stages
         ]);
     }
 }

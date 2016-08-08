@@ -30,9 +30,9 @@ class StagesController extends AppController
             ->order(['name' => 'ASC'])
             ->toArray();
 
+        $slotsTable = TableRegistry::get('Slots');
         foreach ($stages as &$stage) {
-            //$stages[$i]['slots'] = $this->sortSlots($stage['slots']);
-            $stage->slots = $this->sortSlots($stage->slots);
+            $stage->slots = $slotsTable->sortSlots($stage->slots);
         }
 
         $this->set([
@@ -169,7 +169,8 @@ class StagesController extends AppController
             }
         }
 
-        $stage->slots = $this->sortSlots($stage->slots);
+        $slotsTable = TableRegistry::get('Slots');
+        $stage->slots = $slotsTable->sortSlots($stage->slots);
         $bandsTable = TableRegistry::get('Bands');
         $bands = $bandsTable->find('all')
             ->select(['id', 'name', 'minimum_fee', 'application_step'])
@@ -191,30 +192,5 @@ class StagesController extends AppController
             'bands' => $bands,
             'bandsForJs' => $bandsForJs
         ]);
-    }
-
-    /**
-     * Sorts stage slots so that PM times come before AM times
-     *
-     * Assumes that no bands are booked before noon. This assures that bands booked at midnight and 1am properly
-     * appear AFTER bands at 11pm.
-     *
-     * @param $slots
-     * @return array
-     */
-    private function sortSlots($slots)
-    {
-        $sortedSlots = [];
-        foreach ($slots as $slot) {
-            if ($slot->time->format('a') == 'pm') {
-                $sortedSlots[] = $slot;
-            }
-        }
-        foreach ($slots as $slot) {
-            if ($slot->time->format('a') == 'am') {
-                $sortedSlots[] = $slot;
-            }
-        }
-        return $sortedSlots;
     }
 }

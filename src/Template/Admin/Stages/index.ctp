@@ -4,6 +4,15 @@
         ['action' => 'add'],
         ['class' => 'btn btn-default']
     ) ?>
+    <?= $this->Html->link(
+        'Band Confirmations',
+        [
+            'prefix' => 'admin',
+            'controller' => 'Bands',
+            'action' => 'confirmations'
+        ],
+        ['class' => 'btn btn-default']
+    ) ?>
 </p>
 
 <table class="table" id="admin-stages">
