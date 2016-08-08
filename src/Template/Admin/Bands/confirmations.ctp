@@ -66,7 +66,21 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <?= nl2br($slot->band->admin_notes) ?>
+                                    <span class="notes">
+                                        <?= nl2br($slot->band->admin_notes) ?>
+                                    </span>
+                                    <button
+                                        class="btn btn-link edit-notes"
+                                        data-url="<?= Router::url([
+                                            'prefix' => 'admin',
+                                            'controller' => 'Bands',
+                                            'action' => 'editNotes',
+                                            $slot->band->id
+                                        ]) ?>"
+                                    >
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        <span class="sr-only">Edit</span>
+                                    </button>
                                 </td>
                             <?php else: ?>
                                 <td colspan="4">

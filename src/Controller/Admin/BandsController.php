@@ -208,4 +208,20 @@ class BandsController extends AppController
             throw new InternalErrorException('There was an error updating that band\'s confirmation state.');
         }
     }
+
+    /**
+     * Method for /admin/bands/edit-confirmation
+     *
+     * @param int $bandId Band ID
+     * @param string $confirmed Confirmation state
+     * @return void
+     */
+    public function editNotes($bandId)
+    {
+        $band = $this->Bands->get($bandId);
+        $this->Bands->patchEntity($band, ['admin_notes' => $this->request->data('admin_notes')]);
+        if (! $this->Bands->save($band)) {
+            throw new InternalErrorException('There was an error updating that band\'s notes.');
+        }
+    }
 }

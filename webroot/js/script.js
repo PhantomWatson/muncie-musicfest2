@@ -608,7 +608,67 @@ var bandConfirmations = {
                 });
             });
         });
+
+        $('.edit-notes').click(function (event) {
+            event.preventDefault();
+            var editButton = $(this);
+            var cell = editButton.parent('td');
+            var notes = cell.find('.notes');
+
+            notes.hide();
+            editButton.hide();
+            var input = $('<textarea></textarea>');
+            var fixedNotes = notes.html().replace(/<br>/g, '').trim();
+            input.html(fixedNotes);
+            cell.append(input);
+
+            var submitButton = $('<button class="btn btn-primary btn-sm update">Update</button>');
+            var cancelButton = $('<button class="btn btn-default btn-sm cancel">Cancel</button>');
+            cell.append(submitButton);
+            cell.append(cancelButton);
+
+            submitButton.click(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: editButton.data('url'),
+                    method: 'POST',
+                    data: {
+                        admin_notes: input.val().trim()
+                    },
+                    beforeSend: function () {
+                        var loading = $('<img src="/img/loading_small.gif" alt="Loading..." class="ajax-loading" />');
+                        submitButton.prop('disabled', true);
+                        cancelButton.prop('disabled', true);
+                        submitButton.append(loading);
+                    },
+                    error: function () {
+                        alert('There was an error updating that band\'s notes.');
+                        submitButton.prop('disabled', false);
+                        submitButton.find('img').remove();
+                        cancelButton.prop('disabled', false);
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        var displayedNotes = input.val().trim().replace(/\n/g, '<br>');
+                        notes.html(displayedNotes);
+                        input.remove();
+                        submitButton.remove();
+                        cancelButton.remove();
+                        notes.show();
+                        editButton.show();
+                    }
+                });
+            });
+            cancelButton.click(function (event) {
+                event.preventDefault();
+                input.remove();
+                submitButton.remove();
+                cancelButton.remove();
+                notes.show();
+                editButton.show();
+            });
+        });
     },
+
     updateConfirmationLabel: function (cell, state) {
         var labelType = '';
         switch (state) {
