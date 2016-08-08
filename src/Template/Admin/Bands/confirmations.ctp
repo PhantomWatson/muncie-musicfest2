@@ -50,20 +50,18 @@
                                     <?= $slot->band->phone ?>
                                 </td>
                                 <td class="confirmation-state" data-confirmation-state="<?= $slot->band->confirmed ?>">
-                                    <span class="current-state">
-                                        <button
-                                            class="btn btn-link edit-confirmation"
-                                            data-url="<?= Router::url([
-                                                'prefix' => 'admin',
-                                                'controller' => 'Bands',
-                                                'action' => 'editConfirmation',
-                                                $slot->band->id
-                                            ]) ?>"
-                                        >
-                                            <span class="glyphicon glyphicon-edit"></span>
-                                            <span class="sr-only">Edit</span>
-                                        </button>
-                                    </span>
+                                    <button
+                                        class="btn btn-link edit-confirmation"
+                                        data-url="<?= Router::url([
+                                            'prefix' => 'admin',
+                                            'controller' => 'Bands',
+                                            'action' => 'editConfirmation',
+                                            $slot->band->id
+                                        ]) ?>"
+                                    >
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        <span class="sr-only">Edit</span>
+                                    </button>
                                 </td>
                                 <td>
                                     <span class="notes">

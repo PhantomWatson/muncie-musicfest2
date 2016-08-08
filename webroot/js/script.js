@@ -574,8 +574,10 @@ var bandConfirmations = {
         $('button.edit-confirmation').click(function (event) {
             event.preventDefault();
             var button = $(this);
-            var currentContainer = button.closest('.current-state');
-            currentContainer.hide();
+            button.hide();
+            var cell = button.parent('td');
+            var label = cell.find('.label');
+            label.hide();
 
             var select = $('<select></select>');
             select.append('<option>Select...</option>');
@@ -583,11 +585,10 @@ var bandConfirmations = {
             select.append('<option value="contacted">Contacted</option>');
             select.append('<option value="confirmed">Confirmed</option>');
             select.append('<option value="dropped out">Dropped out</option>');
-            select.insertAfter(currentContainer);
+            select.insertAfter(button);
 
             select.change(function () {
                 var confirmationState = select.find('option:selected').val();
-                var cell = select.parent('td');
                 $.ajax({
                     url: button.data('url') + '/' + confirmationState,
                     beforeSend: function () {
@@ -603,7 +604,8 @@ var bandConfirmations = {
                     complete: function () {
                         select.next('img.ajax-loading').remove();
                         select.remove();
-                        currentContainer.show();
+                        button.show();
+                        label.show();
                     }
                 });
             });
