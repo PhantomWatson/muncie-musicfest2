@@ -15,7 +15,7 @@
                             Time
                         </th>
                         <th>
-                            Band / Fee
+                            Band / Minimum
                         </th>
                         <th>
                             Contact
