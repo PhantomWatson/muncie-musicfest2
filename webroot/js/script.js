@@ -561,3 +561,75 @@ var scheduleEditor = {
         $('select.band-selector').removeClass('hide-incomplete-applications');
     }
 };
+
+var bandConfirmations = {
+    init: function () {
+        $('td.confirmation-state').each(function () {
+            var cell = $(this);
+            var state = cell.data('confirmation-state');
+            cell.prepend('<span class="label"></span>');
+            bandConfirmations.updateConfirmationLabel(cell, state);
+        });
+
+        $('button.edit-confirmation').click(function (event) {
+            event.preventDefault();
+            var button = $(this);
+            var currentContainer = button.closest('.current-state');
+            currentContainer.hide();
+
+            var select = $('<select></select>');
+            select.append('<option>Select...</option>');
+            select.append('<option value="not contacted">Not contacted</option>');
+            select.append('<option value="contacted">Contacted</option>');
+            select.append('<option value="confirmed">Confirmed</option>');
+            select.append('<option value="dropped out">Dropped out</option>');
+            select.insertAfter(currentContainer);
+
+            select.change(function () {
+                var confirmationState = select.find('option:selected').val();
+                var cell = select.parent('td');
+                $.ajax({
+                    url: button.data('url') + '/' + confirmationState,
+                    beforeSend: function () {
+                        var loading = $('<img src="/img/loading_small.gif" alt="Loading..." class="ajax-loading" />');
+                        select.after(loading);
+                    },
+                    error: function () {
+                        alert('There was an error updating that band\'s confirmation state.');
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        bandConfirmations.updateConfirmationLabel(cell, confirmationState);
+                    },
+                    complete: function () {
+                        select.next('img.ajax-loading').remove();
+                        select.remove();
+                        currentContainer.show();
+                    }
+                });
+            });
+        });
+    },
+    updateConfirmationLabel: function (cell, state) {
+        var labelType = '';
+        switch (state) {
+            case 'not contacted':
+                labelType = 'danger'
+                break;
+            case 'contacted':
+                labelType = 'warning'
+                break;
+            case 'confirmed':
+                labelType = 'success'
+                break;
+            case 'dropped out':
+                labelType = 'danger'
+                break;
+            default:
+                state = 'not contacted';
+                labelType = 'danger';
+        }
+        var label = cell.find('.label');
+        label.html(state);
+        label.attr('class', 'label label-' + labelType);
+    }
+};

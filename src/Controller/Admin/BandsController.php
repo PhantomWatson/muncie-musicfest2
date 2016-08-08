@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\Network\Exception\InternalErrorException;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -187,5 +188,24 @@ class BandsController extends AppController
             'pageTitle' => 'Band Confirmations',
             'stages' => $stages
         ]);
+    }
+
+    /**
+     * Method for /admin/bands/edit-confirmation
+     *
+     * @param int $bandId Band ID
+     * @param string $confirmed Confirmation state
+     * @return void
+     */
+    public function editConfirmation($bandId, $confirmed)
+    {
+        $band = $this->Bands->get($bandId);
+        if ($confirmed == '0') {
+            $confirmed = null;
+        }
+        $this->Bands->patchEntity($band, ['confirmed' => $confirmed]);
+        if (! $this->Bands->save($band)) {
+            throw new InternalErrorException('There was an error updating that band\'s confirmation state.');
+        }
     }
 }

@@ -1,3 +1,7 @@
+<?php
+    use Cake\Routing\Router;
+?>
+
 <div id="band-confirmations">
     <?php if ($stages): ?>
         <?php foreach ($stages as $stageName => $slots): ?>
@@ -45,20 +49,21 @@
                                     <br />
                                     <?= $slot->band->phone ?>
                                 </td>
-                                <td>
-                                    <?php if ($slot->band->confirmed === null): ?>
-                                        <span class="label label-default">
-                                            Pending
-                                        </span>
-                                    <?php elseif ($slot->band->confirmed == 'confirmed'): ?>
-                                        <span class="label label-success">
-                                            Confirmed
-                                        </span>
-                                    <?php else: ?>
-                                        <span class="label label-danger">
-                                            <?= $slot->band->confirmed ?>
-                                        </span>
-                                    <?php endif; ?>
+                                <td class="confirmation-state" data-confirmation-state="<?= $slot->band->confirmed ?>">
+                                    <span class="current-state">
+                                        <button
+                                            class="btn btn-link edit-confirmation"
+                                            data-url="<?= Router::url([
+                                                'prefix' => 'admin',
+                                                'controller' => 'Bands',
+                                                'action' => 'editConfirmation',
+                                                $slot->band->id
+                                            ]) ?>"
+                                        >
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                            <span class="sr-only">Edit</span>
+                                        </button>
+                                    </span>
                                 </td>
                                 <td>
                                     <?= nl2br($slot->band->admin_notes) ?>
@@ -79,3 +84,7 @@
         </p>
     <?php endif; ?>
 </div>
+
+<?php $this->append('buffered'); ?>
+    bandConfirmations.init();
+<?php $this->end(); ?>
