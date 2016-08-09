@@ -162,6 +162,8 @@ class BandsController extends AppController
                     return $q->select([
                         'id',
                         'name',
+                        'genre',
+                        'hometown',
                         'minimum_fee',
                         'rep_name',
                         'email',

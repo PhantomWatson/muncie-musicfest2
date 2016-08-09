@@ -24,7 +24,7 @@
                             Time
                         </th>
                         <th>
-                            Band / Minimum
+                            Band
                         </th>
                         <th>
                             Contact
@@ -45,9 +45,24 @@
                             </td>
                             <?php if ($slot->band): ?>
                                 <td>
-                                    <?= $slot->band->name ?>
+                                    <?= $this->Html->link(
+                                        $slot->band->name,
+                                        [
+                                            'prefix' => 'admin',
+                                            'controller' => 'Bands',
+                                            'action' => 'view',
+                                            $slot->band->id
+                                        ],
+                                        ['title' => 'View full profile']
+                                    ) ?>
                                     <br />
-                                    $<?= $slot->band->minimum_fee ?>
+                                    <span class="band-details">
+                                        <?= $slot->band->genre ?>
+                                        <br />
+                                        <?= $slot->band->hometown ?>
+                                        <br />
+                                        $<?= $slot->band->minimum_fee ?>
+                                    </span>
                                 </td>
                                 <td>
                                     <?= $slot->band->rep_name ?>
