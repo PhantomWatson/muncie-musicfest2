@@ -568,7 +568,7 @@ var bookingOverview = {
             var cell = $(this);
             var state = cell.data('confirmation-state');
             cell.prepend('<span class="label"></span>');
-            bandConfirmations.updateConfirmationLabel(cell, state);
+            bookingOverview.updateConfirmationLabel(cell, state);
         });
 
         $('button.edit-confirmation').click(function (event) {
@@ -599,7 +599,7 @@ var bookingOverview = {
                         alert('There was an error updating that band\'s confirmation state.');
                     },
                     success: function (data, textStatus, jqXHR) {
-                        bandConfirmations.updateConfirmationLabel(cell, confirmationState);
+                        bookingOverview.updateConfirmationLabel(cell, confirmationState);
                     },
                     complete: function () {
                         select.next('img.ajax-loading').remove();
