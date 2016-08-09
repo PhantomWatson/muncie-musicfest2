@@ -55,7 +55,11 @@ class StagesController extends AppController
             if ($this->Stages->save($stage)) {
                 $this->Flash->success(__('The stage has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect([
+                    'prefix' => 'admin',
+                    'controller' => 'Bands',
+                    'action' => 'booking'
+                ]);
             } else {
                 $this->Flash->error(__('The stage could not be saved. Please, try again.'));
             }
@@ -85,7 +89,11 @@ class StagesController extends AppController
             if ($this->Stages->save($stage)) {
                 $this->Flash->success(__('The stage has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect([
+                    'prefix' => 'admin',
+                    'controller' => 'Bands',
+                    'action' => 'booking'
+                ]);
             } else {
                 $this->Flash->error(__('The stage could not be saved. Please, try again.'));
             }
@@ -115,7 +123,11 @@ class StagesController extends AppController
             $this->Flash->error(__('The stage could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect([
+            'prefix' => 'admin',
+            'controller' => 'Bands',
+            'action' => 'booking'
+        ]);
     }
 
     /**

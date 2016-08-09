@@ -11,6 +11,18 @@
     buttons to copy the standard confirmation-request message for that band to your clipboard for easier spamming.
 </p>
 
+<p>
+    <?= $this->Html->link(
+        'Add New Stage',
+        [
+            'prefix' => 'admin',
+            'controller' => 'Stages',
+            'action' => 'add'
+        ],
+        ['class' => 'btn btn-default']
+    ) ?>
+</p>
+
 <div id="band-confirmations">
     <?php if ($stages): ?>
         <?php foreach ($stages as $stage): ?>
@@ -187,5 +199,5 @@
 </div>
 
 <?php $this->append('buffered'); ?>
-    bandConfirmations.init();
+    bookingOverview.init();
 <?php $this->end(); ?>

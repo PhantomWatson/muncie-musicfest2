@@ -562,7 +562,7 @@ var scheduleEditor = {
     }
 };
 
-var bandConfirmations = {
+var bookingOverview = {
     init: function () {
         $('td.confirmation-state').each(function () {
             var cell = $(this);

@@ -63,6 +63,8 @@ Router::scope('/', function ($routes) {
 
 Router::prefix('admin', function ($routes) {
     $routes->fallbacks('DashedRoute');
+
+    $routes->redirect('/bands/confirmations',  ['controller' => 'Bands', 'action' => 'booking']);
 });
 
 /**

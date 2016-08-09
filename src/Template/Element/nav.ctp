@@ -90,21 +90,11 @@ if (! function_exists('navLink')) {
                                 </li>
                                 <li>
                                     <?= $this->Html->link(
-                                        'Confirmations',
-                                        [
-                                            'prefix' => 'admin',
-                                            'controller' => 'Bands',
-                                            'action' => 'confirmations'
-                                        ]
-                                    ) ?>
-                                </li>
-                                <li>
-                                    <?= $this->Html->link(
                                         'Stages / Booking',
                                         [
                                             'prefix' => 'admin',
-                                            'controller' => 'Stages',
-                                            'action' => 'index'
+                                            'controller' => 'Bands',
+                                            'action' => 'booking'
                                         ]
                                     ) ?>
                                 </li>

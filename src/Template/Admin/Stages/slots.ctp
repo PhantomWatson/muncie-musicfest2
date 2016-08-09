@@ -1,10 +1,10 @@
 <p>
     <?= $this->Html->link(
-        '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Stages',
+        '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Booking Overview',
         [
             'prefix' => 'admin',
-            'controller' => 'Stages',
-            'action' => 'index'
+            'controller' => 'Bands',
+            'action' => 'booking'
         ],
         [
             'class' => 'btn btn-default',

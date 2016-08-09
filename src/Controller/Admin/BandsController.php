@@ -153,7 +153,7 @@ class BandsController extends AppController
         ]);
     }
 
-    public function confirmations()
+    public function booking()
     {
         $slotsTable = TableRegistry::get('Slots');
         $stagesTable = TableRegistry::get('Stages');
@@ -190,7 +190,7 @@ class BandsController extends AppController
         }
 
         $this->set([
-            'pageTitle' => 'Band Confirmations',
+            'pageTitle' => 'Booking Overview',
             'stages' => $stages
         ]);
     }
@@ -201,6 +201,7 @@ class BandsController extends AppController
      * @param int $bandId Band ID
      * @param string $confirmed Confirmation state
      * @return void
+     * @throws InternalErrorException
      */
     public function editConfirmation($bandId, $confirmed)
     {
@@ -215,11 +216,11 @@ class BandsController extends AppController
     }
 
     /**
-     * Method for /admin/bands/edit-confirmation
+     * Method for /admin/bands/edit-notes
      *
      * @param int $bandId Band ID
-     * @param string $confirmed Confirmation state
      * @return void
+     * @throws InternalErrorException
      */
     public function editNotes($bandId)
     {
