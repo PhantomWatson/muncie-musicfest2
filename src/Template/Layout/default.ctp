@@ -67,7 +67,7 @@
             Problems with this page?
             <a href="mailto:info@munciemusicfest.com?subject=Muncie MusicFest: Problem with <?= $this->request->here ?>">
                 Email us
-            </a>.
+            </a>
         </footer>
     </div>
 
