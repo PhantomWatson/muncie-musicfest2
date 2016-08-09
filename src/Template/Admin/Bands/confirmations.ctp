@@ -2,6 +2,15 @@
     use Cake\Routing\Router;
 ?>
 
+<p class="alert alert-info">
+    Use the
+    <button class="copy-message btn btn-xs btn-default" disabled="disabled">
+        <span class="glyphicon glyphicon-copy"></span>
+        Copy message to clipboard
+    </button>
+    buttons to copy the standard confirmation-request message for that band to your clipboard for easier spamming.
+</p>
+
 <div id="band-confirmations">
     <?php if ($stages): ?>
         <?php foreach ($stages as $stageName => $slots): ?>
@@ -48,6 +57,23 @@
                                     </a>
                                     <br />
                                     <?= $slot->band->phone ?>
+                                    <br />
+                                    <button
+                                        class="copy-message btn btn-xs btn-default"
+                                    >
+                                        <span class="glyphicon glyphicon-copy"></span>
+                                        Copy message to clipboard
+                                    </button>
+                                    <textarea class="generated-message" id="generated-message-<?= $slot->band->id ?>"><?php
+                                        echo 'Congratulations! We\'d like to book ' . $slot->band->name;
+                                        echo ' at Muncie MusicFest 2016.';
+                                        echo ' Can you confirm your availability to perform at ' . $stageName;
+                                        if ($slot->band->minimum_fee) {
+                                            echo ' for a payment of at least $' . $slot->band->minimum_fee;
+                                        }
+                                        echo " on Friday, September 30th at " . $slot->time->format('g:ia') . "?\n\n";
+                                        echo 'Please let me know as soon as you can, and thanks again for applying.';
+                                    ?></textarea>
                                 </td>
                                 <td class="confirmation-state" data-confirmation-state="<?= $slot->band->confirmed ?>">
                                     <button
