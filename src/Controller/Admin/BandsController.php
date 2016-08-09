@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 use App\Controller\AppController;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Hash;
 
 /**
  * Bands Controller
@@ -155,35 +156,37 @@ class BandsController extends AppController
     public function confirmations()
     {
         $slotsTable = TableRegistry::get('Slots');
+        $stagesTable = TableRegistry::get('Stages');
 
-        $slots = $slotsTable->find('all')
+        $stages = $stagesTable
+            ->find('all')
             ->contain([
-                'Bands' => function ($q) {
-                    return $q->select([
-                        'id',
-                        'name',
-                        'genre',
-                        'hometown',
-                        'minimum_fee',
-                        'rep_name',
-                        'email',
-                        'phone',
-                        'admin_notes',
-                        'confirmed'
-                    ]);
-                },
-                'Stages'
+                'Slots' => function ($q) {
+                    return $q
+                        ->contain([
+                            'Bands' => function ($q) {
+                                return $q->select([
+                                    'id',
+                                    'name',
+                                    'genre',
+                                    'hometown',
+                                    'minimum_fee',
+                                    'rep_name',
+                                    'email',
+                                    'phone',
+                                    'admin_notes',
+                                    'confirmed'
+                                ]);
+                            }
+                        ])
+                        ->order(['Slots.time' => 'ASC']);
+                }
             ])
-            ->order(['Slots.time' => 'ASC']);
+            ->order(['name' => 'ASC'])
+            ->toArray();
 
-        $stages = [];
-        foreach ($slots as $slot) {
-            $stageName = $slot->stage->name;
-            $stages[$stageName][] = $slot;
-        }
-
-        foreach ($stages as $stageName => $stageSlots) {
-            $stages[$stageName] = $slotsTable->sortSlots($stageSlots);
+        foreach ($stages as &$stage) {
+            $stage->slots = $slotsTable->sortSlots($stage->slots);
         }
 
         $this->set([

@@ -13,10 +13,58 @@
 
 <div id="band-confirmations">
     <?php if ($stages): ?>
-        <?php foreach ($stages as $stageName => $slots): ?>
+        <?php foreach ($stages as $stage): ?>
             <h2>
-                <?= $stageName ?>
+                <?= $stage->name ?>
             </h2>
+            <?= nl2br($stage->address) ?>
+            <?php if ($stage->age_restriction): ?>
+                <br />
+                21+
+            <?php endif; ?>
+            <?php if ($stage->notes): ?>
+                <br />
+                <em>
+                    Notes:
+                    <?= nl2br($stage->notes) ?>
+                </em>
+            <?php endif; ?>
+            <br />
+            <?= $this->Html->link(
+                __('Edit Stage Info'),
+                [
+                    'prefix' => 'admin',
+                    'controller' => 'Stages',
+                    'action' => 'edit',
+                    $stage->id
+                ],
+                ['class' => 'btn btn-default btn-xs']
+            ) ?>
+            <?= $this->Html->link(
+                __('Edit Schedule'),
+                [
+                    'prefix' => 'admin',
+                    'controller' => 'Stages',
+                    'action' => 'slots',
+                    $stage->id
+                ],
+                ['class' => 'btn btn-default btn-xs']
+            ) ?>
+            <?php if ($authUser['id'] == 1): ?>
+                <?= $this->Form->postLink(
+                    __('Delete Stage'),
+                    [
+                        'prefix' => 'admin',
+                        'controller' => 'Stages',
+                        'action' => 'delete',
+                        $stage->id
+                    ],
+                    [
+                        'confirm' => __('Are you sure you want to delete this stage? This will cause UTTER CHAOS.'),
+                        'class' => 'btn btn-default  btn-xs'
+                    ])
+                ?>
+            <?php endif; ?>
             <table class="table">
                 <thead>
                     <tr>
@@ -38,7 +86,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($slots as $slot): ?>
+                    <?php foreach ($stage['slots'] as $slot): ?>
                         <tr>
                             <td>
                                 <?= $slot->time->format('g:ia') ?>
