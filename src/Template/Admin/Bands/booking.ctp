@@ -142,7 +142,7 @@
                                     <textarea class="generated-message" id="generated-message-<?= $slot->band->id ?>"><?php
                                         echo 'Congratulations! We\'d like to book ' . $slot->band->name;
                                         echo ' at Muncie MusicFest 2016.';
-                                        echo ' Can you confirm your availability to perform at ' . $stageName;
+                                        echo ' Can you confirm your availability to perform at ' . $stage->name;
                                         if ($slot->band->minimum_fee) {
                                             echo ' for a payment of at least $' . $slot->band->minimum_fee;
                                         }
