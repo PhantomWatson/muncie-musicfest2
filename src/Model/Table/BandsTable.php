@@ -330,4 +330,23 @@ class BandsTable extends Table
     {
         return $query->where(['Bands.application_step <>' => 'done']);
     }
+
+    /**
+     * Sets slugs for all bands without slugs
+     *
+     * @return bool
+     */
+    public function generateSlugs()
+    {
+        $bands = $this->find('all')
+            ->select(['id', 'name'])
+            ->where(['slug' => '']);
+        foreach ($bands as $band) {
+            $this->slug($band);
+            if (! $this->save($band)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
