@@ -47,6 +47,9 @@ class BandsTable extends Table
         $this->hasMany('Votes', [
             'foreignKey' => 'band_id'
         ]);
+        $this->addBehavior('Xety/Cake3Sluggable.Sluggable', [
+            'field' => 'name'
+        ]);
     }
 
     /**
