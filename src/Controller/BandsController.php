@@ -7,6 +7,7 @@ use Cake\Core\Configure;
 use Cake\Filesystem\File;
 use Cake\Network\Exception\ForbiddenException;
 use Cake\Network\Exception\InternalErrorException;
+use Cake\Network\Exception\NotFoundException;
 use Cake\Routing\Router;
 use Cake\Utility\Inflector;
 
@@ -20,7 +21,7 @@ class BandsController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['index']);
+        $this->Auth->allow(['index', 'view']);
     }
 
     /**
@@ -267,5 +268,37 @@ class BandsController extends AppController
         if (! $result) {
             throw new InternalErrorException('Sorry, there was an error deleting that song');
         }
+    }
+
+    /**
+     * Method for /band/:slug
+     *
+     * Meant for the general public, so this will only allow bands that are booked and confirmed to be viewed.
+     *
+     * @param $slug
+     */
+    public function view($slug = null)
+    {
+        $band = $this->Bands->find('all')
+            ->where(['slug' => $slug])
+            ->contain([
+                'Slots.Stages',
+                'Pictures',
+                'Songs'
+            ])
+            ->first();
+
+        if (! $band) {
+            throw new NotFoundException('Sorry, we couldn\'t find the band you were looking for');
+        }
+
+        if (empty($band['slots']) || $band['confirmed'] != 'confirmed') {
+            throw new ForbiddenException('Sorry, that band is not currently on the Muncie MusicFest lineup');
+        }
+
+        $this->set([
+            'pageTitle' => $band['name'],
+            'band' => $band
+        ]);
     }
 }

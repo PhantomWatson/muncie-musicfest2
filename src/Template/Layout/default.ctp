@@ -50,6 +50,7 @@
         <?php endif; ?>
 
         <section id="content">
+            <?= $this->fetch('before-title') ?>
             <?php if ($pageTitle): ?>
                 <div class="page-header">
                     <h1>

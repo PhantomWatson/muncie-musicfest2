@@ -58,6 +58,12 @@ Router::scope('/', function ($routes) {
 
     $routes->connect('/volunteer', ['controller' => 'Volunteers', 'action' => 'add']);
 
+    $routes->connect(
+        '/band/:slug',
+        ['controller' => 'Bands', 'action' => 'view'],
+        ['pass' => ['slug']]
+    );
+
     $routes->fallbacks('DashedRoute');
 });
 
