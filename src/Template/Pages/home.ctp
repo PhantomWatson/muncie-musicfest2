@@ -4,6 +4,9 @@
             Band Applications Now Being Accepted
         </h2>
         <p>
+            <span class="date">
+                March 30<sup>th</sup>, 2016
+            </span>
             Want to perform at Muncie MusicFest?
             <?= $this->Html->link('Submit an application', [
                 'controller' => 'Bands',
@@ -23,6 +26,9 @@
             Muncie MusicFest 2016: Ten Years of Music
         </h2>
         <p>
+            <span class="date">
+                March 22<sup>nd</sup>, 2016
+            </span>
             MMF'16 is currently scheduled for <strong>Friday, September 30<sup>th</sup>, 2016</strong>
             (subject to change while we're lining up our waterfowl).
         </p>
@@ -39,6 +45,9 @@
             Muncie MusicFest 2015
         </h2>
         <p>
+            <span class="date">
+                October 12<sup>th</sup>, 2015
+            </span>
             A gigantic <strong>thank you</strong> to every single person who was part of Muncie MusicFest 2015, including the 120+ musicians who shared their craft and passion with us, the innumerable music lovers who showed up to party, the ragtag planning committee who worked for months to help plan, fund, and promote the event, the newspapers, websites, and radio stations who helped get the word out, our sponsors who made a previously-unthinkable free festival possible, the food and drink vendors who kept us fueled all night, and all of the volunteers who ran around helping patrons, managing stages, emceeing, cleaning, lugging equipment, bringing performers water, photographing, and engineering our sound and lighting systems.
         </p>
         <p>
