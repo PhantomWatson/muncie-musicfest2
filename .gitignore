@@ -4,8 +4,11 @@
 /config/recaptcha.php
 /tmp/*
 /logs/*
-/webroot/music/*
+
+# Media
 /webroot/img/bands/*
+/webroot/img/frontpage/*
+/webroot/music/*
 /src/uploads/*
 
 # Eclipse
