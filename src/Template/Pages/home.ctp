@@ -1,5 +1,13 @@
 <div id="home">
     <article>
+        <a href="/img/frontpage/frontpage-mmf-2016-volunteers.png">
+            <img
+                src="/img/frontpage/frontpage-mmf-2016-volunteers.thumb.png"
+                title="Yay! Volunteering!"
+                alt="Yay! Volunteering!"
+                class="article-img"
+            />
+        </a>
         <h2>
             Booking Underway, Volunteer Signup Now Open
         </h2>
@@ -30,10 +38,17 @@
             ) ?>
             and helping us make the tenth year of this festival a success.
         </p>
-
     </article>
 
     <article>
+        <a href="/img/frontpage/frontpage-mmf2016-application-poster.png">
+            <img
+                src="/img/frontpage/frontpage-mmf2016-application-poster.thumb.png"
+                title="Apply to perform!"
+                alt="Apply to perform"
+                class="article-img"
+            />
+        </a>
         <h2>
             Band Applications Now Being Accepted
         </h2>
@@ -55,6 +70,14 @@
     </article>
 
     <article>
+        <a href="/img/frontpage/frontpage-mmf-2016-orange-logo.png">
+            <img
+                src="/img/frontpage/frontpage-mmf-2016-orange-logo.thumb.png"
+                title="Muncie MusicFest 2016: Ten Years of Music"
+                alt="Muncie MusicFest 2016: Ten Years of Music"
+                class="article-img"
+            />
+        </a>
         <h2>
             Muncie MusicFest 2016: Ten Years of Music
         </h2>
@@ -74,6 +97,14 @@
     </article>
 
     <article>
+        <a href="/img/frontpage/frontpage-mmf-2015-flyer.png">
+            <img
+                src="/img/frontpage/frontpage-mmf-2015-flyer.thumb.png"
+                title="Muncie MusicFest 2015"
+                alt="Muncie MusicFest 2015"
+                class="article-img"
+            />
+        </a>
         <h2>
             Muncie MusicFest 2015
         </h2>

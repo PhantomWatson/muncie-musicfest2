@@ -501,7 +501,15 @@ textarea {
 }
 #home {
 	article {
-		padding-bottom: @container-padding;
+        &:after {
+            clear: both;
+            content: "";
+            display: block;
+            height: 1px;
+            width: 100%;
+            margin: @container-padding 0;
+            background-color: #ddd;
+        }
 	}
 	h2 {
 		.page-title;
@@ -515,6 +523,11 @@ textarea {
             content: ' \2022 ';
             padding-left: 5px;
         }
+    }
+    .article-img {
+        float: right;
+        margin-bottom: 15px;
+        margin-left: 15px;
     }
 }
 #tier_options {
