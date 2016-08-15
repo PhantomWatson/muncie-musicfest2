@@ -1,6 +1,40 @@
 <div id="home">
     <article>
         <h2>
+            Booking Underway, Volunteer Signup Now Open
+        </h2>
+        <p>
+            <span class="date">
+                August 8<sup>th</sup>, 2016
+            </span>
+            The band application deadline has ended, and we're now hard at work getting confirmations from bands
+            so we can announce an official lineup. <strong>90 bands have applied to perform</strong> and we only have
+            room to book 40 to 50 of them, so we're putting a lot of effort into getting a good, representative mix of
+            both well-known and up-and-coming bands, bands from Muncie and out-of-town bands that have a following in
+            Muncie, bands for the younger crowd and older folks, and bands from every major genre. Sadly, we can't book
+            all of the bands that we want to (and saying no to half of the applicants is heartbreaking), but we have a
+            preliminary lineup that we think everyone will really enjoy, which includes rock, metal, indie, country,
+            americana, blues, folk, electronic, and hip-hop.
+        </p>
+        <p>
+            So hang tight, and expect announcements about this year's lineup soon.
+       </p>
+        <p>
+            In the mean time, consider
+            <?= $this->Html->link(
+                'signing up as a festival volunteer',
+                [
+                    'controller' => 'Volunteers',
+                    'action' => 'add'
+                ]
+            ) ?>
+            and helping us make the tenth year of this festival a success.
+        </p>
+
+    </article>
+
+    <article>
+        <h2>
             Band Applications Now Being Accepted
         </h2>
         <p>
@@ -18,7 +52,6 @@
             on <strong>August 1st</strong>, so make sure your application
             is in before then!
         </p>
-
     </article>
 
     <article>
