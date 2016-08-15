@@ -1,5 +1,8 @@
 <div id="home">
-    <article>
+    <article class="row">
+        <h2>
+            Booking Underway, Volunteer Signup Now Open
+        </h2>
         <a href="/img/frontpage/frontpage-mmf-2016-volunteers.png">
             <img
                 src="/img/frontpage/frontpage-mmf-2016-volunteers.thumb.png"
@@ -8,9 +11,6 @@
                 class="article-img"
             />
         </a>
-        <h2>
-            Booking Underway, Volunteer Signup Now Open
-        </h2>
         <p>
             <span class="date">
                 August 8<sup>th</sup>, 2016
@@ -26,7 +26,7 @@
         </p>
         <p>
             So hang tight, and expect announcements about this year's lineup soon.
-       </p>
+        </p>
         <p>
             In the mean time, consider
             <?= $this->Html->link(
@@ -41,6 +41,9 @@
     </article>
 
     <article>
+        <h2>
+            Band Applications Now Being Accepted
+        </h2>
         <a href="/img/frontpage/frontpage-mmf2016-application-poster.png">
             <img
                 src="/img/frontpage/frontpage-mmf2016-application-poster.thumb.png"
@@ -49,9 +52,6 @@
                 class="article-img"
             />
         </a>
-        <h2>
-            Band Applications Now Being Accepted
-        </h2>
         <p>
             <span class="date">
                 March 30<sup>th</sup>, 2016
@@ -70,6 +70,9 @@
     </article>
 
     <article>
+        <h2>
+            Muncie MusicFest 2016: Ten Years of Music
+        </h2>
         <a href="/img/frontpage/frontpage-mmf-2016-orange-logo.png">
             <img
                 src="/img/frontpage/frontpage-mmf-2016-orange-logo.thumb.png"
@@ -78,9 +81,6 @@
                 class="article-img"
             />
         </a>
-        <h2>
-            Muncie MusicFest 2016: Ten Years of Music
-        </h2>
         <p>
             <span class="date">
                 March 22<sup>nd</sup>, 2016
@@ -97,6 +97,9 @@
     </article>
 
     <article>
+        <h2>
+            Muncie MusicFest 2015
+        </h2>
         <a href="/img/frontpage/frontpage-mmf-2015-flyer.png">
             <img
                 src="/img/frontpage/frontpage-mmf-2015-flyer.thumb.png"
@@ -105,9 +108,6 @@
                 class="article-img"
             />
         </a>
-        <h2>
-            Muncie MusicFest 2015
-        </h2>
         <p>
             <span class="date">
                 October 12<sup>th</sup>, 2015

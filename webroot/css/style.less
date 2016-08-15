@@ -524,10 +524,23 @@ textarea {
             padding-left: 5px;
         }
     }
-    .article-img {
-        float: right;
+    div.article-img {
+        min-width: 200px;
+        text-align: center;
+    }
+    img.article-img {
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+        display: block;
         margin-bottom: 15px;
-        margin-left: 15px;
+        float: none;
+    }
+}
+@media screen and (min-width: @screen-sm-min) {
+    #home {
+        img.article-img {
+            float: right;
+            margin-left: 15px;
+        }
     }
 }
 #tier_options {
