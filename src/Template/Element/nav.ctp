@@ -128,11 +128,24 @@ if (! function_exists('navLink')) {
                     ], $this) ?>
                 <?php endif; ?>
 
-                <?= navLink(
-                    '<i class="fa fa-facebook-square" style="font-size: 20px;" title="Facebook"></i> <span class="sr-only">Facebook</span>',
-                    'https://www.facebook.com/munciemusicfest',
-                    $this
-                ) ?>
+                <li class="social">
+                    <a href="https://www.facebook.com/munciemusicfest">
+                        <i class="fa fa-facebook-square" style="font-size: 20px;" title="Facebook"></i>
+                        <span>Facebook</span>
+                    </a>
+                </li>
+                <li class="social">
+                    <a href="https://twitter.com/MuncieMusicfest">
+                        <i class="fa fa-twitter-square" style="font-size: 20px;" title="Twitter"></i>
+                        <span>Twitter</span>
+                    </a>
+                </li>
+                <li class="social">
+                    <a href="https://www.instagram.com/munciemusicfest/">
+                        <i class="fa fa-instagram" style="font-size: 20px;" title="Instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

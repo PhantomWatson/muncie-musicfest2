@@ -335,7 +335,16 @@ textarea {
     color: #666;
     font-size: 80%;
 }
-
+ul.nav {
+    li.social {
+        a {
+            padding-right: 5px;
+        }
+        span {
+            display: none;
+        }
+    }
+}
 @media all and (max-width: 786px) {
     #main,
     #sidebar{
@@ -364,12 +373,22 @@ textarea {
 }
 @media all and (max-width: 480px) {
     #nav {
-    	a,
-	    li {
-	        float: none;
-	        width: 100%;
+        a,
+        li {
+            float: none;
+            width: 100%;
 
-	    }
+        }
+    }
+}
+@media screen and (max-width: @screen-sm-min) {
+    ul.nav {
+        li.social {
+            span {
+                display: inline-block;
+                margin-left: 5px;
+            }
+        }
     }
 }
 
