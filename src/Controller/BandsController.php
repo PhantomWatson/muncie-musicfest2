@@ -124,7 +124,19 @@ class BandsController extends AppController
 
     public function index()
     {
-        $this->set('pageTitle', 'Muncie MusicFest 2016 Bands');
+        $bands = $this->Bands->find('all')
+            ->select(['id', 'name', 'genre', 'slug'])
+            ->where(['confirmed' => 'confirmed'])
+            ->matching('Slots')
+            ->contain(['Pictures' => function ($q) {
+                return $q
+                    ->order(['is_primary' => 'DESC']);
+            }])
+            ->order(['name' => 'ASC']);
+        $this->set([
+            'pageTitle' => 'Muncie MusicFest 2016 Bands',
+            'bands' => $bands
+        ]);
     }
 
     public function uploadSong()
