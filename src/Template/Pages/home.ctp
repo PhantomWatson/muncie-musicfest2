@@ -1,5 +1,5 @@
 <div id="home">
-    <article class="row">
+    <article>
         <h2>
             Booking Underway, Volunteer Signup Now Open
         </h2>
