@@ -126,3 +126,7 @@
         </p>
     </article>
 </div>
+
+<?php $this->append('buffered'); ?>
+    $('img.article-img').closest('a').magnificPopup({type:'image'});
+<?php $this->end(); ?>
