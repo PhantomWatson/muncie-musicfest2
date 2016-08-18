@@ -132,7 +132,8 @@ class BandsController extends AppController
                 return $q
                     ->order(['is_primary' => 'DESC']);
             }])
-            ->order(['name' => 'ASC']);
+            ->order(['name' => 'ASC'])
+            ->all();
         $this->set([
             'pageTitle' => 'Muncie MusicFest 2016 Bands',
             'bands' => $bands

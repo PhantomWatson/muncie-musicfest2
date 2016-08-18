@@ -1,4 +1,11 @@
 <?php if (isset($_GET['dev'])): ?>
+    <p class="well">
+        Every year, we try to book as many bands as we can for one huge day of music, and include a diverse array of
+        genres, age groups, and both established and up-and-coming bands who are either from or connected to Muncie.
+        We hope you enjoy the lineup of <?= count($bands) ?> bands that we've put together for Muncie MusicFest 2016,
+        which we've gathered from a pool of over 90 applicants.
+    </p>
+
     <div id="bands">
         <?php foreach ($bands as $band_name => $band): ?>
             <?php if ($band->pictures): ?>
