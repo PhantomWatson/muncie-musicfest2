@@ -8,6 +8,7 @@ use Cake\Filesystem\File;
 use Cake\Network\Exception\ForbiddenException;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\Network\Exception\NotFoundException;
+use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use Cake\Utility\Inflector;
 
@@ -312,6 +313,63 @@ class BandsController extends AppController
         $this->set([
             'pageTitle' => $band['name'],
             'band' => $band
+        ]);
+    }
+
+    public function schedule()
+    {
+        $stagesTable = TableRegistry::get('Stages');
+        $stages = $stagesTable
+            ->find('all')
+            ->contain([
+                'Slots' => function ($q) {
+                    return $q
+                        ->contain([
+                            'Bands' => function ($q) {
+                                return $q->select([
+                                    'id',
+                                    'name',
+                                    'genre',
+                                    'hometown'
+                                ])
+                                    ->where(['confirmed' => 'confirmed'])
+                                    ->contain([
+                                        'Pictures' => function ($q) {
+                                            return $q->order(['is_primary' => 'DESC']);
+                                        }
+                                    ]);
+                            }
+                        ])
+                        ->order(['Slots.time' => 'ASC']);
+                }
+            ])
+            ->order(['name' => 'ASC'])
+            ->toArray();
+
+        $slotsTable = TableRegistry::get('Slots');
+        foreach ($stages as $i => &$stage) {
+            if (empty($stage['slots'])) {
+                unset($stages[$i]);
+                continue;
+            }
+
+            $hasBookedBands = false;
+            foreach ($stage['slots'] as $slot) {
+                if ($slot['band']) {
+                    $hasBookedBands = true;
+                }
+            }
+            if (! $hasBookedBands) {
+                unset($stages[$i]);
+                continue;
+            }
+
+            $stage->slots = $slotsTable->sortSlots($stage->slots);
+        }
+
+        $this->set([
+            'pageTitle' => 'Schedule',
+            'stages' => $stages
         ]);
     }
 }

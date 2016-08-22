@@ -63,6 +63,7 @@ Router::scope('/', function ($routes) {
         ['controller' => 'Bands', 'action' => 'view'],
         ['pass' => ['slug']]
     );
+    $routes->connect('/schedule',  ['controller' => 'Bands', 'action' => 'schedule']);
 
     $routes->fallbacks('DashedRoute');
 });
