@@ -114,25 +114,61 @@ class BandsController extends AppController
         $lists = [];
 
         $lists['All bands'] = $this->Bands->find('list', [
-                'keyField' => 'id',
-                'valueField' => 'email'
-            ])
+            'keyField' => 'id',
+            'valueField' => 'email'
+        ])
             ->order(['email' => 'ASC'])
             ->toArray();
 
         $lists['Bands with complete applications'] = $this->Bands->find('list', [
-                'keyField' => 'id',
-                'valueField' => 'email'
-            ])
+            'keyField' => 'id',
+            'valueField' => 'email'
+        ])
             ->where(['application_step' => 'done'])
             ->order(['email' => 'ASC'])
             ->toArray();
 
         $lists['Bands with incomplete applications'] = $this->Bands->find('list', [
-                'keyField' => 'id',
-                'valueField' => 'email'
-            ])
+            'keyField' => 'id',
+            'valueField' => 'email'
+        ])
             ->where(['application_step <>' => 'done'])
+            ->order(['email' => 'ASC'])
+            ->toArray();
+
+        $lists['Booked and confirmed bands'] = $this->Bands->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'email'
+        ])
+            ->where(['confirmed' => 'confirmed'])
+            ->matching('Slots')
+            ->order(['email' => 'ASC'])
+            ->toArray();
+
+        $slotsTable = TableRegistry::get('Slots');
+        $slots = $slotsTable->find('all')
+            ->select(['band_id'])
+            ->where(function ($exp, $q) {
+                return $exp->isNotNull('band_id');
+            })
+            ->toArray();
+        $bandsWithSlots = Hash::extract($slots, '{n}.band_id');
+
+        $lists['Bands neither booked nor dropped out'] = $this->Bands->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'email'
+        ])
+            ->where([
+                'OR' => [
+                    function ($exp, $q) {
+                        return $exp->isNull('confirmed');
+                    },
+                    'confirmed <>' => 'dropped out'
+                ],
+                function ($exp, $q) use ($bandsWithSlots) {
+                    return $exp->notIn('id', $bandsWithSlots);
+                }
+            ])
             ->order(['email' => 'ASC'])
             ->toArray();
 
