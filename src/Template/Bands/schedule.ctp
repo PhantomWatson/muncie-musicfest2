@@ -1,7 +1,10 @@
 <p class="well">
     Check out all the bands who will be performing at Muncie MusicFest 2016!
     Click on any band for more information about them and to listen to streaming music.
-    Keep in mind that this information isn't set in stone and that all schedule information is subject to change
+    Keep in mind that this information isn't set in stone and that all schedule information is
+    <strong>
+        subject to change
+    </strong>
     up until the week of the festival.
 </p>
 
