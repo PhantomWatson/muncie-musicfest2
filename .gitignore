@@ -10,6 +10,7 @@
 /webroot/img/frontpage/*
 /webroot/music/*
 /src/uploads/*
+/webroot/img/sponsors/*
 
 # Eclipse
 *.pydevproject
