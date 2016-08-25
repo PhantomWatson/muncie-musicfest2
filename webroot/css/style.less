@@ -90,7 +90,8 @@ body {
     padding: 4%;
     width: calc(92% - 256px);
 }
-#content {
+#content,
+footer {
 	.rounded-shadowed;
 
     background-color: #fff;
@@ -99,6 +100,7 @@ body {
 }
 footer {
     font-size: 80%;
+    margin-bottom: @container-v-margin;
     margin-top: @container-v-margin;
     text-align: center;
 }
@@ -465,22 +467,6 @@ ul.nav {
 #BandApplyForm h2 {
     text-align: left;
 }
-.sponsors {
-    margin: 0;
-    padding: 0;
-
-    li {
-	    display: inline;
-	    list-style-type: none;
-	    margin: 0 60px 0 0;
-	    padding: 0;
-
-	    &:last-child {
-		    margin-right: 0;
-		}
-	}
-}
-
 
 .page-header {
 	.page-title;
@@ -1006,5 +992,24 @@ table.schedule {
 @media all and (max-width: @screen-sm-min) {
     table.schedule {
         width: 100%;
+    }
+}
+#sponsors {
+    img {
+        max-width: 100%;
+    }
+    h2 {
+        margin-bottom: 30px;
+        margin-top: 0;
+        text-align: center;
+    }
+    a {
+        font-size: 150%;
+    }
+    .row {
+        > div {
+            padding-bottom: 30px;
+            text-align: center;
+        }
     }
 }

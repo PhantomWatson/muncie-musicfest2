@@ -63,12 +63,7 @@
         </section>
 
         <footer>
-            All rights reserved &copy; <?php echo date('Y'); ?> Muncie MusicFest
-            <br />
-            Problems with this page?
-            <a href="mailto:info@munciemusicfest.com?subject=Muncie MusicFest: Problem with <?= $this->request->here ?>">
-                Email us
-            </a>
+            <?= $this->element('footer') ?>
         </footer>
     </div>
 
