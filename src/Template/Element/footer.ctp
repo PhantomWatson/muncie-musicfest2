@@ -31,9 +31,9 @@
             'url' => 'http://www.gfballfoundation.org'
         ],
         [
-            'logo' => 'walmart.jpg',
-            'name' => 'Walmart',
-            'url' => 'http://www.walmart.com'
+            'logo' => 'walmart-foundation.png',
+            'name' => 'Walmart Foundation',
+            'url' => 'http://giving.walmart.com/foundation'
         ],
         [
             'logo' => 'abercrombie_ink.jpg',
