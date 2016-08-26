@@ -32,12 +32,16 @@
             <td>Andrew August</td>
         </tr>
         <tr>
-            <th>Grantwriters</th>
-            <td>
-                Rick Zeigler
-                <br />
-                Susan Lankford
-            </td>
+            <th>Promotional Manager</th>
+            <td>Gerrod Jones</td>
+        </tr>
+        <tr>
+            <th>Online Promotion</th>
+            <td>Kimber Stancato</td>
+        </tr>
+        <tr>
+            <th>Grantwriter</th>
+            <td>Rick Zeigler</td>
         </tr>
         <tr>
             <th>Graphic Designers</th>
