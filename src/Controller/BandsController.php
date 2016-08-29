@@ -297,7 +297,9 @@ class BandsController extends AppController
             ->where(['slug' => $slug])
             ->contain([
                 'Slots.Stages',
-                'Pictures',
+                'Pictures' => function ($q) {
+                    return $q->order(['is_primary' => 'DESC']);
+                },
                 'Songs'
             ])
             ->first();
