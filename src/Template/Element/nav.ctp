@@ -55,6 +55,11 @@ if (! function_exists('navLink')) {
                     'action' => 'index'
                 ], $this) ?>
 
+                <?= navLink('Schedule', [
+                    'controller' => 'Bands',
+                    'action' => 'schedule'
+                ], $this) ?>
+
                 <?= navLink('Volunteer', [
                     'controller' => 'Volunteers',
                     'action' => 'add'

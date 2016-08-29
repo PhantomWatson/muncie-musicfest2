@@ -368,7 +368,7 @@ class BandsController extends AppController
         }
 
         $this->set([
-            'pageTitle' => 'Schedule',
+            'pageTitle' => 'Muncie MusicFest 2016 Schedule',
             'stages' => $stages
         ]);
     }
