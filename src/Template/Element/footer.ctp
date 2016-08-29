@@ -71,7 +71,7 @@
             'url' => 'http://beherenowmusic.com/'
         ],
         [
-            'logo' => '',
+            'logo' => 'muncie-edmc.png',
             'name' => 'Muncie EDMC',
             'url' => 'https://www.facebook.com/muncieedmc/'
         ],
