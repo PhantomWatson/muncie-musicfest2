@@ -330,7 +330,8 @@ class BandsController extends AppController
                                     'id',
                                     'name',
                                     'genre',
-                                    'hometown'
+                                    'hometown',
+                                    'slug'
                                 ])
                                     ->where(['confirmed' => 'confirmed'])
                                     ->contain([

@@ -55,7 +55,7 @@
                                                 [
                                                     'controller' => 'Bands',
                                                     'action' => 'view',
-                                                    $slot['band']['id']
+                                                    $slot['band']['slug']
                                                 ],
                                                 [
                                                     'class' => 'ajax stretch_shade',
