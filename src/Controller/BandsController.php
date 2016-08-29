@@ -310,9 +310,15 @@ class BandsController extends AppController
             throw new ForbiddenException('Sorry, that band is not currently on the Muncie MusicFest lineup');
         }
 
+        $back = $this->request->query('back');
+        $backLabel = ($back == 'schedule') ? 'Back to Schedule' : 'Back to Lineup';
+        $backUrl = ($back == 'schedule') ? ['action' => 'schedule'] : ['action' => 'index'];
+
         $this->set([
             'pageTitle' => $band['name'],
-            'band' => $band
+            'band' => $band,
+            'backLabel' => $backLabel,
+            'backUrl' => $backUrl
         ]);
     }
 

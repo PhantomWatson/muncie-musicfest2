@@ -1,8 +1,8 @@
 <?php $this->append('before-title'); ?>
     <p class="back-buttons">
         <?= $this->Html->link(
-            '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Lineup',
-            ['action'  => 'index'],
+            '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> ' . $backLabel,
+            $backUrl,
             [
                 'class' => 'btn btn-default',
                 'escape' => false

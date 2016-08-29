@@ -55,7 +55,10 @@
                                                 [
                                                     'controller' => 'Bands',
                                                     'action' => 'view',
-                                                    $slot['band']['slug']
+                                                    $slot['band']['slug'],
+                                                    '?' => [
+                                                        'back' => 'schedule'
+                                                    ]
                                                 ],
                                                 [
                                                     'class' => 'ajax stretch_shade',

@@ -24,7 +24,11 @@
                     '</span></div>',
                 [
                     'controller' => 'Bands',
-                    'action' => 'view', $band->slug
+                    'action' => 'view',
+                    $band->slug,
+                    '?' => [
+                        'back' => 'index'
+                    ]
                 ],
                 [
                     'class' => 'stretch-shade ajax',
