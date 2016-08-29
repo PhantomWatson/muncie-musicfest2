@@ -1,6 +1,56 @@
 <div id="home">
     <article>
         <h2>
+            2016 Lineup Announced
+        </h2>
+        <a href="/img/frontpage/frontpage-mmf2016-bandgrid-1.png">
+            <img
+                src="/img/frontpage/frontpage-mmf2016-bandgrid-1.thumb.png"
+                title="The MMF 2016 lineup"
+                alt="The MMF 2016 lineup"
+                class="article-img"
+            />
+        </a>
+        <p>
+            <span class="date">
+                August 29<sup>th</sup>, 2016
+            </span>
+            We're only 90% done booking this year's festival, but we're too antsy to wait any longer to announce what
+            we have so far. Check out
+            <?= $this->Html->link(
+                'the 2016 lineup',
+                [
+                    'controller' => 'Bands',
+                    'action' => 'index'
+                ]
+            ) ?>
+            to see what bands you'll be able to see for <strong>free</strong> on September 30<sup>th</sup> at our seven
+            festival locations.
+            <?= $this->Html->link(
+                'The 2016 schedule',
+                [
+                    'controller' => 'Bands',
+                    'action' => 'schedule'
+                ]
+            ) ?>
+            is also available so you can start planning your concert itinerary now.
+        </p>
+        <p>
+            Our lineup features rock, metal, indie, country, americana, blues, folk, electronic, and hip-hop, and even
+            ventures out into such diverse musical territories as chamber-folk, jungle, chiptune, and psychobilly.
+            We have new, up-and-coming bands as well as established Muncie favorites. We have touring bands that have
+            made an impact on the Muncie music community in the past. You'll find music to bring your grandparents to
+            see and music that will give children nightmares. You'll find stages where you'll be invited to sit and
+            relax, and you'll find energetic dancefloors to join.
+        </p>
+        <p>
+            On behalf of all of the Muncie MusicFest bands and the festival planning crew, we hope that you'll join us
+            on September 30<sup>th</sup> to help celebrate all that the Muncie music community is in 2016.
+        </p>
+    </article>
+
+    <article>
+        <h2>
             Booking Underway, Volunteer Signup Now Open
         </h2>
         <a href="/img/frontpage/frontpage-mmf-2016-volunteers.png">
