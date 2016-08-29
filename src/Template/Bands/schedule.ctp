@@ -9,6 +9,7 @@
 </p>
 
 <div class="row">
+    <?php $i = 1; ?>
     <?php foreach ($stages as $stage): ?>
         <div class="col-sm-6 col-md-4">
             <table class="schedule" id="s<?php echo $stage['id']; ?>">
@@ -79,5 +80,11 @@
                 </tbody>
             </table>
         </div>
+
+        <?php if ($i % 3 == 0): ?>
+            <div class="clearfix visible-md-block visible-lg-block"></div>
+        <?php endif; ?>
+
+        <?php $i++; ?>
     <?php endforeach; ?>
 </div>
