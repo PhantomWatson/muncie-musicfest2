@@ -6,7 +6,7 @@
     which we've gathered from a pool of over 90 applicants.
 </p>
 
-<div id="bands">
+<div id="bands" class="band-boxes">
     <?php foreach ($bands as $band_name => $band): ?>
         <?php if ($band->pictures): ?>
             <div
@@ -17,11 +17,10 @@
             <div>
         <?php endif; ?>
             <?= $this->Html->link(
-                '<div class="band-name"><span>' .
-                    $band['name'] .
-                    '</span><span class="genre"><br />' .
-                    $band['genre'] .
-                    '</span></div>',
+                '<div class="band-info">' .
+                    '<div class="name">' . $band['name'] . '</div>' .
+                    '<div class="genre">' . $band['genre'] . '</div>' .
+                    '</div>',
                 [
                     'controller' => 'Bands',
                     'action' => 'view',
@@ -31,7 +30,7 @@
                     ]
                 ],
                 [
-                    'class' => 'stretch-shade ajax',
+                    'class' => 'stretch-shade',
                     'escape' => false,
                     'title' => 'Click for band profile'
                 ]

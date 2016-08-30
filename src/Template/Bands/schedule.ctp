@@ -38,40 +38,41 @@
                                         <?= $slot['time']->format('g:ia') ?>
                                     </th>
                                     <?php if (isset($slot['band'])): ?>
-                                        <?php if ($slot['band']['pictures']): ?>
-                                            <?php $filename = $slot['band']['pictures'][0]['filename']; ?>
-                                            <td
-                                                class="has_picture"
-                                                style="background-image: url('/img/bands/thumb/<?= $filename ?>');"
-                                            >
-                                        <?php else: ?>
-                                            <td>
-                                        <?php endif; ?>
-                                            <?= $this->Html->link(
-                                                '<div class="band_name">' .
-                                                    '<span>' . $slot['band']['name'] . '</span>' .
-                                                    '<span class="genre">' . $slot['band']['genre'] . '</span>' .
-                                                    '</div>',
-                                                [
-                                                    'controller' => 'Bands',
-                                                    'action' => 'view',
-                                                    $slot['band']['slug'],
-                                                    '?' => [
-                                                        'back' => 'schedule'
+                                        <td class="band-boxes">
+                                            <?php if ($slot['band']['pictures']): ?>
+                                                <?php $filename = $slot['band']['pictures'][0]['filename']; ?>
+                                                <div
+                                                    class="has-picture"
+                                                    style="background-image: url('/img/bands/thumb/<?= $filename ?>');"
+                                                >
+                                            <?php else: ?>
+                                                <div>
+                                            <?php endif; ?>
+                                                <?= $this->Html->link(
+                                                    '<div class="band-info">' .
+                                                        '<div class="name">' . $slot['band']['name'] . '</div>' .
+                                                        '<div class="genre">' . $slot['band']['genre'] . '</div>' .
+                                                        '</div>',
+                                                    [
+                                                        'controller' => 'Bands',
+                                                        'action' => 'view',
+                                                        $slot['band']['slug'],
+                                                        '?' => [
+                                                            'back' => 'schedule'
+                                                        ]
+                                                    ],
+                                                    [
+                                                        'class' => 'stretch-shade',
+                                                        'escape' => false,
+                                                        'title' => 'View band profile'
                                                     ]
-                                                ],
-                                                [
-                                                    'class' => 'ajax stretch_shade',
-                                                    'escape' => false,
-                                                    'title' => 'View band profile'
-                                                ]
-                                            ); ?>
-                                        </td>
+                                                ); ?>
+                                            </div>
                                     <?php else: ?>
-                                        <td>
+                                        <td class="band-boxes">
                                             <div class="stretch_shade">
-                                                <div class="band_name">
-                                                    <span>( T B A )</span>
+                                                <div class="band-info">
+                                                    <span class="tba">( T B A )</span>
                                                 </div>
                                             </div>
                                         </td>
