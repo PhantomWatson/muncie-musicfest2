@@ -16,17 +16,17 @@
             <div class="input-group">
                 <div class="input-group-addon">Go to</div>
                 <select id="band-selector" class="form-control">
-                    <?php foreach ($bands as $bandId => $bandName): ?>
+                    <?php foreach ($bands as $bandOption): ?>
                         <?php
-                            $selected = $bandId == $band->id ? 'selected="selected"' : '';
+                            $selected = $bandOption['id'] == $band->id ? 'selected="selected"' : '';
                             $url = Router::url([
                                 'controller' => 'Bands',
                                 'action' => 'view',
-                                $bandId
+                                $bandOption['id']
                             ]);
                         ?>
                         <option <?= $selected ?> data-url="<?= $url ?>">
-                            <?= $bandName ?>
+                            <?= $bandOption['name'] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

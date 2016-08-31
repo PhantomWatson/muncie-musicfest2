@@ -32,18 +32,26 @@ class BandsController extends AppController
      */
     public function index()
     {
+        $applied = $this->Bands
+            ->find('all')
+            ->find('applied')
+            ->select(['id', 'name'])
+            ->order(['Bands.name' => 'ASC'])
+            ->toArray();
+        $applied = $this->Bands->sortIgnoringThe($applied);
+
+        $incomplete = $this->Bands
+            ->find('all')
+            ->find('applicationIncomplete')
+            ->select(['id', 'name'])
+            ->order(['Bands.name' => 'ASC'])
+            ->toArray();
+        $incomplete = $this->Bands->sortIgnoringThe($incomplete);
+
         $this->set([
             'bands' => [
-                'Bands Applied' => $this->Bands
-                    ->find('list')
-                    ->find('applied')
-                    ->order(['Bands.name' => 'ASC'])
-                    ->toArray(),
-                'Bands Not Done Applying' => $this->Bands
-                    ->find('list')
-                    ->find('applicationIncomplete')
-                    ->order(['Bands.name' => 'ASC'])
-                    ->toArray()
+                'Bands Applied' => $applied,
+                'Bands Not Done Applying' => $incomplete
             ],
             'pageTitle' => 'Bands'
         ]);
@@ -68,7 +76,11 @@ class BandsController extends AppController
                 'mp3' => '/music/' . $song->filename
             ];
         }
-        $bands = $this->Bands->find('list')->order(['Bands.name' => 'ASC']);
+        $bands = $this->Bands
+            ->find('all')
+            ->select(['id', 'name'])
+            ->order(['Bands.name' => 'ASC']);
+        $bands = $this->Bands->sortIgnoringThe($bands);
         $back = $this->request->query('back');
         if (!$back) {
             $back = [
@@ -183,6 +195,7 @@ class BandsController extends AppController
         $bands = $this->Bands->find('all')
             ->select(['id', 'name', 'genre', 'hometown', 'minimum_fee', 'application_step'])
             ->order(['name' => 'ASC']);
+        $bands = $this->Bands->sortIgnoringThe($bands);
         $this->set([
             'pageTitle' => 'Bands - Basic Info',
             'bands' => $bands

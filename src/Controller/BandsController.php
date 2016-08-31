@@ -135,6 +135,7 @@ class BandsController extends AppController
             }])
             ->order(['name' => 'ASC'])
             ->all();
+        $bands = $this->Bands->sortIgnoringThe($bands);
         $this->set([
             'pageTitle' => 'Muncie MusicFest 2016 Bands',
             'bands' => $bands

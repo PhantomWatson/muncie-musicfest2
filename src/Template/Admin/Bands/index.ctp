@@ -40,15 +40,15 @@
         </h2>
 
         <ul>
-            <?php foreach ($categorizedBands as $bandId => $bandName): ?>
+            <?php foreach ($categorizedBands as $band): ?>
                 <li>
                     <?= $this->Html->link(
-                        $bandName,
+                        $band['name'],
                         [
                             'prefix' => 'admin',
                             'controller' => 'Bands',
                             'action' => 'view',
-                            $bandId
+                            $band['id']
                         ]
                     ) ?>
                 </li>

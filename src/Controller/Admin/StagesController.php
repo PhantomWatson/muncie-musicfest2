@@ -187,7 +187,9 @@ class StagesController extends AppController
         $bands = $bandsTable->find('all')
             ->select(['id', 'name', 'minimum_fee', 'application_step'])
             ->contain(['Slots'])
-            ->order(['name' => 'ASC']);
+            ->order(['name' => 'ASC'])
+            ->all();
+        $bands = $bandsTable->sortIgnoringThe($bands);
 
         $bandsForJs = [];
         foreach ($bands as $band) {

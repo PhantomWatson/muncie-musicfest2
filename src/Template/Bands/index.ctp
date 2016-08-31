@@ -7,8 +7,8 @@
 </p>
 
 <div id="bands" class="band-boxes">
-    <?php foreach ($bands as $band_name => $band): ?>
-        <?php if ($band->pictures): ?>
+    <?php foreach ($bands as $band): ?>
+        <?php if ($band['pictures']): ?>
             <div
                 class="has-picture"
                 style="background-image: url('/img/bands/thumb/<?= addslashes($band->pictures[0]['filename']) ?>');"
@@ -24,7 +24,7 @@
                 [
                     'controller' => 'Bands',
                     'action' => 'view',
-                    $band->slug,
+                    $band['slug'],
                     '?' => [
                         'back' => 'index'
                     ]

@@ -349,4 +349,34 @@ class BandsTable extends Table
         }
         return true;
     }
+
+    /**
+     * Returns a sorted array of bands with leading 'The ' not affecting the order
+     *
+     * @param array $bands
+     * @return array
+     */
+    public function sortIgnoringThe($bands)
+    {
+        $sortedBands = [];
+        foreach ($bands as $band) {
+            $bandName = is_array($band) ? $band['name'] :$band->name;
+            if (stripos($bandName, 'the ') === 0) {
+                $sortingName = substr($bandName, 4) . ', ' . substr($bandName, 0, 3);
+            } else {
+                $sortingName = $bandName;
+            }
+
+            // Prevent bands with identical names from overwriting each other
+            while (isset($sortedBands[$sortingName])) {
+                $sortingName .= ' (duplicate)';
+            }
+
+            $sortedBands[$sortingName] = $band;
+        }
+
+        ksort($sortedBands);
+
+        return $sortedBands;
+    }
 }
