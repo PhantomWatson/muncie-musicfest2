@@ -16,16 +16,25 @@
                 <thead>
                     <tr>
                         <th colspan="2">
-                            <?php echo $stage['name']; ?>
-                            <br />
-                            <span class="address">
-                                <?php echo $stage['address']; ?>
-                            </span>
-                            <?php if ($stage['age_restriction']): ?>
-                                <span class="age_restriction">
-                                    (21+)
+                            <div class="stage-name">
+                                <?php
+                                    $cornerstone = '(Cornerstone Center for the Arts)';
+                                    $replacement = '<span class="cornerstone">' . $cornerstone . '</span>';
+                                    echo str_replace($cornerstone, $replacement, $stage['name']);
+                                ?>
+                            </div>
+                            <div>
+                                <span class="address">
+                                    <?php echo $stage['address']; ?>
                                 </span>
-                            <?php endif; ?>
+                                <span class="age_restriction">
+                                    <?php if ($stage['age_restriction']): ?>
+                                        (21+)
+                                    <?php else: ?>
+                                        (all-ages)
+                                    <?php endif; ?>
+                                </span>
+                            </div>
                         </th>
                     </tr>
                 </thead>
