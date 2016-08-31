@@ -1,7 +1,7 @@
 <?php
     $sponsors = [
         [
-            'logo' => 'first-merchants.jpg',
+            'logo' => 'first-merchants.png',
             'name' => 'First Merchants Bank',
             'url' => 'https://www.firstmerchants.com/'
         ],
@@ -74,6 +74,11 @@
             'logo' => 'muncie-edmc.png',
             'name' => 'Muncie EDMC',
             'url' => 'https://www.facebook.com/muncieedmc/'
+        ],
+        [
+            'logo' => 'greeks-pizzeria.png',
+            'name' => 'Greek\'s Pizzeria',
+            'url' => 'http://www.greekspizzeria.com/'
         ],
     ];
     $perRow = 4;
