@@ -3,9 +3,9 @@
         <h2>
             2016 Lineup Announced
         </h2>
-        <a href="/img/frontpage/frontpage-mmf2016-bandgrid-1.png">
+        <a href="/img/frontpage/frontpage-mmf2016-bandgrid-2.png">
             <img
-                src="/img/frontpage/frontpage-mmf2016-bandgrid-1.thumb.png"
+                src="/img/frontpage/frontpage-mmf2016-bandgrid-2.thumb.png"
                 title="The MMF 2016 lineup"
                 alt="The MMF 2016 lineup"
                 class="article-img"
