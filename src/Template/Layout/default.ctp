@@ -43,9 +43,21 @@
         <?php if ($this->request->here == '/'): ?>
             <div id="intro-header">
                 <img src="/img/mmf_logo.png" alt="Muncie MusicFest" />
-                <h2>
-                    Friday, September 30<sup>th</sup>, 2016 in Muncie, IN
-                </h2>
+                <div>
+                    <h2>
+                        September&nbsp;30<sup>th</sup>,&nbsp;2016
+                        in&nbsp;Muncie,&nbsp;IN
+                    </h2>
+                    <div class="details">
+                        40&nbsp;bands
+                        <span class="delimiter">&#9835;</span>
+                        11&nbsp;stages
+                        <span class="delimiter">&#9835;</span>
+                        7&nbsp;locations
+                        <span class="delimiter">&#9835;</span>
+                        Free&nbsp;admission
+                    </div>
+                </div>
             </div>
         <?php endif; ?>
 

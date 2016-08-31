@@ -489,18 +489,32 @@ ul.nav {
 	padding: 30px;
 	text-align: center;
 
+    > div {
+        display: inline-block;
+        vertical-align: middle;
+    }
 	img {
 		vertical-align: middle;
 		margin-right: 30px;
 	}
 	h2 {
 		color: #fff;
-		font-weight: bold;
+        font-weight: bold;
 	}
+    .details {
+        color: #fff;
+        font-size: 140%;
+    }
+    .delimiter {
+        color: #ccc;
+        font-size: 80%;
+        margin: 0 5px;
+    }
 
 	@media (min-width: 1190px) {
 		h2 {
-			display: inline;
+			display: inline-block;
+            vertical-align: middle;
 		}
 	}
 }
