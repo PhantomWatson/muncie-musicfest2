@@ -15,7 +15,7 @@
             <span class="date">
                 August 29<sup>th</sup>, 2016
             </span>
-            We're only 90% done booking this year's festival, but we're too antsy to wait any longer to announce what
+            We're almost finished booking this year's festival, but we're too antsy to wait any longer to announce what
             we have so far. Check out
             <?= $this->Html->link(
                 'the 2016 lineup',
