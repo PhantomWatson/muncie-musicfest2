@@ -57,6 +57,12 @@
                         <span class="delimiter">&#9835;</span>
                         Free&nbsp;admission
                     </div>
+                    <div class="title-sponsor">
+                        Presented by
+                        <strong>First Merchants Bank</strong>
+                        and
+                        <strong>First Merchants Private Wealth Advisors</strong>
+                    </div>
                 </div>
             </div>
         <?php endif; ?>

@@ -486,7 +486,7 @@ ul.nav {
 
 	background-color: #000;
 	margin-bottom: 30px;
-	padding: 30px;
+	padding: 10px;
 	text-align: center;
 
     > div {
@@ -495,7 +495,6 @@ ul.nav {
     }
 	img {
 		vertical-align: middle;
-		margin-right: 30px;
 	}
 	h2 {
 		color: #fff;
@@ -510,6 +509,13 @@ ul.nav {
         font-size: 80%;
         margin: 0 5px;
     }
+    .title-sponsor {
+        color: #fff;
+
+        strong {
+            white-space: nowrap;
+        }
+    }
 
 	@media (min-width: 1190px) {
 		h2 {
@@ -517,6 +523,15 @@ ul.nav {
             vertical-align: middle;
 		}
 	}
+}
+@media (min-width: @screen-md-min) {
+    #intro-header {
+        padding: 30px;
+
+        img {
+            margin-right: 30px;
+        }
+    }
 }
 #home {
 	article {
