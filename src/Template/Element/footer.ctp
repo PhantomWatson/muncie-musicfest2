@@ -89,23 +89,23 @@
         2016 Sponsors and Supporters
     </h2>
     <div class="row">
-        <?php foreach ($sponsors as $i => $sponsor): ?>
-            <div class="col-sm-<?= 12 / $perRow ?>">
-                <?php if ($sponsor['logo']): ?>
-                    <a href="<?= $sponsor['url'] ?>">
-                        <img src="/img/sponsors/<?= $sponsor['logo'] ?>" title="<?= $sponsor['name'] ?>" alt="<?= $sponsor['name'] ?>" />
-                    </a>
-                <?php else: ?>
-                    <a href="<?= $sponsor['url'] ?>">
-                        <?= $sponsor['name'] ?>
-                    </a>
-                <?php endif; ?>
-            </div>
-            <?php if (($i + 1) % $perRow == 0): ?>
-                </div>
-                <div class="row">
-            <?php endif; ?>
-        <?php endforeach; ?>
+        <?php
+            // The particular way that vertical alignment is accomplished here requires no whitespace between divs
+            foreach ($sponsors as $i => $sponsor) {
+                echo '<div class="col-sm-' . (12 / $perRow) . '">';
+                if ($sponsor['logo']) {
+                    echo '<a href= "' . $sponsor['url'] . '">';
+                    echo '<img src= "/img/sponsors/' . $sponsor['logo'] . '" title= "' . $sponsor['name'] . '" alt = "' . $sponsor['name'] . '" />';
+                    echo '</a >';
+                } else {
+                    echo '<a href="' . $sponsor['url'] . '">' . $sponsor['name'] . '</a>';
+                }
+                echo '</div>';
+                if (($i + 1) % $perRow == 0) {
+                    echo '</div><div class="row">';
+                }
+            }
+        ?>
     </div>
 </div>
 
