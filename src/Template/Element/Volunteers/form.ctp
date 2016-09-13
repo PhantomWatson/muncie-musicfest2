@@ -13,7 +13,7 @@
         ],
         'placeholder' => 'all day, from 2pm on, until 5pm, etc.'
     ]);
-    $sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+    $sizes = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
     echo $this->Form->input('shirt_size', [
         'default' => 'M',
         'label' => 'T-Shirt size',
