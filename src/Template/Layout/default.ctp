@@ -49,11 +49,11 @@
                         in&nbsp;Muncie,&nbsp;IN
                     </h2>
                     <div class="details">
-                        40&nbsp;bands
+                        41&nbsp;bands
                         <span class="delimiter">&#9835;</span>
-                        11&nbsp;stages
+                        10&nbsp;stages
                         <span class="delimiter">&#9835;</span>
-                        7&nbsp;locations
+                        6&nbsp;locations
                         <span class="delimiter">&#9835;</span>
                         Free&nbsp;admission
                     </div>
