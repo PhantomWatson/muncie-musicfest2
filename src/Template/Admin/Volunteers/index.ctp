@@ -22,6 +22,12 @@
                     <br />
                     <?= h($volunteer->phone) ?>
                 </p>
+
+                <?php if ($volunteer->message): ?>
+                    <p class="message">
+                        <?= h($volunteer->message) ?>
+                    </p>
+                <?php endif; ?>
             </td>
             <td>
                 <?php if (empty($volunteer->jobs)): ?>
