@@ -58,6 +58,10 @@
             </td>
         </tr>
         <tr>
+            <th>Volunteer Manager</th>
+            <td>Angie Vanderluit</td>
+        </tr>
+        <tr>
             <th>Invaluable Supporters</th>
             <td>
                 Steve Robert
