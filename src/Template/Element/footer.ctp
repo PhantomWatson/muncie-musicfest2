@@ -36,11 +36,6 @@
             'url' => 'http://giving.walmart.com/foundation'
         ],
         [
-            'logo' => 'abercrombie_ink.jpg',
-            'name' => 'Abercrombie Ink',
-            'url' => 'http://www.abercrombieink.com/'
-        ],
-        [
             'logo' => 'max.jpg',
             'name' => 'MAX (93.5 FM)',
             'url' => 'http://www.maxrocks.net/'
