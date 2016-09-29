@@ -1,3 +1,9 @@
+<p>
+    Thank you for your interest in helping put on Muncie MusicFest, but we've reached our volunteer signup deadline
+    for the year. Check back in 2017 for information about how to get involved in the next festival!
+</p>
+
+<?php /*
 <div class="form" id="volunteer-form">
     <div class="alert alert-info">
         <p>
@@ -27,3 +33,4 @@
     </p>
 
 </div>
+*/ ?>
