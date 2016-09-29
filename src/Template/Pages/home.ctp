@@ -1,6 +1,74 @@
 <div id="home">
     <article>
         <h2>
+            Muncie MusicFest 2016 is Tomorrow!
+        </h2>
+        <a href="/img/frontpage/frontpage-mmf-2016-bandposter.png">
+            <img
+                src="/img/frontpage/frontpage-mmf-2016-bandposter.thumb.png"
+                title="Muncie MusicFest 2016 poster"
+                alt="Muncie MusicFest 2016 poster"
+                class="article-img"
+            />
+        </a>
+        <p>
+            <span class="date">
+                September 29<sup>th</sup>, 2016
+            </span>
+            Tomorrow's the big day! Here's a handy list of what you need to do to have the best Em Em Eff experience:
+        </p>
+        <ul>
+            <li>
+                Round up a posse of friends and family
+            </li>
+            <li>
+                Plan to arrive at <a href="http://cornerstonearts.org">Cornerstone Center for the Arts</a>
+                (520 E. Main) when doors open at 4pm
+            </li>
+            <li>
+                <?= $this->Html->link(
+                    'Consult the schedule',
+                    ['controller' => 'Bands', 'action' => 'scheudle']
+                ) ?>
+                and see as many of the 21 awesome bands performing there as you can manage
+            </li>
+            <li>
+                Snag some food and drinks while you're there, provided by Rolling Luau Hawaiian BBQ, Big Daddy's Dogs,
+                and The Mark III Tap Room
+            </li>
+            <li>
+                Pick one or two venues from the list of Muncie MusicFest's night-phase locations:
+                <ul>
+                    <li>
+                        Village Green Records (prog rock, 8-10pm)
+                    </li>
+                    <li>
+                        The Acoustic Room (hip-hop, 9pm-2am)
+                    </li>
+                    <li>
+                        Big Shots Ballroom (country and Americana, 9pm-12am)
+                    </li>
+                    <li>
+                        The Mark III Tap Room (electronic dance music, 9pm-1am)
+                    </li>
+                    <li>
+                        Valhalla Venue (blues, 8pm-12am)
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Spend the rest of the night enjoying free, local music and helping us celebrate Muncie's music
+                community
+            </li>
+        </ul>
+        <p>
+            Big thanks to The Star Press for running a
+            <a href="http://www.thestarpress.com/story/life/2016/09/23/musicfest-celebrates-10-years/90736846/">Muncie MusicFest 2016 preview article</a>!
+        </p>
+    </article>
+
+    <article>
+        <h2>
             2016 Lineup Announced
         </h2>
         <a href="/img/frontpage/frontpage-mmf2016-bandgrid-2.png">
