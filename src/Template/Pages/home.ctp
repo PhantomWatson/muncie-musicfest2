@@ -1,7 +1,7 @@
 <div id="home">
     <article>
         <h2>
-            Muncie MusicFest 2016 is Tomorrow!
+            Muncie MusicFest 2016 is Today!
         </h2>
         <a href="/img/frontpage/frontpage-mmf-2016-bandposter.png">
             <img
@@ -13,9 +13,9 @@
         </a>
         <p>
             <span class="date">
-                September 29<sup>th</sup>, 2016
+                September 30<sup>th</sup>, 2016
             </span>
-            Tomorrow's the big day! Here's a handy list of what you need to do to have the best Em Em Eff experience:
+            Today's the big day! Here's a handy list of what you need to do to have the best Em Em Eff experience:
         </p>
         <ul>
             <li>
@@ -28,7 +28,7 @@
             <li>
                 <?= $this->Html->link(
                     'Consult the schedule',
-                    ['controller' => 'Bands', 'action' => 'scheudle']
+                    ['controller' => 'Bands', 'action' => 'schedule']
                 ) ?>
                 and see as many of the 21 awesome bands performing there as you can manage
             </li>
@@ -62,8 +62,11 @@
             </li>
         </ul>
         <p>
-            Big thanks to The Star Press for running a
-            <a href="http://www.thestarpress.com/story/life/2016/09/23/musicfest-celebrates-10-years/90736846/">Muncie MusicFest 2016 preview article</a>!
+            Big thanks to
+            <a href="http://www.thestarpress.com/story/life/2016/09/23/musicfest-celebrates-10-years/90736846/">The Star Press</a>
+            and
+            <a href="http://www.ballstatedaily.com/article/2016/09/features-muncie-music-fest-preview">The Ball State Daily News</a>
+            for their coverage of Muncie MusicFest 2016!
         </p>
     </article>
 
