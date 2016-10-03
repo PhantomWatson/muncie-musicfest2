@@ -36,6 +36,13 @@
             Interested in being part of Muncie MusicFest 2017? Keep an eye on this website and
             <a href="https://www.facebook.com/munciemusicfest/">facebook.com/munciemusicfest</a> for more announcements.
         </p>
+        <p style="text-align: right;">
+            <em>
+                <a href="mailto:info@munciemusicfest.com">Graham Watson</a>
+                <br />
+                Muncie MusicFest Torchbearer 2007-2016
+            </em>
+        </p>
     </article>
     <article>
         <h2>
