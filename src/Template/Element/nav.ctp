@@ -50,14 +50,9 @@ if (! function_exists('navLink')) {
                     ], $this) ?>
                 <?php endif; ?>
 
-                <?= navLink('Bands', [
+                <?= navLink('2016 Bands', [
                     'controller' => 'Bands',
                     'action' => 'index'
-                ], $this) ?>
-
-                <?= navLink('Schedule', [
-                    'controller' => 'Bands',
-                    'action' => 'schedule'
                 ], $this) ?>
 
                 <?= navLink('Contact', [
