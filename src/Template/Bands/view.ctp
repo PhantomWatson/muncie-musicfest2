@@ -17,10 +17,6 @@
             <?= ucfirst(str_replace(' ', '&nbsp;', $band['genre'])) ?>
         </strong>
         from&nbsp;<strong><?= str_replace(' ', '&nbsp;', $band['hometown']) ?></strong>
-        performing&nbsp;at
-        <strong><?= str_replace(' ', '&nbsp;', $band['slots'][0]->stage->name) ?></strong><?= $band['slots'][0]->stage->age_restriction ? '&nbsp;(21+) ' : ' ' ?>
-        at&nbsp;<strong><?= $band['slots'][0]->time->format('g:ia') ?></strong>,
-        September&nbsp;30<sup>th</sup>,&nbsp;2016
     </p>
 
     <div class="row">
