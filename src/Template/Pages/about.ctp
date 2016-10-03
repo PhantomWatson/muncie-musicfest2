@@ -62,6 +62,52 @@
             <td>Angie Vanderluit</td>
         </tr>
         <tr>
+            <th>Stage Managers</th>
+            <td>
+                Angie Vanderluit
+                <br />
+                Zena Kuieck
+                <br />
+                Sherri Contos
+                <br />
+                Rick Zeigler
+                <br />
+                Savonne Pearson
+            </td>
+        </tr>
+        <tr>
+            <th>Sound Techs</th>
+            <td>
+                Andrew Hesik
+                <br />
+                Paul Troxell
+                <br />
+                Ty Baker
+                <br />
+                Steve Robert
+                <br />
+                Matas Olsauska
+                <br />
+                Charlie Cummings
+                <br />
+                Kevin Hileman
+            </td>
+        </tr>
+        <tr>
+            <th>Emcees</th>
+            <td>
+                Ryan McMannis
+                <br />
+                Rachelle Renee
+                <br />
+                Eddie Brown
+                <br />
+                Tennah McDonald
+                <br />
+                Logan Baert
+            </td>
+        </tr>
+        <tr>
             <th>Invaluable Supporters</th>
             <td>
                 Steve Robert
