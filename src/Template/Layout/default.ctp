@@ -45,24 +45,8 @@
                 <img src="/img/mmf_logo.png" alt="Muncie MusicFest" />
                 <div>
                     <h2>
-                        September&nbsp;30<sup>th</sup>,&nbsp;2016
-                        in&nbsp;Muncie,&nbsp;IN
+                        Celebrating the live, local music of Muncie,&nbsp;IN
                     </h2>
-                    <div class="details">
-                        41&nbsp;bands
-                        <span class="delimiter">&#9835;</span>
-                        10&nbsp;stages
-                        <span class="delimiter">&#9835;</span>
-                        6&nbsp;locations
-                        <span class="delimiter">&#9835;</span>
-                        Free&nbsp;admission
-                    </div>
-                    <div class="title-sponsor">
-                        Presented by
-                        <strong>First Merchants Bank</strong>
-                        and
-                        <strong>First Merchants Private Wealth Advisors</strong>
-                    </div>
                 </div>
             </div>
         <?php endif; ?>
