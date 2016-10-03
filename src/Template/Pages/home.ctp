@@ -1,6 +1,44 @@
 <div id="home">
     <article>
         <h2>
+            Muncie MusicFest 2016
+        </h2>
+        <a href="/img/frontpage/frontpage-mmf-2016-eventposter.png">
+            <img
+                src="/img/frontpage/frontpage-mmf-2016-eventposter.thumb.png"
+                title="Muncie MusicFest 2016 poster"
+                alt="Muncie MusicFest 2016 poster"
+                class="article-img"
+            />
+        </a>
+        <p>
+            <span class="date">
+                October 1<sup>st</sup>, 2016
+            </span>
+            Like the very first Muncie MusicFest back in 2007, last night's festival was accompanied by an unexpected
+            downpour of rain. And just like that first night, Munsonians came out despite the weather, showed their
+            support, and were rewarded with a fantastic time. On behalf of the 130 musicians, 45 staff members, dozen
+            organizations, and six
+            venues who created the tenth annual Muncie MusicFest, thank you for your attendance, your support, your
+            kind words, and the part you play in this beautiful community.
+        </p>
+        <p>
+            I'm going to steal some of my own words from last year on this subject, because it's as true today as it
+            was then: It would take all day to list everybody who deserves credit and explain how awesome they were at
+            their jobs, big or small, but suffice it to say that Muncie MusicFest 2016 was a giant demonstration that
+            grassroots, independent volunteer efforts can create great things and truly grow our community. I hope that
+            this year's success will inspire people to contribute some of their time and energy to helping their local
+            arts and entertainment scene by volunteering to help run upcoming events, by supporting existing community
+            projects, or by creating brand new ways to make the world a little bit better, easier, more connected, more
+            beautiful, and more full of music.
+        </p>
+        <p>
+            Interested in being part of Muncie MusicFest 2017? Keep an eye on this website and
+            <a href="https://www.facebook.com/munciemusicfest/">facebook.com/munciemusicfest</a> for more announcements.
+        </p>
+    </article>
+    <article>
+        <h2>
             Muncie MusicFest 2016 is Today!
         </h2>
         <a href="/img/frontpage/frontpage-mmf-2016-bandposter.png">
