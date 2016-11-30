@@ -111,7 +111,7 @@ if (! function_exists('navLink')) {
                         'controller' => 'Users',
                         'action' => 'logout'
                     ], $this) ?>
-                <?php else: ?>
+                <?php elseif (false): // login links hidden during downtime ?>
                     <?= navLink('Register', [
                         'controller' => 'Users',
                         'action' => 'register'
