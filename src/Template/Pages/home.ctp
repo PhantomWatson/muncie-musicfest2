@@ -1,6 +1,19 @@
 <div id="home">
     <article>
         <h2>
+            A Look Back at MMF 2016
+        </h2>
+        <p>
+            <span class="date">
+                September 10<sup>th</sup>, 2017
+            </span>
+            While you're waiting for the next Muncie MusicFest, enjoy this look back at last year's festival.
+        </p>
+        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/zYmfaW1THHQ?rel=0" frameborder="0" allowfullscreen></iframe>
+    </article>
+
+    <article>
+        <h2>
             Muncie MusicFest 2016
         </h2>
         <a href="/img/frontpage/frontpage-mmf-2016-eventposter.png">
