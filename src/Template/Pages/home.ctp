@@ -11,7 +11,23 @@
         </p>
         <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/zYmfaW1THHQ?rel=0" frameborder="0" allowfullscreen></iframe>
     </article>
-
+    <article>
+        <h2>
+            Cornerstone Center for the Arts Now Managing MMF
+        </h2>
+        <img src="/img/frontpage/Cornerstone-vrt-web.png" alt="Cornerstone Center for the Arts" class="article-img" />
+        <p>
+            <span class="date">
+                February 16<sup>th</sup>, 2017
+            </span>
+            The Muncie MusicFest team is happy to announce that
+            <a href="https://cornerstonearts.org/">Cornerstone Center for the Arts</a> has taken over the festival's
+            management and will be overseeing its eleventh year and beyond. We hope you're as excited to see this
+            event continue to grow and develop under Cornerstone's leadership as we are. For more information, contact
+            Cornerstone Director of Community Relations Jeff Robinson at
+            <a href="mailto:jrobinson@cornerstonearts.org">jrobinson@cornerstonearts.org</a>.
+        </p>
+    </article>
     <article>
         <h2>
             Muncie MusicFest 2016
