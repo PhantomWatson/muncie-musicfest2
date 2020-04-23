@@ -8,6 +8,7 @@
 # Media
 /webroot/img/bands/*
 /webroot/img/frontpage/*
+/webroot/video/*
 /webroot/music/*
 /src/uploads/*
 /webroot/img/sponsors/*
