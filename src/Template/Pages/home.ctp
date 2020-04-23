@@ -1,6 +1,67 @@
 <div id="home">
     <article>
         <h2>
+            Remembering Steve Robert
+        </h2>
+        <a href="/img/frontpage/steve-robert/steve-robert-1.full.jpg">
+            <img src="/img/frontpage/steve-robert/steve-robert-1.jpg" alt="Steve Robert playing guitar and harmonica" class="article-img" />
+        </a>
+        <p>
+            <span class="date">
+                April 23<sup>rd</sup>, 2020
+            </span>
+            On April 21<sup>st</sup>, 2020, friend of Muncie MusicFest Steve Robert passed away from a brain tumor.
+            Steve was an integral part of the festival, serving most visibly as a performer with his acclaimed band
+            <?= $this->Html->link(
+                'Steve Robert and the Jazzmanian Devils',
+                [
+                    'controller' => 'Bands',
+                    'action' => 'view',
+                    'steve-robert-and-the-jazzmanian-devils',
+                    '?' => [
+                        'back' => 'index'
+                    ]
+                ]
+            ) ?>, but also as a key sound engineer helping us work that Muncie magic and do so much with so little, as
+            well as the warm, positive presence in our management team who was always present to lend a hand, offer
+            guidance, and keep us from using the many stresses of running complex community events as an excuse to turn
+            negative and cynical. No matter how difficult our jobs were, and no matter how much the odds were stacked
+            against us, Steve helped keep us focused, determined, and most importantly, smiling through it all.
+        </p>
+        <p>
+            As anyone who knew Steve can corroborate, he had a simple mission in life of spreading peace and happiness,
+            and seeing the actual success that he had in this mission, either through his community work or just through
+            the peace spread through the personal warmth that he shared with others, had a profoundly humbling effect on
+            anyone who had the good fortune of spending time with him. Steve will be dearly missed, but at the same
+            time, our community will forever carry with it echoes of what he spent his life giving us with his hard
+            work, his community advocacy, his music, his politics, his philosophy, and his friendship.
+        </p>
+        <p id="steve-robert-thumbnails">
+            <a href="/img/frontpage/steve-robert/steve-robert-2.full.jpg">
+                <img src="/img/frontpage/steve-robert/steve-robert-2.jpg" alt="Steve Robert playing guitar and singing" class="popup-img" />
+            </a>
+            <a href="/img/frontpage/steve-robert/steve-robert-3.full.jpg">
+                <img src="/img/frontpage/steve-robert/steve-robert-3.jpg" alt="Steve Robert singing" class="popup-img" />
+            </a>
+            <a href="/img/frontpage/steve-robert/steve-robert-4.full.jpg">
+                <img src="/img/frontpage/steve-robert/steve-robert-4.jpg" alt="Steve Robert speaking at a Ball State University podium" class="popup-img" />
+            </a>
+            <a href="/img/frontpage/steve-robert/steve-robert-5.full.jpg">
+                <img src="/img/frontpage/steve-robert/steve-robert-5.jpg" alt="Steve Robert posing with a guitar with his band, the Jazzmanian Devils" class="popup-img" />
+            </a>
+        </p>
+        <p>
+            Shortly after his diagnosis, Steve recorded a short cover of a song that had been on his mind at the time.
+        </p>
+        <p style="text-align: center;">
+            <video width="512" height="288" controls style="">
+                <source src="/video/Steve%20Robert%20-%20Live%20Like%20You%20Were%20Dying%20(Tim%20McGraw%20cover).mp4" type="video/mp4" />
+                We're sorry, but your browser does not support displaying this video.
+            </video>
+        </p>
+    </article>
+    <article>
+        <h2>
             A Look Back at MMF 2016
         </h2>
         <p>
@@ -293,5 +354,5 @@
 </div>
 
 <?php $this->append('buffered'); ?>
-    $('img.article-img').closest('a').magnificPopup({type:'image'});
+    $('img.article-img, img.popup-img').closest('a').magnificPopup({type:'image'});
 <?php $this->end(); ?>
