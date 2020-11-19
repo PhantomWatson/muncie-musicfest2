@@ -1,6 +1,6 @@
 # CakePHP
 /vendor/*
-/config/app.php
+/config/app_local.php
 /config/recaptcha.php
 /tmp/*
 /logs/*
@@ -49,7 +49,6 @@ org.eclipse.*
 
 # Composer
 composer.phar
-composer.lock
 
 # JS / CSS Vendors
 /webroot/uploadifive/*

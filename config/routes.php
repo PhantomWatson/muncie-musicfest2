@@ -19,6 +19,8 @@
  */
 
 use Cake\Core\Plugin;
+use Cake\Routing\Route\DashedRoute;
+use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 
 /**
@@ -39,9 +41,9 @@ use Cake\Routing\Router;
  * `:action` markers.
  *
  */
-Router::defaultRouteClass('DashedRoute');
+Router::defaultRouteClass(DashedRoute::class);
 
-Router::scope('/', function ($routes) {
+Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/',          ['controller' => 'Pages', 'action' => 'home']);
     $routes->connect('/contact',   ['controller' => 'Pages', 'action' => 'contact']);
     $routes->connect('/about',     ['controller' => 'Pages', 'action' => 'about']);
@@ -65,7 +67,7 @@ Router::scope('/', function ($routes) {
     );
     $routes->connect('/schedule',  ['controller' => 'Bands', 'action' => 'schedule']);
 
-    $routes->fallbacks('DashedRoute');
+    $routes->fallbacks(DashedRoute::class);
 });
 
 Router::prefix('admin', function ($routes) {
@@ -73,9 +75,3 @@ Router::prefix('admin', function ($routes) {
 
     $routes->redirect('/bands/confirmations',  ['controller' => 'Bands', 'action' => 'booking']);
 });
-
-/**
- * Load all plugin routes.  See the Plugin documentation on
- * how to customize the loading of plugin routes.
- */
-Plugin::routes();
