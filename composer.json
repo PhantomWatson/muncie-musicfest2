@@ -5,11 +5,11 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": ">=5.4.16",
+        "php": ">=7.4",
         "cakephp-fr/recaptcha": "~0.4",
-        "cakephp/cakephp": "~3.1",
-        "cakephp/migrations": "~1.0",
-        "cakephp/plugin-installer": "*",
+        "cakephp/cakephp": "3.9.*",
+        "cakephp/migrations": "^2.0.0",
+        "cakephp/plugin-installer": "^1.0",
         "mobiledetect/mobiledetectlib": "2.*",
         "twbs/bootstrap": "^3.3",
         "xety/cake3-cookieauth": "1.*",
@@ -20,10 +20,12 @@
         "happyworm/jplayer": "2.*"
     },
     "require-dev": {
-        "psy/psysh": "@stable",
-        "cakephp/debug_kit": "~3.2",
-        "cakephp/bake": "~1.1",
-        "cakephp/cakephp-codesniffer": "*"
+        "cakephp/bake": "^1.9.0",
+        "cakephp/cakephp-codesniffer": "^3.0",
+        "cakephp/debug_kit": "^3.17.0",
+        "josegonzalez/dotenv": "3.*",
+        "phpunit/phpunit": "^5|^6",
+        "psy/psysh": "@stable"
     },
     "suggest": {
         "phpunit/phpunit": "Allows automated tests to be run without system-wide install.",
@@ -41,8 +43,7 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "App\\Console\\Installer::postInstall",
-        "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump"
+        "post-install-cmd": "App\\Console\\Installer::postInstall"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
